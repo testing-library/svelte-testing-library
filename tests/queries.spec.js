@@ -1,5 +1,3 @@
-// const App = require("../src/App.svelte");
-// const { render } = require("../src");
 import App from "../src/example/App.svelte";
 import { render } from "../src";
 describe("App", () => {
