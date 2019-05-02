@@ -1,0 +1,51 @@
+{
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babel-jest": "^24.7.1",
+    "deasync": "^0.1.14",
+    "dom-testing-library": "^4.0.0",
+    "esm": "^3.2.22",
+    "jest": "^24.7.1",
+    "kcd-scripts": "^1.2.1",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^1.10.1",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "sirv-cli": "^0.4.0",
+    "svelte": "^3.0.0",
+    "svelte-jest": "^0.2.0"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "autobuild": "rollup -c -w",
+    "dev": "run-p start:dev autobuild",
+    "start": "sirv public",
+    "start:dev": "sirv public --dev",
+    "test": "kcd-scripts test --no-watch --config=jest.config.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.3"
+  },
+  "xjest": {
+    "testMatch": [
+      "**/test/**/*.js"
+    ],
+    "transform": {
+      "\\.js$": "babel-jest",
+      "\\.(html|svelte)$": "./test/transform"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!svelte).+\\.js$"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "html",
+      "svelte"
+    ]
+  }
+}
