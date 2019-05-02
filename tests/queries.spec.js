@@ -1,4 +1,4 @@
-import App from "../src/example/App.svelte";
+import App from "./example/App.svelte";
 import { render } from "../src";
 describe("App", () => {
   test("should render", () => {
