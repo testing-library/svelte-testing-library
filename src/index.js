@@ -2,12 +2,12 @@ import {getQueriesForElement} from 'dom-testing-library'
 
 export * from 'dom-testing-library'
 const mountedContainers = new Set()
-export const render = (Component, props) => {
-  const container = document.body.appendChild(document.createElement('div'))
+export const render = (Component, options) => {
+  const target = document.body.appendChild(document.createElement('div'))
 
   const rendered = new Component({
-    target: container,
-    props,
+    ...options,
+    target,
   })
 
   mountedContainers.add(rendered)

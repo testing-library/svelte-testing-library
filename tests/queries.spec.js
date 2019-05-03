@@ -5,13 +5,13 @@ import 'jest-dom/extend-expect'
 afterEach(cleanup)
 describe('queries', () => {
   test('getByText', () => {
-    const {getByText} = render(App, {name: 'world'})
+    const {getByText} = render(App, {props: {name: 'world'}})
 
     expect(getByText('Hello world!')).toBeInTheDocument()
   })
 
   test('click button', async () => {
-    const {getByText} = render(App, {name: 'world'})
+    const {getByText} = render(App, {props: {name: 'world'}})
 
     fireEvent.click(getByText('Button Text'))
 

@@ -4,7 +4,7 @@
 
 ## Installation
 
-`npm i -D svelte-testing-library`
+`npm i -D svlt-testing-library`
 
 ## Usage
 
@@ -12,7 +12,7 @@ App.svelte
 
 ```html
 <script>
-  export let name;
+  export let name
 </script>
 
 <style>
@@ -27,13 +27,23 @@ App.svelte
 App.spec.js
 
 ```javascript
-import App from "../src/App.svelte";
-import { render } from "../src";
-describe("App", () => {
-  test("should render", () => {
-    const { getByText } = render(App, { name: "world" });
+import App from '../src/App.svelte'
+import {render} from '../src'
+describe('App', () => {
+  test('should render greeting', () => {
+    const {getByText} = render(App, {props: {name: 'world'}})
 
-    expect(getByText("Hello world!"));
-  });
-});
+    expect(getByText('Hello world!'))
+  })
+
+  test('should change button text after click', async () => {
+    const {getByText} = render(App, {props: {name: 'world'}})
+
+    fireEvent.click(getByText('Button Text'))
+
+    const button = await waitForElement(() => getByText('Button Clicked'))
+
+    expect(button).toBeInTheDocument()
+  })
+})
 ```
