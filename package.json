@@ -1,6 +1,6 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "svelte-testing-library",
+  "version": "0.0.0-semantically-released",
   "devDependencies": {
     "babel-jest": "^24.7.1",
     "deasync": "^0.1.14",
@@ -32,7 +32,8 @@
     "test": "kcd-scripts test --no-watch --config=jest.config.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.4.3"
+    "@babel/runtime": "^7.4.3",
+    "core-js": "^3.0.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
