@@ -1,5 +1,5 @@
 {
-  "name": "svelte-testing-library",
+  "name": "svlt-testing-library",
   "version": "0.0.0-semantically-released",
   "devDependencies": {
     "babel-jest": "^24.7.1",
