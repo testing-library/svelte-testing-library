@@ -36,6 +36,7 @@ practices.</p>
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 <!-- prettier-ignore-end -->
 
 <div align="center">
@@ -113,7 +114,7 @@ App.spec.js
 
 ```javascript
 import App from '../src/App.svelte'
-import {render} from '../src'
+import {render} from 'svlt-testing-library'
 describe('App', () => {
   test('should render greeting', () => {
     const {getByText} = render(App, {props: {name: 'world'}})
@@ -186,6 +187,11 @@ light-weight, simple, and understandable.
 
 ## Contributors
 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt="Ben Monro"/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Tests">⚠️</a> <a href="#ideas-benmonro" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Documentation">📖</a></td><td align="center"><a href="https://twitter.com/EmilTholin"><img src="https://avatars0.githubusercontent.com/u/11573167?v=4" width="100px;" alt="Emil Tholin"/><br /><sub><b>Emil Tholin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Tests">⚠️</a> <a href="#ideas-EmilTholin" title="Ideas, Planning, & Feedback">🤔</a></td></tr></table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
