@@ -43,7 +43,7 @@ practices.</p>
     <img
       width="500"
       alt="TestingJavaScript.com Learn the smart, efficient way to test any JavaScript application."
-      src="https://raw.githubusercontent.com/testing-library/svelte-testing-library/master/other/testingjavascript.jpg"
+      src="https://raw.githubusercontent.com/testing-library/react-testing-library/master/other/testingjavascript.jpg"
     />
   </a>
 </div>
