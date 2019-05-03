@@ -1,21 +1,22 @@
-import App from "./example/App.svelte";
-import { render, fireEvent, waitForElement, cleanup } from "../src";
+import {render, fireEvent, waitForElement, cleanup} from '../src'
+import App from './example/App.svelte'
+import 'jest-dom/extend-expect'
 
-afterEach(cleanup);
-describe("queries", () => {
-  test("getByText", () => {
-    const { getByText } = render(App, { name: "world" });
+afterEach(cleanup)
+describe('queries', () => {
+  test('getByText', () => {
+    const {getByText} = render(App, {name: 'world'})
 
-    expect(getByText("Hello world!"));
-  });
+    expect(getByText('Hello world!')).toBeInTheDocument()
+  })
 
-  test("click button", async () => {
-    const { getByText } = render(App, { name: "world" });
+  test('click button', async () => {
+    const {getByText} = render(App, {name: 'world'})
 
-    fireEvent.click(getByText("Button Text"));
+    fireEvent.click(getByText('Button Text'))
 
-    const button = await waitForElement(() => getByText("Button Clicked"));
+    const button = await waitForElement(() => getByText('Button Clicked'))
 
-    expect(button);
-  });
-});
+    expect(button).toBeInTheDocument()
+  })
+})
