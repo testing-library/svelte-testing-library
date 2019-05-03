@@ -20,6 +20,9 @@
     "svelte": "^3.0.0",
     "svelte-jest": "^0.2.0"
   },
+  "peerDependencies": {
+    "svelte": "3.x"
+  },
   "scripts": {
     "lint": "kcd-scripts lint",
     "validate": "kcd-scripts validate",
