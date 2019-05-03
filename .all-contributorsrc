@@ -16,6 +16,17 @@
         "ideas",
         "doc"
       ]
+    },
+    {
+      "login": "EmilTholin",
+      "name": "Emil Tholin",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11573167?v=4",
+      "profile": "https://twitter.com/EmilTholin",
+      "contributions": [
+        "code",
+        "test",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
