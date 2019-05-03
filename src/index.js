@@ -5,13 +5,14 @@ const mountedContainers = new Set()
 export const render = (Component, options) => {
   const target = document.body.appendChild(document.createElement('div'))
 
-  const rendered = new Component({
+  const component = new Component({
     ...options,
     target,
   })
 
-  mountedContainers.add(rendered)
+  mountedContainers.add(component)
   return {
+    component,
     ...getQueriesForElement(document.body),
   }
 }
