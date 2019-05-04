@@ -1,6 +1,8 @@
 {
   "name": "svlt-testing-library",
   "version": "0.0.0-semantically-released",
+  "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
+  "main": "dist/index.js",
   "devDependencies": {
     "babel-jest": "^24.7.1",
     "deasync": "^0.1.14",

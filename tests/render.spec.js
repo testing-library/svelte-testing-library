@@ -46,4 +46,19 @@ describe('render', () => {
 
     expect(global.console.log).toHaveBeenCalledWith(prettyDOM(document.body))
   })
+
+  test('custom container target', () => {
+    const customTarget = document.createElement('main')
+    customTarget.dataset.testid = 'custom-target'
+
+    document.body.appendChild(customTarget)
+
+    const {getByText, getByTestId} = render(App, {
+      target: customTarget,
+      props: {name: 'world'},
+    })
+
+    expect(getByText('Hello world!')).toBeInTheDocument()
+    expect(getByTestId('custom-target')).toBeInTheDocument()
+  })
 })
