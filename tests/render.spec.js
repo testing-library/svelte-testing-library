@@ -67,6 +67,6 @@ describe('render', () => {
   })
 
   test('after each test above, document is clean from targets and components', () => {
-    expect(document.body.innerHTML).toBe('<div></div>')
+    expect(document.body.innerHTML).toBe('')
   })
 })
