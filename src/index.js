@@ -10,7 +10,7 @@ export const render = (Component, {target = document.createElement('div'), ...op
     target,
   })
 
-  mountedContainers.add(component)
+  mountedContainers.add({target, component})
   return {
     component,
     // eslint-disable-next-line no-console
@@ -20,7 +20,11 @@ export const render = (Component, {target = document.createElement('div'), ...op
 }
 
 const cleanupAtContainer = container => {
-  container.$destroy()
+  const {target, component} = container
+  component.$destroy()
+  if (target.parentNode === document.body) {
+    document.body.removeChild(target)
+  }
   mountedContainers.delete(container)
 }
 

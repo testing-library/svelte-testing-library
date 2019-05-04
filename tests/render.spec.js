@@ -38,6 +38,8 @@ describe('render', () => {
   })
 
   test('debug', () => {
+    const originalConsole = global.console
+
     global.console = {log: jest.fn()}
 
     const {debug} = render(App)
@@ -45,6 +47,8 @@ describe('render', () => {
     debug()
 
     expect(global.console.log).toHaveBeenCalledWith(prettyDOM(document.body))
+
+    global.console = originalConsole
   })
 
   test('custom container target', () => {
@@ -60,5 +64,9 @@ describe('render', () => {
 
     expect(getByText('Hello world!')).toBeInTheDocument()
     expect(getByTestId('custom-target')).toBeInTheDocument()
+  })
+
+  test('after each test above, document is clean from targets and components', () => {
+    expect(document.body.innerHTML).toBe('<div></div>')
   })
 })
