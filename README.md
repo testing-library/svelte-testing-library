@@ -59,7 +59,6 @@ practices.</p>
 - [Example](#example)
 - [Installation](#installation)
 - [Examples](#examples)
-- [Hooks](#hooks)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
 - [Contributors](#contributors)
@@ -276,7 +275,6 @@ Links:
 [requests]: https://github.com/testing-library/svelte-testing-library/issues?q=is%3Aissue+sort%3Areactions-%2B1-desc+label%3Aenhancement+is%3Aopen
 [good-first-issue]: https://github.com/testing-library/svelte-testing-library/issues?utf8=✓&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3A"good+first+issue"+
 [stackoverflow]: https://stackoverflow.com/questions/tagged/svelte-testing-library
-[react-hooks-testing-library]: https://github.com/mpeyper/react-hooks-testing-library
 
 <!-- prettier-ignore-end -->
 
