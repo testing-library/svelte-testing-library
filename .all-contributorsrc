@@ -27,6 +27,16 @@
         "test",
         "ideas"
       ]
+    },
+    {
+      "login": "oieduardorabelo",
+      "name": "Eduardo Rabelo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/829902?v=4",
+      "profile": "https://medium.com/@oieduardorabelo",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
