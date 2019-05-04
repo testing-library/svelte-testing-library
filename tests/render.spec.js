@@ -1,9 +1,16 @@
-import {render, fireEvent, wait, waitForElement, cleanup} from '../src'
+import {
+  render,
+  fireEvent,
+  wait,
+  waitForElement,
+  cleanup,
+  prettyDOM,
+} from '../src'
 import App from './example/App.svelte'
 import 'jest-dom/extend-expect'
 
 afterEach(cleanup)
-describe('queries', () => {
+describe('render', () => {
   test('getByText', () => {
     const {getByText} = render(App, {props: {name: 'world'}})
 
@@ -28,5 +35,15 @@ describe('queries', () => {
     component.$set({name: 'foo'})
 
     await wait(() => expect(getByText('Hello foo!')).toBeInTheDocument())
+  })
+
+  test('debug', () => {
+    global.console = {log: jest.fn()}
+
+    const {debug} = render(App)
+
+    debug()
+
+    expect(global.console.log).toHaveBeenCalledWith(prettyDOM(document.body))
   })
 })
