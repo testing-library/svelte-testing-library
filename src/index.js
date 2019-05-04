@@ -2,10 +2,10 @@ import {getQueriesForElement, prettyDOM} from 'dom-testing-library'
 
 export * from 'dom-testing-library'
 const mountedContainers = new Set()
-export const render = (Component, options) => {
+export const render = (Component, options = {}) => {
   let target = document.body.appendChild(document.createElement('div'))
 
-  if (options && options.target) {
+  if (options.target) {
     target = options.target
   }
 
