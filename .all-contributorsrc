@@ -29,12 +29,22 @@
       ]
     },
     {
+      "login": "oieduardorabelo",
+      "name": "Eduardo Rabelo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/829902?v=4",
+      "profile": "https://medium.com/@oieduardorabelo",
+      "contributions": [
+        "test",
+        "code"
+    },
+    {
       "login": "timdeschryver",
       "name": "Tim Deschryver",
       "avatar_url": "https://avatars1.githubusercontent.com/u/28659384?v=4",
       "profile": "http://timdeschryver.dev",
       "contributions": [
         "doc"
+     }
       ]
     }
   ],
