@@ -22,6 +22,7 @@ export const render = (Component, {target = document.createElement('div'), ...op
 const cleanupAtContainer = container => {
   const {target, component} = container
   component.$destroy()
+  /* istanbul ignore else  */
   if (target.parentNode === document.body) {
     document.body.removeChild(target)
   }
