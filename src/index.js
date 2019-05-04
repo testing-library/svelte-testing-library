@@ -2,8 +2,8 @@ import {getQueriesForElement, prettyDOM} from 'dom-testing-library'
 
 export * from 'dom-testing-library'
 const mountedContainers = new Set()
-export const render = (Component, options) => {
-  const target = document.body.appendChild(document.createElement('div'))
+export const render = (Component, {target = document.createElement('div'), ...options} = {}) => {
+  document.body.appendChild(target)
 
   const component = new Component({
     ...options,
