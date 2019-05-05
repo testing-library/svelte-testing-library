@@ -36,7 +36,7 @@ practices.</p>
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+
 <!-- prettier-ignore-end -->
 
 <div align="center">
@@ -154,14 +154,14 @@ You may also be interested in installing `jest-dom` so you can use
 > We're in the process of moving examples to the
 > [docs site](https://testing-library.com/docs/example-codesandbox)
 
-
 You can also find svelte-testing-library examples at
 [react-testing-examples.com](https://react-testing-examples.com/jest-rtl/).
 
-
 ## Other Solutions
 
-There's currently a package published in npm called `svelte-testing-library` but the git repository is not yet public.  We are hoping to pull that work (and name) into this repository.
+There's currently a package published in npm called `svelte-testing-library` but
+the git repository is not yet public. We are hoping to pull that work (and name)
+into this repository.
 
 ## Guiding Principles
 
@@ -178,7 +178,7 @@ principles:
     component instances, nor should it encourage dealing with component
     instances.
 2.  It should be generally useful for testing individual Svelte components or
-    full Svelte applications. 
+    full Svelte applications.
 3.  Utility implementations and APIs should be simple and flexible.
 
 At the end of the day, what we want is for this library to be pretty
@@ -188,16 +188,14 @@ light-weight, simple, and understandable.
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-
 <table><tr><td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt="Ben Monro"/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Tests">⚠️</a> <a href="#ideas-benmonro" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Documentation">📖</a></td><td align="center"><a href="https://twitter.com/EmilTholin"><img src="https://avatars0.githubusercontent.com/u/11573167?v=4" width="100px;" alt="Emil Tholin"/><br /><sub><b>Emil Tholin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Tests">⚠️</a> <a href="#ideas-EmilTholin" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="http://timdeschryver.dev"><img src="https://avatars1.githubusercontent.com/u/28659384?v=4" width="100px;" alt="Tim Deschryver"/><br /><sub><b>Tim Deschryver</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=timdeschryver" title="Documentation">📖</a></td><td align="center"><a href="https://medium.com/@oieduardorabelo"><img src="https://avatars1.githubusercontent.com/u/829902?v=4" width="100px;" alt="Eduardo Rabelo"/><br /><sub><b>Eduardo Rabelo</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Code">💻</a></td></tr></table>
 
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -279,5 +277,3 @@ Links:
 [stackoverflow]: https://stackoverflow.com/questions/tagged/svelte-testing-library
 
 <!-- prettier-ignore-end -->
-
-

@@ -66,7 +66,12 @@ describe('render', () => {
     expect(getByTestId('custom-target')).toBeInTheDocument()
   })
 
-  test('after each test above, document is clean from targets and components', () => {
+  test('after cleanup, document is clean from targets and components', () => {
+    const {getByText} = render(App, {props: {name: 'world'}})
+
+    expect(getByText('Hello world!')).toBeInTheDocument()
+    cleanup()
+
     expect(document.body.innerHTML).toBe('')
   })
 })
