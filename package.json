@@ -4,9 +4,9 @@
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/testing-library/svelte-testing-library"
-  }
+    "type": "git",
+    "url": "https://github.com/testing-library/svelte-testing-library"
+  },
   "devDependencies": {
     "babel-jest": "^24.7.1",
     "deasync": "^0.1.14",
