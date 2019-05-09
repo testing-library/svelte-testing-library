@@ -139,7 +139,7 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev svlt-testing-library
+npm install --save-dev svelte-testing-library
 ```
 
 This library has `peerDependencies` listings for `svelte`.
