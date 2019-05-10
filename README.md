@@ -149,19 +149,6 @@ You may also be interested in installing `jest-dom` so you can use
 
 > [**Docs**](https://testing-library.com/docs/svelte-testing-library/intro)
 
-## Examples
-
-> We're in the process of moving examples to the
-> [docs site](https://testing-library.com/docs/example-codesandbox)
-
-You can also find svelte-testing-library examples at
-[react-testing-examples.com](https://react-testing-examples.com/jest-rtl/).
-
-## Other Solutions
-
-There's currently a package published in npm called `svelte-testing-library` but
-the git repository is not yet public. We are hoping to pull that work (and name)
-into this repository.
 
 ## Guiding Principles
 
@@ -203,7 +190,7 @@ Contributions of any kind welcome!
 
 ## Docs
 
-[**Read The Docs**](https://testing-library.com/svelte) |
+[**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
 [Edit the docs](https://github.com/alexkrolick/testing-library-docs)
 
 ## Issues
