@@ -113,7 +113,7 @@ App.spec.js
 
 ```javascript
 import App from '../src/App.svelte'
-import {render} from 'svlt-testing-library'
+import {render} from 'svelte-testing-library'
 describe('App', () => {
   test('should render greeting', () => {
     const {getByText} = render(App, {props: {name: 'world'}})
@@ -248,7 +248,7 @@ Links:
 [build]: https://travis-ci.org/testing-library/svelte-testing-library
 [coverage-badge]: https://img.shields.io/codecov/c/github/testing-library/svelte-testing-library.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/svelte-testing-library
-[version-badge]: https://img.shields.io/npm/v/svlt-testing-library.svg?style=flat-square
+[version-badge]: https://img.shields.io/npm/v/svelte-testing-library.svg?style=flat-square
 [package]: https://www.npmjs.com/package/svelte-testing-library
 [downloads-badge]: https://img.shields.io/npm/dm/svelte-testing-library.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/svelte-testing-library
