@@ -129,7 +129,6 @@ describe('App', () => {
     const button = await waitForElement(() => getByText('Button Clicked'))
 
     expect(button).toBeInTheDocument()
-    expect(container.firstChild).toMatchSnapshot()
   })
 })
 ```
