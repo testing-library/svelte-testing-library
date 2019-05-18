@@ -116,7 +116,7 @@ import App from '../src/App.svelte'
 import {render} from 'svelte-testing-library'
 describe('App', () => {
   test('should render greeting', () => {
-    const {getByText, container} = render(App, {props: {name: 'world'}})
+    const {getByText} = render(App, {props: {name: 'world'}})
 
     expect(getByText('Hello world!'))
   })
