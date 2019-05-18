@@ -46,6 +46,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "ematipico",
+      "name": "Emanuele",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/602478?v=4",
+      "profile": "http://www.ematipico.com",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
