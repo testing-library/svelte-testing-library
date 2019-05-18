@@ -74,4 +74,12 @@ describe('render', () => {
 
     expect(document.body.innerHTML).toBe('')
   })
+
+  test('should return a container object, which contains the DOM of the rendered component', () => {
+    const {container} = render(App, {props: {name: 'world'}})
+
+    expect(container.innerHTML).toBe(document.body.innerHTML)
+
+    cleanup()
+  })
 })

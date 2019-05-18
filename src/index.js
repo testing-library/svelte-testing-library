@@ -17,6 +17,7 @@ export const render = (Component, {target, ...options} = {}) => {
     component,
     // eslint-disable-next-line no-console
     debug: (el = document.body) => console.log(prettyDOM(el)),
+    container: document.body,
     ...getQueriesForElement(document.body),
   }
 }
