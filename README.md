@@ -58,8 +58,6 @@ practices.</p>
 - [This solution](#this-solution)
 - [Example](#example)
 - [Installation](#installation)
-- [Examples](#examples)
-- [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
 - [Contributors](#contributors)
 - [Docs](#docs)
