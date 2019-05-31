@@ -1,5 +1,5 @@
 {
-  "name": "svelte-testing-library",
+  "name": "@testing-library/svelte",
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
   "main": "dist/index.js",

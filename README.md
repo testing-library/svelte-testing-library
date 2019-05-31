@@ -235,10 +235,10 @@ Links:
 [build]: https://travis-ci.org/testing-library/svelte-testing-library
 [coverage-badge]: https://img.shields.io/codecov/c/github/testing-library/svelte-testing-library.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/svelte-testing-library
-[version-badge]: https://img.shields.io/npm/v/svelte-testing-library.svg?style=flat-square
-[package]: https://www.npmjs.com/package/svelte-testing-library
-[downloads-badge]: https://img.shields.io/npm/dm/svelte-testing-library.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/svelte-testing-library
+[version-badge]: https://img.shields.io/npm/v/@testing-library/svelte.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@testing-library/svelte
+[downloads-badge]: https://img.shields.io/npm/dm/@testing-library/svelte.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/@testing-library/svelte
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
 [spectrum]: https://spectrum.chat/testing-library
 [license-badge]: https://img.shields.io/npm/l/svelte-testing-library.svg?style=flat-square
