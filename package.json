@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.3",
-    "core-js": "^3.0.1",
-    "dom-testing-library": "^4.0.0"
+    "@testing-library/dom": "^5.0.1",
+    "core-js": "^3.0.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
