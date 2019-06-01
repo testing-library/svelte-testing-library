@@ -1,6 +1,6 @@
 {
-  "name": "svelte-testing-library",
-  "version": "0.0.0-semantically-released",
+  "name": "@testing-library/svelte",
+  "version": "2.0.0",
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
   "repository": {
@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.3",
-    "core-js": "^3.0.1",
-    "dom-testing-library": "^4.0.0"
+    "@testing-library/dom": "^5.0.1",
+    "core-js": "^3.0.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",

@@ -1,6 +1,6 @@
-import {getQueriesForElement, prettyDOM} from 'dom-testing-library'
+import {getQueriesForElement, prettyDOM} from '@testing-library/dom'
 
-export * from 'dom-testing-library'
+export * from '@testing-library/dom'
 const mountedContainers = new Set()
 export const render = (Component, {target, ...options} = {}) => {
   if (!target) {
