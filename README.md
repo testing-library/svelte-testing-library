@@ -113,7 +113,7 @@ App.spec.js
 
 ```javascript
 import App from '../src/App.svelte'
-import {render} from 'svelte-testing-library'
+import {render} from '@testing-library/svelte'
 describe('App', () => {
   test('should render greeting', () => {
     const {getByText} = render(App, {props: {name: 'world'}})
