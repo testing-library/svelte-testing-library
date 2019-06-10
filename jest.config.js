@@ -6,6 +6,7 @@ const config = Object.assign(jestConfig, {
   transform: {
     ...jestConfig.transform,
     '^.+\\.svelte$': 'jest-transform-svelte',
+    '^.+\\.html$': 'svelte-test/transform',
   },
   transformIgnorePatterns: [
     ...jestConfig.transformIgnorePatterns,

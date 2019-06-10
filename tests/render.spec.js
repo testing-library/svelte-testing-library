@@ -7,6 +7,7 @@ import {
   prettyDOM,
 } from '../src'
 import App from './example/App.svelte'
+import App2 from './example/App.html'
 import 'jest-dom/extend-expect'
 
 afterEach(cleanup)
@@ -81,5 +82,11 @@ describe('render', () => {
     expect(container.innerHTML).toBe(document.body.innerHTML)
 
     cleanup()
+  })
+
+  test('correctly find component constructor on the default property', () => {
+    const {getByText} = render(App2, {props: {name: 'world'}})
+
+    expect(getByText('Hello world!')).toBeInTheDocument()
   })
 })
