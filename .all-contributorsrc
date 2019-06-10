@@ -57,6 +57,16 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "pngwn",
+      "name": "pngwn",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/12937446?v=4",
+      "profile": "https://github.com/pngwn",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
