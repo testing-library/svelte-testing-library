@@ -23,7 +23,8 @@
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^4.0.4",
     "sirv-cli": "^0.4.0",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "svelte-test": "^0.3.0"
   },
   "peerDependencies": {
     "svelte": "3.x"

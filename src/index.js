@@ -7,7 +7,8 @@ export const render = (Component, {target, ...options} = {}) => {
     target = document.body.appendChild(document.createElement('div'))
   }
 
-  const component = new Component({
+  const ComponentConstructor = Component.default || Component
+  const component = new ComponentConstructor({
     ...options,
     target,
   })
