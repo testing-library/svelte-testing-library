@@ -15,7 +15,7 @@ practices.</p>
 
 <br />
 
-[**Read The Docs**](https://testing-library.com/svelte) |
+[**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
 [Edit the docs](https://github.com/alexkrolick/testing-library-docs)
 
 <br />
