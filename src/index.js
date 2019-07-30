@@ -26,7 +26,7 @@ export const render = (Component, {target, ...options} = {}) => {
 const cleanupAtContainer = container => {
   const {target, component} = container
   
-  if (component.$destroy) {
+  if (typeof component.$destroy === 'function') {
     component.$destroy()
   } else {
     component.destroy()
