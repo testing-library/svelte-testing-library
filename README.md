@@ -91,11 +91,21 @@ primary guiding principle is:
 
 ## Example
 
+You can check the live example at CodeSandbox, "Browser" tab renders App.svelte and "Tests" tab runs App.spec.js
+
+- **Live demo:** https://codesandbox.io/s/live-demo-svelte-testing-library-q8iv7
+
 App.svelte
 
 ```html
 <script>
   export let name
+
+  let buttonText = "Button Text";
+
+  function handleClick() {
+    buttonText = "Button Clicked";
+  }
 </script>
 
 <style>
@@ -105,30 +115,41 @@ App.svelte
 </style>
 
 <h1>Hello {name}!</h1>
+
+<button on:click={handleClick}>{buttonText}</button>
 ```
 
 App.spec.js
 
 ```javascript
-import App from '../src/App.svelte'
-import {render} from '@testing-library/svelte'
-describe('App', () => {
-  test('should render greeting', () => {
-    const {getByText} = render(App, {props: {name: 'world'}})
+import App from "./App.svelte";
+import {
+  render,
+  cleanup,
+  fireEvent,
+  waitForElement
+} from "@testing-library/svelte";
+import "@testing-library/jest-dom/extend-expect";
 
-    expect(getByText('Hello world!'))
-  })
+afterEach(cleanup);
 
-  test('should change button text after click', async () => {
-    const {getByText} = render(App, {props: {name: 'world'}})
+describe("App", () => {
+  test("should render greeting", () => {
+    const { getByText } = render(App, { props: { name: "world" } });
 
-    fireEvent.click(getByText('Button Text'))
+    expect(getByText("Hello world!"));
+  });
 
-    const button = await waitForElement(() => getByText('Button Clicked'))
+  test("should change button text after click", async () => {
+    const { getByText } = render(App, { props: { name: "world" } });
 
-    expect(button).toBeInTheDocument()
-  })
-})
+    fireEvent.click(getByText("Button Text"));
+
+    const button = await waitForElement(() => getByText("Button Clicked"));
+
+    expect(button).toBeInTheDocument();
+  });
+});
 ```
 
 ## Installation
