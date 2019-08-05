@@ -93,7 +93,7 @@ primary guiding principle is:
 
 You can check the live example at CodeSandbox, "Browser" tab renders App.svelte and "Tests" tab runs App.spec.js
 
-- **Live demo:** https://codesandbox.io/embed/live-demo-svelte-testing-library-q8iv7
+- **Live demo:** https://codesandbox.io/s/live-demo-svelte-testing-library-q8iv7
 
 App.svelte
 
