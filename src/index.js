@@ -40,7 +40,7 @@ export const cleanup = () => {
 
 export function act(fn) {
   const returnValue = fn()
-  if (returnValue != null && typeof returnValue.then === 'function') {
+  if (returnValue !== undefined && typeof returnValue.then === 'function') {
     return returnValue.then(() => tick())
   }
   return tick()
