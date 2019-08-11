@@ -1,4 +1,5 @@
 import {getQueriesForElement, prettyDOM} from '@testing-library/dom'
+import {tick} from 'svelte'
 
 export * from '@testing-library/dom'
 const mountedContainers = new Set()
@@ -35,4 +36,12 @@ const cleanupAtContainer = container => {
 
 export const cleanup = () => {
   mountedContainers.forEach(cleanupAtContainer)
+}
+
+export function act(fn) {
+  const returnValue = fn()
+  if (returnValue !== undefined && typeof returnValue.then === 'function') {
+    return returnValue.then(() => tick())
+  }
+  return tick()
 }
