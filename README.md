@@ -250,7 +250,7 @@ instead of filing an issue on GitHub.
 
 ## LICENSE
 
-MIT
+[MIT](LICENSE)
 
 <!--
 Links:
