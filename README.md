@@ -137,7 +137,7 @@ describe("App", () => {
   test("should render greeting", () => {
     const { getByText } = render(App, { props: { name: "world" } });
 
-    expect(getByText("Hello world!"));
+    expect(getByText("Hello world!")).toBeInTheDocument();
   });
 
   test("should change button text after click", async () => {
