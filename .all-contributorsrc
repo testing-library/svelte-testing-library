@@ -1,4 +1,7 @@
 {
+  "projectName": "svelte-testing-library",
+  "projectOwner": "testing-library",
+  "repoType": "github",
   "files": [
     "README.md"
   ],
@@ -78,11 +81,20 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mihar-22",
+      "name": "Rahim Alwer",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14304599?s=460&v=4",
+      "profile": "https://github.com/mihar-22",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "projectName": "svelte-testing-library",
-  "projectOwner": "testing-library",
-  "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "commitConvention": "none"
 }

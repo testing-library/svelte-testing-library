@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auto-cleanup-skip second 1`] = `"<div><h1 data-testid=\\"test\\">Hello world!</h1> <button>Button</button></div>"`;
