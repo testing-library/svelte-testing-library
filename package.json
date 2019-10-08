@@ -1,62 +1,132 @@
 {
   "name": "@testing-library/svelte",
-  "version": "2.0.0",
+  "version": "0.0.0-semantically-released",
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/testing-library/svelte-testing-library"
   },
-  "devDependencies": {
-    "babel-jest": "^24.7.1",
-    "deasync": "^0.1.14",
-    "esm": "^3.2.22",
-    "jest": "^24.7.1",
-    "jest-dom": "^3.1.2",
-    "jest-transform-svelte": "^1.0.0",
-    "kcd-scripts": "^1.4.0",
-    "npm-run-all": "^4.1.5",
-    "rollup": "^1.10.1",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-node-resolve": "^4.2.3",
-    "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^4.0.4",
-    "sirv-cli": "^0.4.0",
-    "svelte": "^3.0.0",
-    "svelte-test": "^0.3.0"
+  "bugs": {
+    "url": "https://github.com/testing-library/svelte-testing-library/issues"
+  },
+  "engines": {
+    "node": ">= 8"
+  },
+  "keywords": [
+    "testing",
+    "svelte",
+    "ui",
+    "dom",
+    "jsdom",
+    "unit",
+    "integration",
+    "functional",
+    "end-to-end",
+    "e2e"
+  ],
+  "files": [
+    "dist",
+    "dont-cleanup-after-each.js",
+    "pure.js",
+    "types/index.d.ts"
+  ],
+  "scripts": {
+    "toc": "doctoc README.md",
+    "lint": "eslint src/**/*.js --fix",
+    "clean": "rimraf dist",
+    "build": "npm run clean && babel src --out-dir dist --ignore '**/__tests__/**'",
+    "test": "jest src/__tests__ ",
+    "test:watch": "npm run test -- --watch",
+    "test:update": "npm run test -- --updateSnapshot --coverage",
+    "setup": "npm install && npm run validate",
+    "validate": "npm run clean && npm-run-all lint test build",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "peerDependencies": {
     "svelte": "3.x"
   },
-  "scripts": {
-    "lint": "kcd-scripts lint",
-    "validate": "kcd-scripts validate",
-    "build": "kcd-scripts build",
-    "build:example": "rollup -c",
-    "autobuild:example": "rollup -c -w",
-    "dev": "run-p start:dev autobuild",
-    "start": "sirv public",
-    "start:dev": "sirv public --dev",
-    "test": "kcd-scripts test --no-watch --config=jest.config.js"
-  },
   "dependencies": {
-    "@babel/runtime": "^7.4.3",
-    "@testing-library/dom": "^5.0.1",
-    "core-js": "^3.0.1"
+    "@testing-library/dom": "^6.5.0"
   },
-  "eslintConfig": {
-    "extends": "./node_modules/kcd-scripts/eslint.js",
-    "rules": {
-      "react/prop-types": "off",
-      "import/no-unassigned-import": "off",
-      "import/named": "off"
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@testing-library/jest-dom": "^4.1.0",
+    "@types/jest": "^24.0.18",
+    "all-contributors-cli": "^6.9.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.7.1",
+    "doctoc": "^1.4.0",
+    "eslint": "^6.2.2",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "husky": "^3.0.8",
+    "jest": "^24.7.1",
+    "jest-transform-svelte": "^2.1.0",
+    "lint-staged": "^9.4.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "svelte": "^3.0.0",
+    "svelte-test": "^0.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "eslintIgnore": [
-    "node_modules",
-    "coverage",
-    "dist",
-    "public"
-  ]
+  "lint-staged": {
+    "README.md": [
+      "yarn toc",
+      "prettier --parser markdown --write",
+      "git add"
+    ],
+    ".all-contributorsrc": [
+      "yarn contributors:generate",
+      "git add"
+    ],
+    "**/*.js": [
+      "yarn lint",
+      "yarn test",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "src/__tests__/fixtures"
+    ],
+    "collectCoverageFrom": [
+      "src/*.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.svelte$": "jest-transform-svelte",
+      "^.+\\.html$": "svelte-test/transform"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!svelte).+\\.js$"
+    ]
+  }
 }

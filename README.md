@@ -1,5 +1,5 @@
 <div align="center">
-<h1>svelte-testing-library</h1>
+<h1>Svelte Testing Library</h1>
 
 <a href="https://www.emojione.com/emoji/1f410">
   <img
@@ -13,15 +13,8 @@
 <p>Simple and complete Svelte testing utilities that encourage good testing
 practices.</p>
 
-<br />
-
 [**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
 [Edit the docs](https://github.com/alexkrolick/testing-library-docs)
-
-<br />
-</div>
-
-<hr />
 
 <!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
@@ -29,57 +22,43 @@ practices.</p>
 [![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 [![Join the community on Spectrum][spectrum-badge]][spectrum]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
-
 <!-- prettier-ignore-end -->
-
-<div align="center">
-  <a href="https://testingjavascript.com">
-    <img
-      width="500"
-      alt="TestingJavaScript.com Learn the smart, efficient way to test any JavaScript application."
-      src="https://raw.githubusercontent.com/testing-library/react-testing-library/master/other/testingjavascript.jpg"
-    />
-  </a>
 </div>
+
+<hr />
 
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [The problem](#the-problem)
-- [This solution](#this-solution)
-- [Example](#example)
+
+- [The Problem](#the-problem)
+- [This Solution](#this-solution)
 - [Installation](#installation)
-- [Guiding Principles](#guiding-principles)
-- [Contributors](#contributors)
 - [Docs](#docs)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
   - [❓ Questions](#-questions)
+- [Contributors](#contributors)
 - [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## The problem
+## The Problem
 
-You want to write maintainable tests for your Svelte components. As a part of
-this goal, you want your tests to avoid including implementation details of your
-components and rather focus on making your tests give you the confidence for
-which they are intended. As part of this, you want your testbase to be
-maintainable in the long run so refactors of your components (changes to
-implementation but not functionality) don't break your tests and slow you and
-your team down.
+You want to write tests for your Svelte components so that they avoid including implementation
+details, and are maintainable in the long run.
 
-## This solution
+## This Solution
 
 The `svelte-testing-library` is a very lightweight solution for testing Svelte
 components. It provides light utility functions on top of `svelte` and
@@ -88,69 +67,6 @@ primary guiding principle is:
 
 > [The more your tests resemble the way your software is used, the more
 > confidence they can give you.][guiding-principle]
-
-## Example
-
-You can check the live example at CodeSandbox, "Browser" tab renders App.svelte and "Tests" tab runs App.spec.js
-
-- **Live demo:** https://codesandbox.io/s/live-demo-svelte-testing-library-q8iv7
-
-App.svelte
-
-```html
-<script>
-  export let name
-
-  let buttonText = "Button Text";
-
-  function handleClick() {
-    buttonText = "Button Clicked";
-  }
-</script>
-
-<style>
-  h1 {
-    color: purple;
-  }
-</style>
-
-<h1>Hello {name}!</h1>
-
-<button on:click={handleClick}>{buttonText}</button>
-```
-
-App.spec.js
-
-```javascript
-import App from "./App.svelte";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  waitForElement
-} from "@testing-library/svelte";
-import "@testing-library/jest-dom/extend-expect";
-
-afterEach(cleanup);
-
-describe("App", () => {
-  test("should render greeting", () => {
-    const { getByText } = render(App, { props: { name: "world" } });
-
-    expect(getByText("Hello world!")).toBeInTheDocument();
-  });
-
-  test("should change button text after click", async () => {
-    const { getByText } = render(App, { props: { name: "world" } });
-
-    fireEvent.click(getByText("Button Text"));
-
-    const button = await waitForElement(() => getByText("Button Clicked"));
-
-    expect(button).toBeInTheDocument();
-  });
-});
-```
 
 ## Installation
 
@@ -161,66 +77,14 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/svelte
 ```
 
-This library has `peerDependencies` listings for `svelte`.
+This library has `peerDependencies` listings for `svelte >= 3`.
 
-You may also be interested in installing `jest-dom` so you can use
-[the custom jest matchers](https://github.com/gnapse/jest-dom#readme).
-
-> [**Docs**](https://testing-library.com/docs/svelte-testing-library/intro)
-
-
-## Guiding Principles
-
-> [The more your tests resemble the way your software is used, the more
-> confidence they can give you.][guiding-principle]
-
-We try to only expose methods and utilities that encourage you to write tests
-that closely resemble how your svelte components are used.
-
-Utilities are included in this project based on the following guiding
-principles:
-
-1.  If it relates to rendering components, it deals with DOM nodes rather than
-    component instances, nor should it encourage dealing with component
-    instances.
-2.  It should be generally useful for testing individual Svelte components or
-    full Svelte applications.
-3.  Utility implementations and APIs should be simple and flexible.
-
-At the end of the day, what we want is for this library to be pretty
-light-weight, simple, and understandable.
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt="Ben Monro"/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Tests">⚠️</a> <a href="#ideas-benmonro" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://twitter.com/EmilTholin"><img src="https://avatars0.githubusercontent.com/u/11573167?v=4" width="100px;" alt="Emil Tholin"/><br /><sub><b>Emil Tholin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Tests">⚠️</a> <a href="#ideas-EmilTholin" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://medium.com/@oieduardorabelo"><img src="https://avatars1.githubusercontent.com/u/829902?v=4" width="100px;" alt="Eduardo Rabelo"/><br /><sub><b>Eduardo Rabelo</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Documentation">📖</a> <a href="#example-oieduardorabelo" title="Examples">💡</a></td>
-    <td align="center"><a href="http://timdeschryver.dev"><img src="https://avatars1.githubusercontent.com/u/28659384?v=4" width="100px;" alt="Tim Deschryver"/><br /><sub><b>Tim Deschryver</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=timdeschryver" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://www.ematipico.com"><img src="https://avatars3.githubusercontent.com/u/602478?v=4" width="100px;" alt="Emanuele"/><br /><sub><b>Emanuele</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pngwn"><img src="https://avatars1.githubusercontent.com/u/12937446?v=4" width="100px;" alt="pngwn"/><br /><sub><b>pngwn</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twitter.com/sebsilbermann"><img src="https://avatars3.githubusercontent.com/u/12292047?v=4" width="100px;" alt="Sebastian Silbermann"/><br /><sub><b>Sebastian Silbermann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=eps1lon" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-Thanks goes to these people ([emoji key][emojis]):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors][all-contributors] specification.
-Contributions of any kind welcome!
+You may also be interested in installing `@testing-library/jest-dom` so you can use
+[the custom jest matchers](https://github.com/testing-library/jest-dom).
 
 ## Docs
 
-[**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
-[Edit the docs](https://github.com/alexkrolick/testing-library-docs)
+See the [**docs**](https://testing-library.com/docs/svelte-testing-library/intro) over at the Testing Library website.
 
 ## Issues
 
@@ -248,13 +112,38 @@ instead of filing an issue on GitHub.
 - [Spectrum][spectrum]
 - [Stack Overflow][stackoverflow]
 
+## Contributors
+
+Thanks goes to these people ([emoji key][emojis]):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt="Ben Monro"/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Tests">⚠️</a> <a href="#ideas-benmonro" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://twitter.com/EmilTholin"><img src="https://avatars0.githubusercontent.com/u/11573167?v=4" width="100px;" alt="Emil Tholin"/><br /><sub><b>Emil Tholin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Tests">⚠️</a> <a href="#ideas-EmilTholin" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://medium.com/@oieduardorabelo"><img src="https://avatars1.githubusercontent.com/u/829902?v=4" width="100px;" alt="Eduardo Rabelo"/><br /><sub><b>Eduardo Rabelo</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Documentation">📖</a> <a href="#example-oieduardorabelo" title="Examples">💡</a></td>
+    <td align="center"><a href="http://timdeschryver.dev"><img src="https://avatars1.githubusercontent.com/u/28659384?v=4" width="100px;" alt="Tim Deschryver"/><br /><sub><b>Tim Deschryver</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=timdeschryver" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.ematipico.com"><img src="https://avatars3.githubusercontent.com/u/602478?v=4" width="100px;" alt="Emanuele"/><br /><sub><b>Emanuele</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pngwn"><img src="https://avatars1.githubusercontent.com/u/12937446?v=4" width="100px;" alt="pngwn"/><br /><sub><b>pngwn</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://twitter.com/sebsilbermann"><img src="https://avatars3.githubusercontent.com/u/12292047?v=4" width="100px;" alt="Sebastian Silbermann"/><br /><sub><b>Sebastian Silbermann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=eps1lon" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/mihar-22"><img src="https://avatars3.githubusercontent.com/u/14304599?s=460&v=4" width="100px;" alt="Rahim Alwer"/><br /><sub><b>Rahim Alwer</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Documentation">📖</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors][all-contributors] specification.
+Contributions of any kind welcome!
+
 ## LICENSE
 
 [MIT](LICENSE)
-
-<!--
-Links:
--->
 
 <!-- prettier-ignore-start -->
 
@@ -270,7 +159,7 @@ Links:
 [npmtrends]: http://www.npmtrends.com/@testing-library/svelte
 [spectrum-badge]: https://withspectrum.github.io/badge/badge.svg
 [spectrum]: https://spectrum.chat/testing-library
-[license-badge]: https://img.shields.io/npm/l/svelte-testing-library.svg?style=flat-square
+[license-badge]: https://img.shields.io/github/license/testing-library/svelte-testing-library?color=b
 [license]: https://github.com/testing-library/svelte-testing-library/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
@@ -293,3 +182,4 @@ Links:
 [stackoverflow]: https://stackoverflow.com/questions/tagged/svelte-testing-library
 
 <!-- prettier-ignore-end -->
+

@@ -3,3 +3,9 @@ node_modules
 public/bundle.*
 coverage
 dist
+.idea
+
+# These cause more harm than good when working with contributors
+yarn-error.log
+package-lock.json
+yarn.lock

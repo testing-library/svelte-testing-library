@@ -1,13 +1,29 @@
 sudo: false
 language: node_js
 cache:
+  yarn: true
   directories:
-    - ~/.npm
+    - "~/.npm"
 notifications:
   email: false
-node_js: '8'
-install: npm install
-script: npm run validate
-after_success: npx semantic-release
+node_js:
+  - '8'
+  - '10'
+  - '12'
+env:
+  global:
+    - PATH=$HOME/.yarn/bin:$PATH
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+install: yarn
+script: yarn validate
+jobs:
+  include:
+    - stage: release
+      node_js: '12'
+      deploy:
+        provider: script
+        script: yarn test:update && npx codecov && npx semantic-release
+        skip_cleanup: true
 branches:
   only: master

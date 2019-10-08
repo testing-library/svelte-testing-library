@@ -1,47 +1,15 @@
-import {getQueriesForElement, prettyDOM} from '@testing-library/dom'
-import {tick} from 'svelte'
+import { act, cleanup } from './pure'
 
-export * from '@testing-library/dom'
-const mountedContainers = new Set()
-export const render = (Component, {target, ...options} = {}) => {
-  if (!target) {
-    target = document.body.appendChild(document.createElement('div'))
-  }
-
-  const ComponentConstructor = Component.default || Component
-  const component = new ComponentConstructor({
-    ...options,
-    target,
+// If we're running in a test runner that supports afterEach
+// then we'll automatically run cleanup afterEach test
+// this ensures that tests run in isolation from each other
+// if you don't like this then either import the `pure` module
+// or set the STL_SKIP_AUTO_CLEANUP env variable to 'true'.
+if (typeof afterEach === 'function' && !process.env.STL_SKIP_AUTO_CLEANUP) {
+  afterEach(async () => {
+    await act()
+    cleanup()
   })
-
-  mountedContainers.add({target, component})
-  return {
-    component,
-    // eslint-disable-next-line no-console
-    debug: (el = document.body) => console.log(prettyDOM(el)),
-    container: document.body,
-    ...getQueriesForElement(document.body),
-  }
 }
 
-const cleanupAtContainer = container => {
-  const {target, component} = container
-  component.$destroy()
-  /* istanbul ignore else  */
-  if (target.parentNode === document.body) {
-    document.body.removeChild(target)
-  }
-  mountedContainers.delete(container)
-}
-
-export const cleanup = () => {
-  mountedContainers.forEach(cleanupAtContainer)
-}
-
-export function act(fn) {
-  const returnValue = fn()
-  if (returnValue !== undefined && typeof returnValue.then === 'function') {
-    return returnValue.then(() => tick())
-  }
-  return tick()
-}
+export * from './pure'
