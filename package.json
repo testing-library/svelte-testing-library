@@ -124,6 +124,10 @@
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "jest-transform-svelte",
       "^.+\\.html$": "svelte-test/transform"
-    }
+    },
+    "moduleFileExtensions": [
+      "js",
+      "svelte"
+    ]
   }
 }

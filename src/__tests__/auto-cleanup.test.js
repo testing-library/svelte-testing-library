@@ -1,5 +1,5 @@
 import { render } from '..'
-import Comp from './fixtures/Comp.svelte'
+import Comp from './fixtures/Comp'
 
 describe('auto-cleanup', () => {
   // This just verifies that by importing STL in an

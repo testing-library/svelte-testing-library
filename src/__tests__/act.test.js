@@ -1,5 +1,5 @@
 import { act, fireEvent, render as stlRender } from '..'
-import Comp from './fixtures/Comp.svelte'
+import Comp from './fixtures/Comp'
 
 describe('act', () => {
   let props

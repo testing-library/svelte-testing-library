@@ -2,8 +2,8 @@ import {
   act,
   render as stlRender
 } from '..'
+import Comp from './fixtures/Comp'
 import CompDefault from './fixtures/Comp.html'
-import Comp from './fixtures/Comp.svelte'
 
 describe('render', () => {
   let props

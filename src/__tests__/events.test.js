@@ -1,5 +1,5 @@
 import { fireEvent, render } from '..'
-import Comp from './fixtures/Comp.svelte'
+import Comp from './fixtures/Comp'
 
 describe('events', () => {
   test('state changes are flushed after firing an event', async () => {
