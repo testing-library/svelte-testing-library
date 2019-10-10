@@ -1,4 +1,4 @@
-import { render as stlRender, fireEvent, act } from '..'
+import { act, fireEvent, render as stlRender } from '..'
 import Comp from './fixtures/Comp.svelte'
 
 describe('act', () => {
