@@ -32,11 +32,10 @@
 
 <style></style>
 
-<div>
-  <span>{lapse}ms</span>
-  <button on:click={handleRunClick}>
-    {running ? 'Stop' : 'Start'}
-  </button>
-  <button on:click={handleClearClick}>Clear</button>
-</div>
+<span>{lapse}ms</span>
 
+<button on:click={handleRunClick}>
+  {running ? 'Stop' : 'Start'}
+</button>
+
+<button on:click={handleClearClick}>Clear</button>
