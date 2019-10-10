@@ -1,9 +1,8 @@
 import {
-  render as stlRender,
-  act
+  act,
+  render as stlRender
 } from '..'
-
-import Comp from './fixtures/Comp.svelte'
+import Comp from './fixtures/Comp'
 import CompDefault from './fixtures/Comp.html'
 
 describe('render', () => {

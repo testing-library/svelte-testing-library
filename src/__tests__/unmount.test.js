@@ -1,5 +1,5 @@
-import { render, fireEvent, act } from '..'
-import Stopwatch from './fixtures/Stopwatch.svelte'
+import { act, fireEvent, render } from '..'
+import Stopwatch from './fixtures/Stopwatch'
 
 describe('unmount', () => {
   test('unmounts component successfully', async () => {

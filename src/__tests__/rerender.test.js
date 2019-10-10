@@ -1,5 +1,5 @@
 import { render } from '..'
-import Comp from './fixtures/Comp.svelte'
+import Comp from './fixtures/Comp'
 
 describe('rerender', () => {
   test('mounts new component successfully', () => {

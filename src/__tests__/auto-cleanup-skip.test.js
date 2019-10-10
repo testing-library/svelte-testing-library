@@ -1,4 +1,4 @@
-import Comp from './fixtures/Comp.svelte'
+import Comp from './fixtures/Comp'
 
 describe('auto-cleanup-skip', () => {
   let render

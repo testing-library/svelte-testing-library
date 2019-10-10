@@ -1,6 +1,7 @@
-import { render } from '..'
-import Comp from './fixtures/Comp.svelte'
 import { prettyDOM } from '@testing-library/dom'
+
+import { render } from '..'
+import Comp from './fixtures/Comp'
 
 describe('debug', () => {
   beforeEach(() => {

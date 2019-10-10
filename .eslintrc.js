@@ -14,7 +14,8 @@ module.exports = {
     'simple-import-sort'
   ],
   rules: {
-    'max-len': ['warn', {'code': 100}]
+    'max-len': ['warn', {'code': 100}],
+    "simple-import-sort/sort": "error"
   },
   overrides: [
     {

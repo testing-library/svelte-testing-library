@@ -1,4 +1,4 @@
-import { getQueriesForElement, prettyDOM, fireEvent as dtlFireEvent } from '@testing-library/dom'
+import { fireEvent as dtlFireEvent, getQueriesForElement, prettyDOM } from '@testing-library/dom'
 import { tick } from 'svelte'
 
 const containerCache = new Map()
