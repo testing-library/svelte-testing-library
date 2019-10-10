@@ -36,10 +36,10 @@
   ],
   "scripts": {
     "toc": "doctoc README.md",
-    "lint": "eslint src/**/*.js --fix",
+    "lint": "eslint src --fix",
     "clean": "rimraf dist",
     "build": "npm run clean && babel src --out-dir dist --ignore '**/__tests__/**'",
-    "test": "jest src/__tests__ ",
+    "test": "jest src",
     "test:watch": "npm run test -- --watch",
     "test:update": "npm run test -- --updateSnapshot --coverage",
     "setup": "npm install && npm run validate",
