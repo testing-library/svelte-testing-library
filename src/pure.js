@@ -26,8 +26,6 @@ const render = (
 
   return {
     container,
-    // Only keeping this for backwards compatibility, this should not be used as it goes against
-    // the testing libraries 'Guiding Principles'. We should advise against its usage.
     component,
     debug: (el = container) => console.log(prettyDOM(el)),
     rerender: (options) => {
