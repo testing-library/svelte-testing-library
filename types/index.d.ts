@@ -3,7 +3,7 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponent } from 'svelte/types/runtime/internal/Component'
+import { SvelteComponent } from 'svelte/types/runtime'
 
 export * from '@testing-library/dom'
 
@@ -28,13 +28,13 @@ export interface RenderOptions<Q extends Queries = typeof queries> {
 }
 
 export function render(
-  component: SvelteComponent,
+  component: typeof SvelteComponent,
   componentOptions?: SvelteComponentOptions,
   renderOptions?: Omit<RenderOptions, 'queries'>
 ): RenderResult
 
 export function render<Q extends Queries>(
-  component: SvelteComponent,
+  component: typeof SvelteComponent,
   componentOptions?: SvelteComponentOptions,
   renderOptions?: RenderOptions<Q>,
 ): RenderResult<Q>
