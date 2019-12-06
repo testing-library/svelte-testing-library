@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render should accept svelte component options 1`] = `
+<body>
+  <div>
+    <h1
+      data-testid="test"
+    >
+      Hello 
+      World
+      !
+    </h1>
+     
+    <button>
+      Button
+    </button>
+    <div />
+  </div>
+</body>
+`;
