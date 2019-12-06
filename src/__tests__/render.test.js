@@ -40,6 +40,24 @@ describe('render', () => {
     expect(getByText('Hello Worlds!')).toBeInTheDocument()
   })
 
+  test('should accept props directly', () => {
+    const { getByText } = stlRender(Comp, { name: 'World' })
+    expect(getByText('Hello World!')).toBeInTheDocument()
+  })
+
+  test('should accept svelte component options', () => {
+    const target = document.createElement('div')
+    const div = document.createElement('div')
+    document.body.appendChild(target)
+    target.appendChild(div)
+    const { container } = stlRender(Comp, {
+      target,
+      anchor: div,
+      props: { name: 'World' }
+    })
+    expect(container).toMatchSnapshot()
+  })
+
   test('should return a container object, which contains the DOM of the rendered component', () => {
     const { container } = render()
 

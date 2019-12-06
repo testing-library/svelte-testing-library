@@ -4,6 +4,8 @@ import { tick } from 'svelte'
 const containerCache = new Map()
 const componentCache = new Set()
 
+const svleteComponentOptions = ['anchor', 'props', 'hydrate', 'intro']
+
 const render = (
   Component,
   { target, ...options } = {},
@@ -13,10 +15,11 @@ const render = (
   target = target || container.appendChild(document.createElement('div'))
 
   const ComponentConstructor = Component.default || Component
+  const isProps = !Object.keys(options).some(option => svleteComponentOptions.includes(option))
 
   const component = new ComponentConstructor({
     target,
-    ...options
+    ...(isProps ? { props: options } : options)
   })
 
   containerCache.set(container, { target, component })
