@@ -58,6 +58,12 @@ describe('render', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should throw error when mixing svelte component options and props', () => {
+    expect(() => {
+      stlRender(Comp, { anchor: '', name: 'World' })
+    }).toThrow(/Unknown options were found/)
+  })
+
   test('should return a container object, which contains the DOM of the rendered component', () => {
     const { container } = render()
 
