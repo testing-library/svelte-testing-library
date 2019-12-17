@@ -71,7 +71,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^5.0.0",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-svelte3": "^2.7.3",
     "husky": "^3.0.8",
