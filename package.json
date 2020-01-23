@@ -60,7 +60,7 @@
     "@babel/preset-env": "^7.6.2",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/jest-dom": "^5.0.2",
     "@types/jest": "^24.0.18",
     "all-contributors-cli": "^6.9.0",
     "babel-eslint": "^10.0.3",
