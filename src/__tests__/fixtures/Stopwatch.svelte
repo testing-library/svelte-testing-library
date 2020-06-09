@@ -15,8 +15,7 @@
         lapse = Date.now() - startTime
       }, 1)
     }
-
-    return running = true
+    running = true
   }
 
   function handleClearClick () {
