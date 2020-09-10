@@ -90,17 +90,17 @@
   },
   "lint-staged": {
     "README.md": [
-      "yarn toc",
+      "npm run toc",
       "prettier --parser markdown --write",
       "git add"
     ],
     ".all-contributorsrc": [
-      "yarn contributors:generate",
+      "npm run contributors:generate",
       "git add"
     ],
     "**/*.js": [
-      "yarn lint",
-      "yarn test",
+      "npm run lint",
+      "npm test",
       "git add"
     ]
   },
