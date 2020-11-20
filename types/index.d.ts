@@ -22,15 +22,16 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
  * Render a Component into the Document.
  */
 export type RenderResult<Q extends Queries = typeof queries> = {
-  container: HTMLElement
+  container: Element
+  component: SvelteComponent
   component: SvelteComponentTyped
-  debug: (el?: HTMLElement | DocumentFragment) => void
+  debug: (el?: Element | DocumentFragment) => void
   rerender: (options: SvelteComponentOptions) => void
   unmount: () => void
 } & { [P in keyof Q]: BoundFunction<Q[P]> }
 
 export interface RenderOptions<Q extends Queries = typeof queries> {
-  container?: HTMLElement
+  container?: Element
   queries?: Q
 }
 
