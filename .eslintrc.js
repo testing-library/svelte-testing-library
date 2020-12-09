@@ -15,7 +15,6 @@ module.exports = {
   ],
   rules: {
     'max-len': ['warn', { code: 100 }],
-    'simple-import-sort/sort': 'error',
     'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 2, maxEOF: 0 }]
   },
   overrides: [
