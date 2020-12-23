@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@2
+
+    - name: Setup nodejs
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: ${{ matrix.node }}
+    - name: Install Deps
+      run: npm run install
+    - name: Validate package
+      run: npm run validate
+
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@2
+
+    - name: Setup nodejs
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 12.x
+    - name: Update tests, coverage, and release
+      run: npm run test:update && npx codecov && npx semantic-release
