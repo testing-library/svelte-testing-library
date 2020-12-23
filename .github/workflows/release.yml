@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    # ignore all-contributors PRs
+    if: ${{ !contains(github.head_ref, 'all-contributors') }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [10.x, 12.x]
+
+    steps:
+    - name: Cancel previous runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@v2
+
+    - name: Setup nodejs
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: ${{ matrix.node }}
+    - name: Install Deps
+      run: npm install
+    - name: Validate package
+      run: npm run validate
+
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cancel previous runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/checkout@v2
+
+    - name: Setup nodejs
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 12.x
+    - name: Install Deps
+      run: npm install
+    - name: Update tests, coverage, and release
+      run: npm run test:update && npx codecov && npx semantic-release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

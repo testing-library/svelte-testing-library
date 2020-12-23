@@ -15,28 +15,35 @@ const render = (
   target = target || container.appendChild(document.createElement('div'))
 
   const ComponentConstructor = Component.default || Component
-  const isProps = !Object.keys(options).some(option => svleteComponentOptions.includes(option))
 
-  // Check if any props and Svelte options were accidentally mixed.
-  if (!isProps) {
-    const unrecognizedOptions = Object
-      .keys(options)
-      .filter(option => !svleteComponentOptions.includes(option))
+  const checkProps = (options) => {
+    const isProps = !Object.keys(options).some(option => svleteComponentOptions.includes(option))
 
-    if (unrecognizedOptions.length > 0) {
-      throw Error(`
-        Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed 
-        passing in props with Svelte options into the render function. Valid Svelte options 
-        are [${svleteComponentOptions}]. You can either change the prop names, or pass in your 
-        props for that component via the \`props\` option.\n\n
-        Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
-      `)
+    // Check if any props and Svelte options were accidentally mixed.
+    if (!isProps) {
+      const unrecognizedOptions = Object
+        .keys(options)
+        .filter(option => !svleteComponentOptions.includes(option))
+
+      if (unrecognizedOptions.length > 0) {
+        throw Error(`
+          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed 
+          passing in props with Svelte options into the render function. Valid Svelte options 
+          are [${svleteComponentOptions}]. You can either change the prop names, or pass in your 
+          props for that component via the \`props\` option.\n\n
+          Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
+        `)
+      }
+
+      return options
     }
+
+    return { props: options }
   }
 
   const component = new ComponentConstructor({
     target,
-    ...(isProps ? { props: options } : options)
+    ...checkProps(options)
   })
 
   containerCache.set(container, { target, component })
@@ -53,8 +60,8 @@ const render = (
 
       // eslint-disable-next-line no-new
       const newComponent = new ComponentConstructor({
-        ...options,
-        target
+        target,
+        ...checkProps(options)
       })
 
       containerCache.set(container, { target, newComponent })
