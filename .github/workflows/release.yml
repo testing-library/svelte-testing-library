@@ -38,3 +38,6 @@ jobs:
       run: npm install
     - name: Update tests, coverage, and release
       run: npm run test:update && npx codecov && npx semantic-release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
