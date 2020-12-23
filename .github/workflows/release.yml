@@ -6,6 +6,9 @@ on:
 
 jobs:
   test:
+    # ignore all-contributors PRs
+    if: ${{ !contains(github.head_ref, 'all-contributors') }}
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -13,6 +16,11 @@ jobs:
         node: [10.x, 12.x]
 
     steps:
+    - name: Cancel previous runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+
     - uses: actions/checkout@v2
 
     - name: Setup nodejs
@@ -28,6 +36,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Cancel previous runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+
     - uses: actions/checkout@v2
 
     - name: Setup nodejs
