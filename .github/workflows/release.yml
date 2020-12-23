@@ -13,7 +13,7 @@ jobs:
         node: [10.x, 12.x]
 
     steps:
-    - uses: actions/checkout@2
+    - uses: actions/checkout@v2
 
     - name: Setup nodejs
       uses: actions/setup-node@v2-beta
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@2
+    - uses: actions/checkout@v2
 
     - name: Setup nodejs
       uses: actions/setup-node@v2-beta
