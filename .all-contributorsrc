@@ -92,9 +92,20 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "MirrorBytes",
+      "name": "Bob",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/22119469?v=4",
+      "profile": "https://github.com/MirrorBytes",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "repoHost": "https://github.com",
-  "commitConvention": "none"
+  "commitConvention": "none",
+  "skipCi": true
 }
