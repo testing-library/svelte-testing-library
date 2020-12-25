@@ -27,10 +27,8 @@ jobs:
       uses: actions/setup-node@v2-beta
       with:
         node-version: ${{ matrix.node }}
-    - name: Install Deps
-      run: npm install
-    - name: Validate package
-      run: npm run validate
+    - name: Install deps & validate
+      run: npm run setup
 
   release:
     runs-on: ubuntu-latest
@@ -47,8 +45,10 @@ jobs:
       uses: actions/setup-node@v2-beta
       with:
         node-version: 12.x
-    - name: Install Deps
+    - name: Install deps
       run: npm install
+    - name: Build proj
+      run: npm run build
     - name: Update tests, coverage, and release
       run: npm run test:update && npx codecov && npx semantic-release
       env:
