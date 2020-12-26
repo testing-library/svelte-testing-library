@@ -4,6 +4,7 @@ import {
 } from '..'
 import Comp from './fixtures/Comp'
 import CompDefault from './fixtures/Comp.html'
+import UseDirectiveComp from './fixtures/UseDirectiveComp'
 
 describe('render', () => {
   let props
@@ -74,5 +75,10 @@ describe('render', () => {
     const { getByText } = render(CompDefault, { props: { name: 'World' } })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
+  })
+
+  test('should ignore svelte use directives', () => {
+    // No assertion, we simply don't want an error to occur.
+    stlRender(UseDirectiveComp, {})
   })
 })
