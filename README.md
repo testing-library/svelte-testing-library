@@ -22,7 +22,7 @@ practices.</p>
 [![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-) [![Meercode CI Score](https://meercode.io/badge/testing-library/svelte-testing-library?type=ci-score&branch=master)](https://meercode.io/testing-library/svelte-testing-library)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 [![Discord][discord-badge]][discord]
 
