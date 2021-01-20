@@ -159,7 +159,7 @@ Contributions of any kind welcome!
 [downloads-badge]: https://img.shields.io/npm/dm/@testing-library/svelte.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/@testing-library/svelte
 [discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
-[discord]: https://discord.gg/c6JN9fM
+[discord]: https://discord.gg/testing-library
 [license-badge]: https://img.shields.io/github/license/testing-library/svelte-testing-library?color=b
 [license]: https://github.com/testing-library/svelte-testing-library/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
