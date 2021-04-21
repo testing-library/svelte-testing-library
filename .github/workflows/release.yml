@@ -13,18 +13,16 @@ jobs:
 
     strategy:
       matrix:
-        node: [10.x, 12.x]
+        node: [10, 12, 14, 16]
 
     steps:
     - name: Cancel previous runs
-      uses: styfle/cancel-workflow-action@0.6.0
-      with:
-        access_token: ${{ secrets.GITHUB_TOKEN }}
+      uses: styfle/cancel-workflow-action@0.9.0
 
     - uses: actions/checkout@v2
 
     - name: Setup nodejs
-      uses: actions/setup-node@v2-beta
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node }}
     - name: Install deps & validate
@@ -35,16 +33,14 @@ jobs:
 
     steps:
     - name: Cancel previous runs
-      uses: styfle/cancel-workflow-action@0.6.0
-      with:
-        access_token: ${{ secrets.GITHUB_TOKEN }}
+      uses: styfle/cancel-workflow-action@0.9.0
 
     - uses: actions/checkout@v2
 
     - name: Setup nodejs
-      uses: actions/setup-node@v2-beta
+      uses: actions/setup-node@v2
       with:
-        node-version: 12.x
+        node-version: 14
     - name: Install deps
       run: npm install
     - name: Build proj
