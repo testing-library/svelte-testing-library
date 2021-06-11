@@ -4,7 +4,7 @@ import { tick } from 'svelte'
 const containerCache = new Map()
 const componentCache = new Set()
 
-const svleteComponentOptions = ['anchor', 'props', 'hydrate', 'intro']
+const svleteComponentOptions = ['anchor', 'props', 'hydrate', 'intro', 'context']
 
 const render = (
   Component,
