@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [10.x, 12.x]
+        node: [12, 14, 16]
 
     steps:
     - name: Cancel previous runs
