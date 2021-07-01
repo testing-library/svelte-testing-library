@@ -13,28 +13,36 @@ describe('multi-base', () => {
   })
 
   afterAll(() => {
-    treeA.parentNode.removeChild(treeA)
-    treeB.parentNode.removeChild(treeB)
+    treeA = document.createElement('div')
+    treeB = document.createElement('div')
   })
 
   test('container isolates trees from one another', () => {
-    const { getByText: getByTextInA } = render(Comp, {
-      target: treeA,
-      props: {
-        name: 'Tree A'
+    const { getByText: getByTextInA } = render(
+      Comp,
+      {
+        target: treeA,
+        props: {
+          name: 'Tree A'
+        }
+      },
+      {
+        container: treeA
       }
-    }, {
-      container: treeA
-    })
+    )
 
-    const { getByText: getByTextInB } = render(Comp, {
-      target: treeB,
-      props: {
-        name: 'Tree B'
+    const { getByText: getByTextInB } = render(
+      Comp,
+      {
+        target: treeB,
+        props: {
+          name: 'Tree B'
+        }
+      },
+      {
+        container: treeB
       }
-    }, {
-      container: treeB
-    })
+    )
 
     expect(() => getByTextInA('Hello Tree A!')).not.toThrow()
     expect(() => getByTextInB('Hello Tree A!')).toThrow()
