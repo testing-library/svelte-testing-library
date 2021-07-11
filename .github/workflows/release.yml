@@ -13,44 +13,44 @@ jobs:
 
     strategy:
       matrix:
-        node: [10.x, 12.x]
+        node: [12, 14, 16]
 
     steps:
-    - name: Cancel previous runs
-      uses: styfle/cancel-workflow-action@0.6.0
-      with:
-        access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup nodejs
-      uses: actions/setup-node@v2-beta
-      with:
-        node-version: ${{ matrix.node }}
-    - name: Install deps & validate
-      run: npm run setup
+      - name: Setup nodejs
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install deps & validate
+        run: npm run setup
 
   release:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Cancel previous runs
-      uses: styfle/cancel-workflow-action@0.6.0
-      with:
-        access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup nodejs
-      uses: actions/setup-node@v2-beta
-      with:
-        node-version: 12.x
-    - name: Install deps
-      run: npm install
-    - name: Build proj
-      run: npm run build
-    - name: Update tests, coverage, and release
-      run: npm run test:update && npx codecov && npx semantic-release
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup nodejs
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.x
+      - name: Install deps
+        run: npm install
+      - name: Build proj
+        run: npm run build
+      - name: Update tests, coverage, and release
+        run: npm run test:update && npx codecov && npx semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
