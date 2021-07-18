@@ -102,6 +102,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "ronmerkin",
+      "name": "Ron Merkin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17492527?v=4",
+      "profile": "https://github.com/ronmerkin",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
