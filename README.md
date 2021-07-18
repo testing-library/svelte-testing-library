@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="chipmunk"
-    src="https://raw.githubusercontent.com/testing-library/svelte-testing-library/master/other/chipmunk.png"
+    src="https://raw.githubusercontent.com/testing-library/svelte-testing-library/main/other/chipmunk.png"
   />
 </a>
 
@@ -161,12 +161,12 @@ Contributions of any kind welcome!
 [discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
 [discord]: https://discord.gg/testing-library
 [license-badge]: https://img.shields.io/github/license/testing-library/svelte-testing-library?color=b
-[license]: https://github.com/testing-library/svelte-testing-library/blob/master/LICENSE
+[license]: https://github.com/testing-library/svelte-testing-library/blob/main/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/testing-library/svelte-testing-library/blob/master/CODE_OF_CONDUCT.md
+[coc]: https://github.com/testing-library/svelte-testing-library/blob/main/CODE_OF_CONDUCT.md
 [github-watch-badge]: https://img.shields.io/github/watchers/testing-library/svelte-testing-library.svg?style=social
 [github-watch]: https://github.com/testing-library/svelte-testing-library/watchers
 [github-star-badge]: https://img.shields.io/github/stars/testing-library/svelte-testing-library.svg?style=social
