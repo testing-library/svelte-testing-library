@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="chipmunk"
-    src="https://raw.githubusercontent.com/testing-library/svelte-testing-library/master/other/chipmunk.png"
+    src="https://raw.githubusercontent.com/testing-library/svelte-testing-library/main/other/chipmunk.png"
   />
 </a>
 
@@ -121,22 +121,24 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt=""/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Tests">⚠️</a> <a href="#ideas-benmonro" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://twitter.com/EmilTholin"><img src="https://avatars0.githubusercontent.com/u/11573167?v=4" width="100px;" alt=""/><br /><sub><b>Emil Tholin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Tests">⚠️</a> <a href="#ideas-EmilTholin" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://medium.com/@oieduardorabelo"><img src="https://avatars1.githubusercontent.com/u/829902?v=4" width="100px;" alt=""/><br /><sub><b>Eduardo Rabelo</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Documentation">📖</a> <a href="#example-oieduardorabelo" title="Examples">💡</a></td>
-    <td align="center"><a href="http://timdeschryver.dev"><img src="https://avatars1.githubusercontent.com/u/28659384?v=4" width="100px;" alt=""/><br /><sub><b>Tim Deschryver</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=timdeschryver" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://www.ematipico.com"><img src="https://avatars3.githubusercontent.com/u/602478?v=4" width="100px;" alt=""/><br /><sub><b>Emanuele</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pngwn"><img src="https://avatars1.githubusercontent.com/u/12937446?v=4" width="100px;" alt=""/><br /><sub><b>pngwn</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twitter.com/sebsilbermann"><img src="https://avatars3.githubusercontent.com/u/12292047?v=4" width="100px;" alt=""/><br /><sub><b>Sebastian Silbermann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=eps1lon" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Tests">⚠️</a> <a href="#ideas-benmonro" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmonro" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://twitter.com/EmilTholin"><img src="https://avatars0.githubusercontent.com/u/11573167?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Emil Tholin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=EmilTholin" title="Tests">⚠️</a> <a href="#ideas-EmilTholin" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://medium.com/@oieduardorabelo"><img src="https://avatars1.githubusercontent.com/u/829902?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eduardo Rabelo</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=oieduardorabelo" title="Documentation">📖</a> <a href="#example-oieduardorabelo" title="Examples">💡</a></td>
+    <td align="center"><a href="http://timdeschryver.dev"><img src="https://avatars1.githubusercontent.com/u/28659384?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Deschryver</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=timdeschryver" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.ematipico.com"><img src="https://avatars3.githubusercontent.com/u/602478?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Emanuele</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Tests">⚠️</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=ematipico" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pngwn"><img src="https://avatars1.githubusercontent.com/u/12937446?v=4?s=100" width="100px;" alt=""/><br /><sub><b>pngwn</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=pngwn" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://twitter.com/sebsilbermann"><img src="https://avatars3.githubusercontent.com/u/12292047?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sebastian Silbermann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=eps1lon" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/mihar-22"><img src="https://avatars3.githubusercontent.com/u/14304599?s=460&v=4" width="100px;" alt=""/><br /><sub><b>Rahim Alwer</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Documentation">📖</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/MirrorBytes"><img src="https://avatars3.githubusercontent.com/u/22119469?v=4" width="100px;" alt=""/><br /><sub><b>Bob</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/issues?q=author%3AMirrorBytes" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=MirrorBytes" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mihar-22"><img src="https://avatars3.githubusercontent.com/u/14304599?s=460&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rahim Alwer</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Documentation">📖</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mihar-22" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/MirrorBytes"><img src="https://avatars3.githubusercontent.com/u/22119469?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bob</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/issues?q=author%3AMirrorBytes" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=MirrorBytes" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ronmerkin"><img src="https://avatars.githubusercontent.com/u/17492527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ron Merkin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ronmerkin" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -161,12 +163,12 @@ Contributions of any kind welcome!
 [discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
 [discord]: https://discord.gg/testing-library
 [license-badge]: https://img.shields.io/github/license/testing-library/svelte-testing-library?color=b
-[license]: https://github.com/testing-library/svelte-testing-library/blob/master/LICENSE
+[license]: https://github.com/testing-library/svelte-testing-library/blob/main/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/testing-library/svelte-testing-library/blob/master/CODE_OF_CONDUCT.md
+[coc]: https://github.com/testing-library/svelte-testing-library/blob/main/CODE_OF_CONDUCT.md
 [github-watch-badge]: https://img.shields.io/github/watchers/testing-library/svelte-testing-library.svg?style=social
 [github-watch]: https://github.com/testing-library/svelte-testing-library/watchers
 [github-star-badge]: https://img.shields.io/github/stars/testing-library/svelte-testing-library.svg?style=social
