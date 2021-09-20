@@ -13,8 +13,8 @@ describe('multi-base', () => {
   })
 
   afterAll(() => {
-    treeA.parentNode.removeChild(treeA)
-    treeB.parentNode.removeChild(treeB)
+    treeA = document.createElement('div')
+    treeB = document.createElement('div')
   })
 
   test('container isolates trees from one another', () => {
