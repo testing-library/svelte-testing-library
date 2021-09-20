@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   test:
@@ -32,6 +34,9 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    if:
+      ${{ github.repository == 'testing-library/svelte-testing-library' &&
+      github.ref == 'refs/heads/main' && github.event_name == 'push' }}
 
     steps:
     - name: Cancel previous runs
