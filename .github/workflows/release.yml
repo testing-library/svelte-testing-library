@@ -49,7 +49,7 @@ jobs:
     - name: Setup nodejs
       uses: actions/setup-node@v2-beta
       with:
-        node-version: 12.x
+        node-version: 14
     - name: Install deps
       run: npm install
     - name: Build proj
