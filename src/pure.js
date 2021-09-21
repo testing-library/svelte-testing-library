@@ -112,6 +112,8 @@ Object.keys(dtlFireEvent).forEach((key) => {
   }
 })
 
+/* eslint-disable import/export */
+
 export * from '@testing-library/dom'
 
 export {
