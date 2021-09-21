@@ -14,7 +14,7 @@
     "url": "https://github.com/testing-library/svelte-testing-library/issues"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 10"
   },
   "keywords": [
     "testing",
