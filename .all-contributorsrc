@@ -90,7 +90,8 @@
       "contributions": [
         "code",
         "doc",
-        "test"
+        "test",
+        "review"
       ]
     },
     {
