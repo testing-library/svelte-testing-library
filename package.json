@@ -61,10 +61,10 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@testing-library/jest-dom": "^5.0.2",
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^27.0.0",
     "all-contributors-cli": "^6.9.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^27.0.0",
     "doctoc": "^2.0.0",
     "eslint": "^7.2.0",
     "eslint-config-standard": "^16.0.0",
@@ -74,12 +74,12 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-svelte3": "^3.0.0",
     "husky": "^4.0.9",
-    "jest": "^26.0.1",
+    "jest": "^27.0.0",
     "lint-staged": "^10.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.1",
     "svelte": "^3.0.0",
-    "svelte-jester": "^1.0.3"
+    "svelte-jester": "^2.1.4"
   },
   "husky": {
     "hooks": {
@@ -118,6 +118,7 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ],
+    "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "svelte-jester",
