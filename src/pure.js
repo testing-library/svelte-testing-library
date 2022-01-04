@@ -4,7 +4,7 @@ import { tick } from 'svelte'
 const containerCache = new Map()
 const componentCache = new Set()
 
-const svleteComponentOptions = ['anchor', 'props', 'hydrate', 'intro']
+const svelteComponentOptions = ['anchor', 'props', 'hydrate', 'intro']
 
 const render = (
   Component,
@@ -17,19 +17,19 @@ const render = (
   const ComponentConstructor = Component.default || Component
 
   const checkProps = (options) => {
-    const isProps = !Object.keys(options).some(option => svleteComponentOptions.includes(option))
+    const isProps = !Object.keys(options).some(option => svelteComponentOptions.includes(option))
 
     // Check if any props and Svelte options were accidentally mixed.
     if (!isProps) {
       const unrecognizedOptions = Object
         .keys(options)
-        .filter(option => !svleteComponentOptions.includes(option))
+        .filter(option => !svelteComponentOptions.includes(option))
 
       if (unrecognizedOptions.length > 0) {
         throw Error(`
           Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed 
           passing in props with Svelte options into the render function. Valid Svelte options 
-          are [${svleteComponentOptions}]. You can either change the prop names, or pass in your 
+          are [${svelteComponentOptions}]. You can either change the prop names, or pass in your 
           props for that component via the \`props\` option.\n\n
           Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
         `)
