@@ -2,20 +2,8 @@ import { render } from '..'
 import Comp from './fixtures/Comp'
 
 describe('multi-base', () => {
-  let treeA
-  let treeB
-
-  beforeAll(() => {
-    treeA = document.createElement('div')
-    treeB = document.createElement('div')
-    document.body.appendChild(treeA)
-    document.body.appendChild(treeB)
-  })
-
-  afterAll(() => {
-    treeA.parentNode.removeChild(treeA)
-    treeB.parentNode.removeChild(treeB)
-  })
+  const treeA = document.createElement('div')
+  const treeB = document.createElement('div')
 
   test('container isolates trees from one another', () => {
     const { getByText: getByTextInA } = render(Comp, {
