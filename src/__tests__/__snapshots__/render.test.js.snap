@@ -11,6 +11,10 @@ exports[`render should accept svelte component options 1`] = `
       !
     </h1>
      
+    <div>
+      we have context
+    </div>
+     
     <button>
       Button
     </button>
