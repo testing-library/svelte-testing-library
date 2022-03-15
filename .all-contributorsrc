@@ -139,6 +139,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "cbbfcd",
+      "name": "波比小金刚",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20987775?v=4",
+      "profile": "https://juejin.im/user/593df367128fe1006aecb3cf",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
