@@ -130,6 +130,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "sebastinez",
+      "name": "Sebastian Martinez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7912302?v=4",
+      "profile": "https://sebastinez.dev/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
