@@ -121,6 +121,15 @@
       "contributions": [
         "test"
       ]
+    },
+    {
+      "login": "apricote",
+      "name": "Julian Tölle",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3393079?v=4",
+      "profile": "https://github.com/apricote",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

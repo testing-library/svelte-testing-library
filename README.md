@@ -30,6 +30,7 @@ practices.</p>
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 <!-- prettier-ignore-end -->
+
 </div>
 
 <hr />
@@ -38,7 +39,6 @@ practices.</p>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [The Problem](#the-problem)
 - [This Solution](#this-solution)
@@ -134,6 +134,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/MirrorBytes"><img src="https://avatars3.githubusercontent.com/u/22119469?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bob</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/issues?q=author%3AMirrorBytes" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=MirrorBytes" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ronmerkin"><img src="https://avatars.githubusercontent.com/u/17492527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ron Merkin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ronmerkin" title="Code">💻</a></td>
     <td align="center"><a href="http://www.benmccann.com"><img src="https://avatars.githubusercontent.com/u/322311?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben McCann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmccann" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/apricote"><img src="https://avatars.githubusercontent.com/u/3393079?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julian Tölle</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/issues?q=author%3Aapricote" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
@@ -186,4 +187,3 @@ Contributions of any kind welcome!
 [stackoverflow]: https://stackoverflow.com/questions/tagged/svelte-testing-library
 
 <!-- prettier-ignore-end -->
-
