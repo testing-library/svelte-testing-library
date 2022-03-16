@@ -51,7 +51,7 @@
     "svelte": "3.x"
   },
   "dependencies": {
-    "@testing-library/dom": "^7.0.3"
+    "@testing-library/dom": "^8.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
