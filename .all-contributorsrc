@@ -90,7 +90,8 @@
       "contributions": [
         "code",
         "doc",
-        "test"
+        "test",
+        "review"
       ]
     },
     {
@@ -110,6 +111,15 @@
       "profile": "https://github.com/ronmerkin",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "benmccann",
+      "name": "Ben McCann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/322311?v=4",
+      "profile": "http://www.benmccann.com",
+      "contributions": [
+        "test"
       ]
     }
   ],

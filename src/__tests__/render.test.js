@@ -53,7 +53,8 @@ describe('render', () => {
     const { container } = stlRender(Comp, {
       target,
       anchor: div,
-      props: { name: 'World' }
+      props: { name: 'World' },
+      context: new Map([['name', 'context']])
     })
     expect(container).toMatchSnapshot()
   })
@@ -74,5 +75,16 @@ describe('render', () => {
     const { getByText } = render(CompDefault, { props: { name: 'World' } })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
+  })
+
+  test("accept the 'context' option", () => {
+    const { getByText } = stlRender(Comp, {
+      props: {
+        name: 'Universe'
+      },
+      context: new Map([['name', 'context']])
+    })
+
+    expect(getByText('we have context')).toBeInTheDocument()
   })
 })

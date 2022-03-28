@@ -3,50 +3,80 @@ name: CI
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test:
+  main:
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
-
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node: [10, 12, 14, 16]
-
+    runs-on: ubuntu-latest
     steps:
-    - name: Cancel previous runs
-      uses: styfle/cancel-workflow-action@0.9.0
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
 
-    - uses: actions/checkout@v2
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Setup nodejs
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node }}
-    - name: Install deps & validate
-      run: npm run setup
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - name: ▶️ Run validate script
+        run: npm run validate
+
+      - name: ⬆️ Upload coverage report
+        uses: codecov/codecov-action@v2
 
   release:
+    needs: main
     runs-on: ubuntu-latest
-
+    if:
+      ${{ github.repository == 'testing-library/svelte-testing-library' &&
+      contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
+      github.ref) && github.event_name == 'push' }}
     steps:
-    - name: Cancel previous runs
-      uses: styfle/cancel-workflow-action@0.9.0
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
 
-    - uses: actions/checkout@v2
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Setup nodejs
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-    - name: Install deps
-      run: npm install
-    - name: Build proj
-      run: npm run build
-    - name: Update tests, coverage, and release
-      run: npm run test:update && npx codecov && npx semantic-release
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - name: 🏗 Run build script
+        run: npm run build
+
+      - name: 🚀 Release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 17
+          branches: |
+            [
+              '+([0-9])?(.{+([0-9]),x}).x',
+              'main',
+              'next',
+              'next-major',
+              {name: 'beta', prerelease: true},
+              {name: 'alpha', prerelease: true}
+            ]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
