@@ -121,6 +121,16 @@
       "contributions": [
         "test"
       ]
+    },
+    {
+      "login": "jgbowser",
+      "name": "John Bowser",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66637570?v=4",
+      "profile": "https://johnbowser.dev/",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,

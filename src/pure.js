@@ -49,7 +49,7 @@ const render = (
     return { props: options }
   }
 
-  const component = new ComponentConstructor({
+  let component = new ComponentConstructor({
     target,
     ...checkProps(options)
   })
@@ -67,15 +67,15 @@ const render = (
       if (componentCache.has(component)) component.$destroy()
 
       // eslint-disable-next-line no-new
-      const newComponent = new ComponentConstructor({
+      component = new ComponentConstructor({
         target,
         ...checkProps(options)
       })
 
-      containerCache.set(container, { target, newComponent })
-      componentCache.add(newComponent)
+      containerCache.set(container, { target, component })
+      componentCache.add(component)
 
-      newComponent.$$.on_destroy.push(() => { componentCache.delete(newComponent) })
+      component.$$.on_destroy.push(() => { componentCache.delete(component) })
     },
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
