@@ -19,4 +19,13 @@ describe('rerender', () => {
     rerender({ props: { name: '' } })
     expect(isDestroyed).toBeTruthy()
   })
+
+  test('destroys old components on multiple rerenders', () => {
+    const { rerender, queryByText } = render(Comp, { props: { name: 'Neil' } })
+
+    rerender({ props: { name: 'Alex' } })
+    expect(queryByText('Hello Neil!')).not.toBeInTheDocument()
+    rerender({ props: { name: 'Geddy' } })
+    expect(queryByText('Hello Alex!')).not.toBeInTheDocument()
+  })
 })
