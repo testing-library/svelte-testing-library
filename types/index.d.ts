@@ -3,11 +3,18 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponent } from 'svelte/types/runtime'
+import { SvelteComponentTyped } from 'svelte/types/runtime'
 
 export * from '@testing-library/dom'
 
-type SvelteComponentOptions = any
+export interface SvelteComponentOptions<P extends Record<string, any> = any>  {
+  target?: HTMLElement
+  anchor?: string
+  props?: P
+  context?: any
+  hydrate?: boolean
+  intro?: boolean
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -16,7 +23,7 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
  */
 export type RenderResult<Q extends Queries = typeof queries> = {
   container: HTMLElement
-  component: SvelteComponent
+  component: SvelteComponentTyped
   debug: (el?: HTMLElement | DocumentFragment) => void
   rerender: (options: SvelteComponentOptions) => void
   unmount: () => void
@@ -28,16 +35,26 @@ export interface RenderOptions<Q extends Queries = typeof queries> {
 }
 
 export function render(
-  component: typeof SvelteComponent,
+  component: SvelteComponentTyped,
   componentOptions?: SvelteComponentOptions,
   renderOptions?: Omit<RenderOptions, 'queries'>
 ): RenderResult
 
 export function render<Q extends Queries>(
-  component: typeof SvelteComponent,
+  component: SvelteComponentTyped,
   componentOptions?: SvelteComponentOptions,
   renderOptions?: RenderOptions<Q>,
 ): RenderResult<Q>
+
+export function render<
+  P extends Record<string, any> = any,
+  E extends Record<string, any> = any,
+  S extends Record<string, any> = any
+>(
+  component: SvelteComponentTyped<P, E, S>,
+  componentOptions?: SvelteComponentOptions<P>,
+  renderOptions?: Omit<RenderOptions, "queries">
+): RenderResult;
 
 /**
  * Unmounts trees that were mounted with render.
