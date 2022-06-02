@@ -3,18 +3,22 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponentTyped } from 'svelte/types/runtime'
+import { SvelteComponentDev } from 'svelte/internal'
+import { SvelteComponentTyped, SvelteComponent } from 'svelte/types/runtime'
 
 export * from '@testing-library/dom'
 
-export interface SvelteComponentOptions<P extends Record<string, any> = any>  {
+type SvelteComponentDevClass = typeof SvelteComponentDev;
+type SvelteComponentTypedClass<P,E,S> = typeof SvelteComponentTyped<P,E,S>;
+
+export interface SvelteComponentOptions<P extends Record<string, any> = any> {
   target?: HTMLElement
   anchor?: string
   props?: P
   context?: any
   hydrate?: boolean
   intro?: boolean
-}
+};
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -23,8 +27,7 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
  */
 export type RenderResult<Q extends Queries = typeof queries> = {
   container: Element
-  component: SvelteComponent
-  component: SvelteComponentTyped
+  component: SvelteComponentTypedClass<any,any,any>
   debug: (el?: Element | DocumentFragment) => void
   rerender: (options: SvelteComponentOptions) => void
   unmount: () => void
@@ -36,14 +39,14 @@ export interface RenderOptions<Q extends Queries = typeof queries> {
 }
 
 export function render(
-  component: SvelteComponentTyped,
-  componentOptions?: SvelteComponentOptions,
+  component: SvelteComponentTypedClass<any,any,any>,
+  componentOptions?: SvelteComponentOptions | Record<string,unknown>,
   renderOptions?: Omit<RenderOptions, 'queries'>
 ): RenderResult
 
 export function render<Q extends Queries>(
-  component: SvelteComponentTyped,
-  componentOptions?: SvelteComponentOptions,
+  component: SvelteComponentTyped<any,any,any>,
+  componentOptions?: SvelteComponentOptions | Record<string,unknown>,
   renderOptions?: RenderOptions<Q>,
 ): RenderResult<Q>
 
@@ -52,8 +55,8 @@ export function render<
   E extends Record<string, any> = any,
   S extends Record<string, any> = any
 >(
-  component: SvelteComponentTyped<P, E, S>,
-  componentOptions?: SvelteComponentOptions<P>,
+  component: SvelteComponentTypedClass<P, E, S>,
+  componentOptions?: SvelteComponentOptions<P> | Record<string,unknown>,
   renderOptions?: Omit<RenderOptions, "queries">
 ): RenderResult;
 
