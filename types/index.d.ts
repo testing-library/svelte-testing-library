@@ -3,12 +3,10 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponentDev } from 'svelte/internal'
-import { SvelteComponentTyped, SvelteComponent } from 'svelte/types/runtime'
+import { SvelteComponentTyped } from 'svelte/types/runtime'
 
 export * from '@testing-library/dom'
 
-type SvelteComponentDevClass = typeof SvelteComponentDev;
 type SvelteComponentTypedClass<P,E,S> = typeof SvelteComponentTyped<P,E,S>;
 
 export interface SvelteComponentOptions<P extends Record<string, any> = any> {
