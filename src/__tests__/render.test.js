@@ -1,23 +1,21 @@
-import {
-  act,
-  render as stlRender
-} from '..'
+import { act, render as stlRender } from '..'
 import Comp from './fixtures/Comp'
 import CompDefault from './fixtures/Comp.html'
 
 describe('render', () => {
   let props
 
-  const render = () => {
+  const render = (additional = {}) => {
     return stlRender(Comp, {
       target: document.body,
-      props
+      props,
+      ...additional,
     })
   }
 
   beforeEach(() => {
     props = {
-      name: 'World'
+      name: 'World',
     }
   })
 
@@ -40,6 +38,20 @@ describe('render', () => {
     expect(getByText('Hello Worlds!')).toBeInTheDocument()
   })
 
+  test('change props with accessors', async () => {
+    const { component, getByText } = render({ accessors: true })
+
+    expect(getByText('Hello World!')).toBeInTheDocument()
+
+    expect(component.name).toBe('World')
+
+    await act(() => {
+      component.value = 'Planet'
+    })
+
+    expect(getByText('Hello World!')).toBeInTheDocument()
+  })
+
   test('should accept props directly', () => {
     const { getByText } = stlRender(Comp, { name: 'World' })
     expect(getByText('Hello World!')).toBeInTheDocument()
@@ -54,7 +66,7 @@ describe('render', () => {
       target,
       anchor: div,
       props: { name: 'World' },
-      context: new Map([['name', 'context']])
+      context: new Map([['name', 'context']]),
     })
     expect(container).toMatchSnapshot()
   })
@@ -80,9 +92,9 @@ describe('render', () => {
   test("accept the 'context' option", () => {
     const { getByText } = stlRender(Comp, {
       props: {
-        name: 'Universe'
+        name: 'Universe',
       },
-      context: new Map([['name', 'context']])
+      context: new Map([['name', 'context']]),
     })
 
     expect(getByText('we have context')).toBeInTheDocument()
