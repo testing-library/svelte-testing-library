@@ -1,15 +1,20 @@
-import { fireEvent as dtlFireEvent, getQueriesForElement, prettyDOM } from '@testing-library/dom'
+import {
+  fireEvent as dtlFireEvent,
+  getQueriesForElement,
+  prettyDOM,
+} from '@testing-library/dom'
 import { tick } from 'svelte'
 
 const containerCache = new Map()
 const componentCache = new Set()
 
 const svelteComponentOptions = [
+  'accessors',
   'anchor',
   'props',
   'hydrate',
   'intro',
-  'context'
+  'context',
 ]
 
 const render = (
@@ -51,13 +56,15 @@ const render = (
 
   let component = new ComponentConstructor({
     target,
-    ...checkProps(options)
+    ...checkProps(options),
   })
 
   containerCache.set(container, { target, component })
   componentCache.add(component)
 
-  component.$$.on_destroy.push(() => { componentCache.delete(component) })
+  component.$$.on_destroy.push(() => {
+    componentCache.delete(component)
+  })
 
   return {
     container,
@@ -69,18 +76,20 @@ const render = (
       // eslint-disable-next-line no-new
       component = new ComponentConstructor({
         target,
-        ...checkProps(options)
+        ...checkProps(options),
       })
 
       containerCache.set(container, { target, component })
       componentCache.add(component)
 
-      component.$$.on_destroy.push(() => { componentCache.delete(component) })
+      component.$$.on_destroy.push(() => {
+        componentCache.delete(component)
+      })
     },
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
     },
-    ...getQueriesForElement(container, queries)
+    ...getQueriesForElement(container, queries),
   }
 }
 
@@ -89,7 +98,9 @@ const cleanupAtContainer = (container) => {
 
   if (componentCache.has(component)) component.$destroy()
 
-  if (target.parentNode === document.body) { document.body.removeChild(target) }
+  if (target.parentNode === document.body) {
+    document.body.removeChild(target)
+  }
 
   containerCache.delete(container)
 }
@@ -124,6 +135,4 @@ Object.keys(dtlFireEvent).forEach((key) => {
 
 export * from '@testing-library/dom'
 
-export {
-  render, cleanup, fireEvent, act
-}
+export { render, cleanup, fireEvent, act }
