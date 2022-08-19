@@ -135,6 +135,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/ronmerkin"><img src="https://avatars.githubusercontent.com/u/17492527?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ron Merkin</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ronmerkin" title="Code">💻</a></td>
     <td align="center"><a href="http://www.benmccann.com"><img src="https://avatars.githubusercontent.com/u/322311?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben McCann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=benmccann" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://johnbowser.dev/"><img src="https://avatars.githubusercontent.com/u/66637570?v=4?s=100" width="100px;" alt=""/><br /><sub><b>John Bowser</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=jgbowser" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=jgbowser" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/ysaskia"><img src="https://avatars.githubusercontent.com/u/1370679?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yoann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ysaskia" title="Code">💻</a></td>
   </tr>
 </table>
 
