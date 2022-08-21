@@ -30,7 +30,7 @@ export interface RenderOptions<Q extends Queries = typeof queries> {
 }
 
 export function render<C extends SvelteComponent>(
-  component: C,
+  component: Constructor<C>,
   componentOptions?: SvelteComponentOptions<C>,
   renderOptions?: Omit<RenderOptions, 'queries'>
 ): RenderResult<C>
