@@ -18,7 +18,7 @@ type Constructor<T> = new (...args: any[]) => T;
  */
 export type RenderResult<C extends SvelteComponent, Q extends Queries = typeof queries> = {
   container: HTMLElement
-  component: C
+  component: Constructor<C>
   debug: (el?: HTMLElement | DocumentFragment) => void
   rerender: (options: SvelteComponentOptions<C>) => void
   unmount: () => void
