@@ -5,7 +5,7 @@ import {
 } from '@testing-library/dom'
 import { tick } from 'svelte'
 
-const containerCache = new Map()
+const containerCache = new Set()
 const componentCache = new Set()
 
 const svelteComponentOptions = [
@@ -59,7 +59,7 @@ const render = (
     ...checkProps(options),
   })
 
-  containerCache.set(container, { target, component })
+  containerCache.add({ container, target, component })
   componentCache.add(component)
 
   component.$$.on_destroy.push(() => {
@@ -79,7 +79,7 @@ const render = (
         ...checkProps(options),
       })
 
-      containerCache.set(container, { target, component })
+      containerCache.add({ container, target, component })
       componentCache.add(component)
 
       component.$$.on_destroy.push(() => {
@@ -93,8 +93,8 @@ const render = (
   }
 }
 
-const cleanupAtContainer = (container) => {
-  const { target, component } = containerCache.get(container)
+const cleanupAtContainer = (cached) => {
+  const { target, component } = cached
 
   if (componentCache.has(component)) component.$destroy()
 
@@ -102,7 +102,7 @@ const cleanupAtContainer = (container) => {
     document.body.removeChild(target)
   }
 
-  containerCache.delete(container)
+  containerCache.delete(cached)
 }
 
 const cleanup = () => {
