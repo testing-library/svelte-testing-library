@@ -70,21 +70,9 @@ const render = (
     container,
     component,
     debug: (el = container) => console.log(prettyDOM(el)),
-    rerender: (options) => {
-      if (componentCache.has(component)) component.$destroy()
-
-      // eslint-disable-next-line no-new
-      component = new ComponentConstructor({
-        target,
-        ...checkProps(options),
-      })
-
-      containerCache.add({ container, target, component })
-      componentCache.add(component)
-
-      component.$$.on_destroy.push(() => {
-        componentCache.delete(component)
-      })
+    rerender: async (options) => {
+      component.$set(options.props)
+      await tick()
     },
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
