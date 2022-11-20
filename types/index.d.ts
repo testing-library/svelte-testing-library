@@ -20,7 +20,7 @@ export type RenderResult<C extends SvelteComponent, Q extends Queries = typeof q
   container: HTMLElement
   component: C
   debug: (el?: HTMLElement | DocumentFragment) => void
-  rerender: (options: SvelteComponentOptions<C>) => void
+  rerender: (options: SvelteComponentOptions<C>) => Promise<void>
   unmount: () => void
 } & { [P in keyof Q]: BoundFunction<Q[P]> }
 
