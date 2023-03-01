@@ -3,11 +3,11 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponent, ComponentProps } from 'svelte/types/runtime'
+import { SvelteComponent, ComponentProps, ComponentConstructorOptions } from 'svelte/types/runtime'
 
 export * from '@testing-library/dom'
 
-type SvelteComponentOptions<C extends SvelteComponent> = ComponentProps<C> | {props: ComponentProps<C>}
+type SvelteComponentOptions<C extends SvelteComponent> = ComponentProps<C> | Pick<ComponentConstructorOptions<ComponentProps<C>>, "anchor" | "props" | "hydrate" | "intro" | "context">
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
