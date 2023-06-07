@@ -8,7 +8,6 @@ describe('render', () => {
   let props
 
   const render = (additional = {}) => {
-    console.log(additional)
     return stlRender(Comp, {
       target: document.body,
       props,
