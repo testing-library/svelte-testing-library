@@ -1,23 +1,24 @@
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { prettyDOM } from '@testing-library/dom'
 
 import { render } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('debug', () => {
-  beforeEach(() => {
-    jest.spyOn(console, 'log').mockImplementation(() => {})
-  })
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { })
+    })
 
-  afterEach(() => {
-    console.log.mockRestore()
-  })
+    afterEach(() => {
+        console.log.mockRestore()
+    })
 
-  test('pretty prints the container', () => {
-    const { container, debug } = render(Comp, { props: { name: 'world' } })
+    test('pretty prints the container', () => {
+        const { container, debug } = render(Comp, { props: { name: 'world' } })
 
-    debug()
+        debug()
 
-    expect(console.log).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledWith(prettyDOM(container))
-  })
+        expect(console.log).toHaveBeenCalledTimes(1)
+        expect(console.log).toHaveBeenCalledWith(prettyDOM(container))
+    })
 })

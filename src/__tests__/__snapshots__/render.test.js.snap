@@ -1,4 +1,28 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`render > should accept svelte component options 1`] = `
+<body>
+  <div>
+    <h1
+      data-testid="test"
+    >
+      Hello 
+      World
+      !
+    </h1>
+     
+    <div>
+      we have context
+    </div>
+     
+    <button>
+      Button
+    </button>
+    <!--&lt;Comp&gt;-->
+    <div />
+  </div>
+</body>
+`;
 
 exports[`render should accept svelte component options 1`] = `
 <body>
