@@ -9,7 +9,7 @@
 
   const contextName = getContext('name')
 
-  function handleClick() {
+  function handleClick () {
     buttonText = 'Button Clicked'
   }
 </script>
