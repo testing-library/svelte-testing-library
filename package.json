@@ -37,7 +37,7 @@
   "scripts": {
     "toc": "doctoc README.md",
     "lint": "eslint src --fix",
-    "test": "jest src",
+    "test": "vitest run src",
     "test:watch": "npm run test -- --watch",
     "test:update": "npm run test -- --updateSnapshot --coverage",
     "setup": "npm install && npm run validate",
