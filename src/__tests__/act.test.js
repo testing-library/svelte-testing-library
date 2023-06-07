@@ -1,5 +1,7 @@
+import { beforeEach, describe, expect, test } from 'vitest'
+
 import { act, fireEvent, render as stlRender } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('act', () => {
   let props
@@ -36,9 +38,10 @@ describe('act', () => {
   })
 
   test('accepts async functions', async () => {
-    const sleep = (ms) => new Promise(resolve => {
-      setTimeout(() => resolve(), ms)
-    })
+    const sleep = (ms) =>
+      new Promise((resolve) => {
+        setTimeout(() => resolve(), ms)
+      })
 
     const { getByText } = render()
     const button = getByText('Button')
