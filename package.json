@@ -41,7 +41,7 @@
     "test:watch": "npm run test -- --watch",
     "test:update": "npm run test -- --updateSnapshot --coverage",
     "setup": "npm install && npm run validate",
-    "validate": "npm run clean && npm-run-all lint test",
+    "validate": "npm-run-all lint test",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
   },
