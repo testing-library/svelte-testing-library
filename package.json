@@ -30,6 +30,8 @@
     "e2e"
   ],
   "files": [
+    "src/pure.js",
+    "src/index.js",
     "dont-cleanup-after-each.js",
     "pure.js",
     "types/index.d.ts"
