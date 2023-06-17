@@ -23,26 +23,3 @@ exports[`render > should accept svelte component options 1`] = `
   </div>
 </body>
 `;
-
-exports[`render should accept svelte component options 1`] = `
-<body>
-  <div>
-    <h1
-      data-testid="test"
-    >
-      Hello 
-      World
-      !
-    </h1>
-     
-    <div>
-      we have context
-    </div>
-     
-    <button>
-      Button
-    </button>
-    <div />
-  </div>
-</body>
-`;
