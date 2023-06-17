@@ -3,9 +3,9 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jest: true,
+      "vitest-globals/env": true
   },
-  extends: ['standard'],
+  extends: ['standard', "plugin:vitest-globals/recommended"],
   plugins: ['svelte3', 'simple-import-sort'],
   rules: {
     'max-len': ['warn', { code: 100 }],
