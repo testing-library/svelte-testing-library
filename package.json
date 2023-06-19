@@ -31,7 +31,6 @@
   ],
   "files": [
     "src/",
-    "dont-cleanup-after-each.js",
     "types/index.d.ts"
   ],
   "scripts": {
