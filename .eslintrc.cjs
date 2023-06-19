@@ -3,7 +3,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    "vitest-globals/env": true
+    'vitest-globals/env': true
   },
   extends: ['standard', 'plugin:vitest-globals/recommended'],
   plugins: ['svelte', 'simple-import-sort'],
