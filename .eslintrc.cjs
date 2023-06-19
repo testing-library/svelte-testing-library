@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
     "vitest-globals/env": true
   },
-  extends: ['standard', "plugin:vitest-globals/recommended"],
+  extends: ['standard', 'plugin:vitest-globals/recommended'],
   plugins: ['svelte', 'simple-import-sort'],
   rules: {
     'max-len': ['warn', { code: 100 }],
