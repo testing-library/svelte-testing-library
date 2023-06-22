@@ -45,7 +45,7 @@
     "contributors:generate": "all-contributors generate"
   },
   "peerDependencies": {
-    "svelte": "3.x"
+    "svelte": "^3 || ^4"
   },
   "dependencies": {
     "@testing-library/dom": "^8.1.0"
