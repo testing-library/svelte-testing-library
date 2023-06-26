@@ -1,5 +1,7 @@
+import { describe, expect, test } from 'vitest'
+
 import { fireEvent, render } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('events', () => {
   test('state changes are flushed after firing an event', async () => {

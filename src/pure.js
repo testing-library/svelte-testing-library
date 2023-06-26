@@ -1,10 +1,21 @@
-import { fireEvent as dtlFireEvent, getQueriesForElement, prettyDOM } from '@testing-library/dom'
+import {
+  fireEvent as dtlFireEvent,
+  getQueriesForElement,
+  prettyDOM
+} from '@testing-library/dom'
 import { tick } from 'svelte'
 
-const containerCache = new Map()
+const containerCache = new Set()
 const componentCache = new Set()
 
-const svleteComponentOptions = ['anchor', 'props', 'hydrate', 'intro']
+const svelteComponentOptions = [
+  'accessors',
+  'anchor',
+  'props',
+  'hydrate',
+  'intro',
+  'context'
+]
 
 const render = (
   Component,
@@ -17,19 +28,21 @@ const render = (
   const ComponentConstructor = Component.default || Component
 
   const checkProps = (options) => {
-    const isProps = !Object.keys(options).some(option => svleteComponentOptions.includes(option))
+    const isProps = !Object.keys(options).some((option) =>
+      svelteComponentOptions.includes(option)
+    )
 
     // Check if any props and Svelte options were accidentally mixed.
     if (!isProps) {
-      const unrecognizedOptions = Object
-        .keys(options)
-        .filter(option => !svleteComponentOptions.includes(option))
+      const unrecognizedOptions = Object.keys(options).filter(
+        (option) => !svelteComponentOptions.includes(option)
+      )
 
       if (unrecognizedOptions.length > 0) {
         throw Error(`
-          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed 
-          passing in props with Svelte options into the render function. Valid Svelte options 
-          are [${svleteComponentOptions}]. You can either change the prop names, or pass in your 
+          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed
+          passing in props with Svelte options into the render function. Valid Svelte options
+          are [${svelteComponentOptions}]. You can either change the prop names, or pass in your
           props for that component via the \`props\` option.\n\n
           Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
         `)
@@ -41,15 +54,17 @@ const render = (
     return { props: options }
   }
 
-  const component = new ComponentConstructor({
+  let component = new ComponentConstructor({
     target,
     ...checkProps(options)
   })
 
-  containerCache.set(container, { target, component })
+  containerCache.add({ container, target, component })
   componentCache.add(component)
 
-  component.$$.on_destroy.push(() => { componentCache.delete(component) })
+  component.$$.on_destroy.push(() => {
+    componentCache.delete(component)
+  })
 
   return {
     container,
@@ -59,15 +74,17 @@ const render = (
       if (componentCache.has(component)) component.$destroy()
 
       // eslint-disable-next-line no-new
-      const newComponent = new ComponentConstructor({
+      component = new ComponentConstructor({
         target,
         ...checkProps(options)
       })
 
-      containerCache.set(container, { target, newComponent })
-      componentCache.add(newComponent)
+      containerCache.add({ container, target, component })
+      componentCache.add(component)
 
-      newComponent.$$.on_destroy.push(() => { componentCache.delete(newComponent) })
+      component.$$.on_destroy.push(() => {
+        componentCache.delete(component)
+      })
     },
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
@@ -76,14 +93,16 @@ const render = (
   }
 }
 
-const cleanupAtContainer = container => {
-  const { target, component } = containerCache.get(container)
+const cleanupAtContainer = (cached) => {
+  const { target, component } = cached
 
   if (componentCache.has(component)) component.$destroy()
 
-  if (target.parentNode === document.body) { document.body.removeChild(target) }
+  if (target.parentNode === document.body) {
+    document.body.removeChild(target)
+  }
 
-  containerCache.delete(container)
+  containerCache.delete(cached)
 }
 
 const cleanup = () => {
@@ -112,8 +131,8 @@ Object.keys(dtlFireEvent).forEach((key) => {
   }
 })
 
+/* eslint-disable import/export */
+
 export * from '@testing-library/dom'
 
-export {
-  render, cleanup, fireEvent, act
-}
+export { render, cleanup, fireEvent, act }

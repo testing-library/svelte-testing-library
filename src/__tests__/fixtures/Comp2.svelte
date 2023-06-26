@@ -1,10 +1,10 @@
 <script>
   export let name
 
-  let buttonText = "Button Text"
+  let buttonText = 'Button Text'
 
-  function handleClick() {
-    buttonText = "Button Clicked"
+  function handleClick () {
+    buttonText = 'Button Clicked'
   }
 </script>
 

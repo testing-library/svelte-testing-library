@@ -3,22 +3,24 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponent } from 'svelte/types/runtime'
+import { SvelteComponent, ComponentProps } from 'svelte'
 
 export * from '@testing-library/dom'
 
-type SvelteComponentOptions = any
+type SvelteComponentOptions<C extends SvelteComponent> = ComponentProps<C> | {props: ComponentProps<C>}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
+type Constructor<T> = new (...args: any[]) => T;
 
 /**
  * Render a Component into the Document.
  */
-export type RenderResult<Q extends Queries = typeof queries> = {
+export type RenderResult<C extends SvelteComponent, Q extends Queries = typeof queries> = {
   container: HTMLElement
-  component: SvelteComponent
+  component: C
   debug: (el?: HTMLElement | DocumentFragment) => void
-  rerender: (options: SvelteComponentOptions) => void
+  rerender: (options: SvelteComponentOptions<C>) => void
   unmount: () => void
 } & { [P in keyof Q]: BoundFunction<Q[P]> }
 
@@ -27,17 +29,17 @@ export interface RenderOptions<Q extends Queries = typeof queries> {
   queries?: Q
 }
 
-export function render(
-  component: typeof SvelteComponent,
-  componentOptions?: SvelteComponentOptions,
+export function render<C extends SvelteComponent>(
+  component: Constructor<C>,
+  componentOptions?: SvelteComponentOptions<C>,
   renderOptions?: Omit<RenderOptions, 'queries'>
-): RenderResult
+): RenderResult<C>
 
-export function render<Q extends Queries>(
-  component: typeof SvelteComponent,
-  componentOptions?: SvelteComponentOptions,
+export function render<C extends SvelteComponent, Q extends Queries>(
+  component: Constructor<C>,
+  componentOptions?: SvelteComponentOptions<C>,
   renderOptions?: RenderOptions<Q>,
-): RenderResult<Q>
+): RenderResult<C, Q>
 
 /**
  * Unmounts trees that were mounted with render.

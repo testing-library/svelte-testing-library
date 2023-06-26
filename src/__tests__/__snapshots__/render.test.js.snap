@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`render should accept svelte component options 1`] = `
+exports[`render > should accept svelte component options 1`] = `
 <body>
   <div>
     <h1
@@ -11,9 +11,14 @@ exports[`render should accept svelte component options 1`] = `
       !
     </h1>
      
+    <div>
+      we have context
+    </div>
+     
     <button>
       Button
     </button>
+    <!--&lt;Comp&gt;-->
     <div />
   </div>
 </body>

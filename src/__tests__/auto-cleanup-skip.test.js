@@ -1,11 +1,13 @@
-import Comp from './fixtures/Comp'
+import { beforeAll, describe, expect, test } from 'vitest'
+
+import Comp from './fixtures/Comp.svelte'
 
 describe('auto-cleanup-skip', () => {
   let render
 
-  beforeAll(() => {
+  beforeAll(async () => {
     process.env.STL_SKIP_AUTO_CLEANUP = 'true'
-    const stl = require('..')
+    const stl = await import('..')
     render = stl.render
   })
 

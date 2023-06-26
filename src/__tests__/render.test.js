@@ -1,17 +1,17 @@
-import {
-  act,
-  render as stlRender
-} from '..'
-import Comp from './fixtures/Comp'
-import CompDefault from './fixtures/Comp.html'
+import { beforeEach, describe, expect, test } from 'vitest'
+
+import { act, render as stlRender } from '..'
+import Comp from './fixtures/Comp.svelte'
+import CompDefault from './fixtures/Comp2.svelte'
 
 describe('render', () => {
   let props
 
-  const render = () => {
+  const render = (additional = {}) => {
     return stlRender(Comp, {
       target: document.body,
-      props
+      props,
+      ...additional
     })
   }
 
@@ -40,6 +40,20 @@ describe('render', () => {
     expect(getByText('Hello Worlds!')).toBeInTheDocument()
   })
 
+  test('change props with accessors', async () => {
+    const { component, getByText } = render({ accessors: true })
+
+    expect(getByText('Hello World!')).toBeInTheDocument()
+
+    expect(component.name).toBe('World')
+
+    await act(() => {
+      component.value = 'Planet'
+    })
+
+    expect(getByText('Hello World!')).toBeInTheDocument()
+  })
+
   test('should accept props directly', () => {
     const { getByText } = stlRender(Comp, { name: 'World' })
     expect(getByText('Hello World!')).toBeInTheDocument()
@@ -53,7 +67,8 @@ describe('render', () => {
     const { container } = stlRender(Comp, {
       target,
       anchor: div,
-      props: { name: 'World' }
+      props: { name: 'World' },
+      context: new Map([['name', 'context']])
     })
     expect(container).toMatchSnapshot()
   })
@@ -74,5 +89,16 @@ describe('render', () => {
     const { getByText } = render(CompDefault, { props: { name: 'World' } })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
+  })
+
+  test("accept the 'context' option", () => {
+    const { getByText } = stlRender(Comp, {
+      props: {
+        name: 'Universe'
+      },
+      context: new Map([['name', 'context']])
+    })
+
+    expect(getByText('we have context')).toBeInTheDocument()
   })
 })
