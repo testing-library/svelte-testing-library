@@ -2,7 +2,12 @@
   "name": "@testing-library/svelte",
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
-  "exports": "src/index.js",
+  "exports": {
+    ".": {
+      "default": "./src/index.js",
+      "types": "./types/index.d.ts"
+    }
+  },
   "type": "module",
   "types": "types/index.d.ts",
   "license": "MIT",
