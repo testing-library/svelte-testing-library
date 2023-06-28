@@ -1,4 +1,4 @@
-import { act, cleanup } from './pure'
+import { act, cleanup } from './pure.js'
 
 // If we're running in a test runner that supports afterEach
 // then we'll automatically run cleanup afterEach test
@@ -12,4 +12,4 @@ if (typeof afterEach === 'function' && !process.env.STL_SKIP_AUTO_CLEANUP) {
   })
 }
 
-export * from './pure'
+export * from './pure.js'
