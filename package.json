@@ -4,8 +4,8 @@
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
   "exports": {
     ".": {
-      "default": "./src/index.js",
-      "types": "./types/index.d.ts"
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
     }
   },
   "type": "module",
