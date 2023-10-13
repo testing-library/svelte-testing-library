@@ -1,28 +1,38 @@
+import { describe, expect, test } from 'vitest'
+
 import { render } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('multi-base', () => {
   const treeA = document.createElement('div')
   const treeB = document.createElement('div')
 
   test('container isolates trees from one another', () => {
-    const { getByText: getByTextInA } = render(Comp, {
-      target: treeA,
-      props: {
-        name: 'Tree A'
+    const { getByText: getByTextInA } = render(
+      Comp,
+      {
+        target: treeA,
+        props: {
+          name: 'Tree A'
+        }
+      },
+      {
+        container: treeA
       }
-    }, {
-      container: treeA
-    })
+    )
 
-    const { getByText: getByTextInB } = render(Comp, {
-      target: treeB,
-      props: {
-        name: 'Tree B'
+    const { getByText: getByTextInB } = render(
+      Comp,
+      {
+        target: treeB,
+        props: {
+          name: 'Tree B'
+        }
+      },
+      {
+        container: treeB
       }
-    }, {
-      container: treeB
-    })
+    )
 
     expect(() => getByTextInA('Hello Tree A!')).not.toThrow()
     expect(() => getByTextInB('Hello Tree A!')).toThrow()

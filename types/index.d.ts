@@ -3,7 +3,8 @@
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
 import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-import { SvelteComponent, ComponentProps, ComponentConstructorOptions } from 'svelte/types/runtime'
+
+import { SvelteComponent, ComponentProps, ComponentConstructorOptions  } from 'svelte'
 
 export * from '@testing-library/dom'
 

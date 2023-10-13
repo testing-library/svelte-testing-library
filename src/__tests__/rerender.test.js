@@ -1,5 +1,10 @@
+/**
+ * @jest-environment jsdom
+ */
+import { describe, expect, test } from 'vitest'
+
 import { render } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('rerender', () => {
   test('mounts new component successfully', () => {
@@ -15,7 +20,9 @@ describe('rerender', () => {
 
     const { rerender, component } = render(Comp, { props: { name: '' } })
 
-    component.$$.on_destroy.push(() => { isDestroyed = true })
+    component.$$.on_destroy.push(() => {
+      isDestroyed = true
+    })
     rerender({ props: { name: '' } })
     expect(isDestroyed).toBeTruthy()
   })

@@ -1,6 +1,8 @@
+import { beforeEach, describe, expect, test } from 'vitest'
+
 import { act, render as stlRender } from '..'
-import Comp from './fixtures/Comp'
-import CompDefault from './fixtures/Comp.html'
+import Comp from './fixtures/Comp.svelte'
+import CompDefault from './fixtures/Comp2.svelte'
 
 describe('render', () => {
   let props
@@ -9,13 +11,13 @@ describe('render', () => {
     return stlRender(Comp, {
       target: document.body,
       props,
-      ...additional,
+      ...additional
     })
   }
 
   beforeEach(() => {
     props = {
-      name: 'World',
+      name: 'World'
     }
   })
 
@@ -66,7 +68,7 @@ describe('render', () => {
       target,
       anchor: div,
       props: { name: 'World' },
-      context: new Map([['name', 'context']]),
+      context: new Map([['name', 'context']])
     })
     expect(container).toMatchSnapshot()
   })
@@ -92,9 +94,9 @@ describe('render', () => {
   test("accept the 'context' option", () => {
     const { getByText } = stlRender(Comp, {
       props: {
-        name: 'Universe',
+        name: 'Universe'
       },
-      context: new Map([['name', 'context']]),
+      context: new Map([['name', 'context']])
     })
 
     expect(getByText('we have context')).toBeInTheDocument()
