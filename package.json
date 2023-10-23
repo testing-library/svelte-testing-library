@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
+    "@commitlint/config-conventional": "^18.0.0",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@vitest/coverage-c8": "^0.33.0",
