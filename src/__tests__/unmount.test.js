@@ -1,9 +1,11 @@
+import { describe, expect, test, vi } from 'vitest'
+
 import { act, fireEvent, render } from '..'
-import Stopwatch from './fixtures/Stopwatch'
+import Stopwatch from './fixtures/Stopwatch.svelte'
 
 describe('unmount', () => {
   test('unmounts component successfully', async () => {
-    console.warn = jest.fn()
+    console.warn = vi.fn()
 
     const { unmount, getByText, container } = render(Stopwatch)
 
@@ -21,7 +23,7 @@ describe('unmount', () => {
   })
 
   test('destroying component directly and calling unmount does not log warning', async () => {
-    console.warn = jest.fn()
+    console.warn = vi.fn()
 
     const { unmount, component } = render(Stopwatch)
 

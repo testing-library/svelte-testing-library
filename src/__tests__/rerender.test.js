@@ -1,5 +1,10 @@
+/**
+ * @jest-environment jsdom
+ */
+import { describe, expect, test } from 'vitest'
+
 import { render } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('rerender', () => {
   test('rerenders component with newly set prop', async () => {

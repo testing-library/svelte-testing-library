@@ -10,8 +10,7 @@
   />
 </a>
 
-<p>Simple and complete Svelte testing utilities that encourage good testing
-practices.</p>
+<p>Simple and complete Svelte testing utilities that encourage good testing practices.</p>
 
 [**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
 [Edit the docs](https://github.com/alexkrolick/testing-library-docs)

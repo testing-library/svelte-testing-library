@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script>
   import { getContext } from 'svelte'
 
@@ -12,10 +14,10 @@
   }
 </script>
 
-<style></style>
-
 <h1 data-testid="test">Hello {name}!</h1>
 
 <div>we have {contextName}</div>
 
 <button on:click={handleClick}>{buttonText}</button>
+
+<style></style>

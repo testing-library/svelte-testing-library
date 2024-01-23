@@ -1,5 +1,7 @@
+import { describe, expect, test } from 'vitest'
+
 import { render } from '..'
-import Comp from './fixtures/Comp'
+import Comp from './fixtures/Comp.svelte'
 
 describe('auto-cleanup', () => {
   // This just verifies that by importing STL in an
