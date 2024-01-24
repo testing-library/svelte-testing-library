@@ -60,7 +60,8 @@ export type FireObject = {
 export const fireEvent: FireFunction & FireObject;
 
 /**
- * Calls a function or resolves a Promise and notifies Svelte to immediately flushes any pending
- * state changes.
+ * Calls a function and notifies Svelte to flush any pending state changes.
+ *
+ * If the function returns a Promise, that Promise will be resolved first.
  */
-export function act(fn?: Function | Promise<any>): Promise<void>
+export function act(fn?: () => unknown): Promise<void>
