@@ -3,19 +3,36 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    'vitest-globals/env': true
+    'vitest-globals/env': true,
   },
-  extends: ['standard', 'plugin:vitest-globals/recommended'],
+  extends: [
+    'standard',
+    'plugin:vitest-globals/recommended',
+    'plugin:svelte/recommended',
+    'prettier',
+  ],
   plugins: ['svelte', 'simple-import-sort'],
   rules: {
-    'max-len': ['warn', { code: 100 }],
     'simple-import-sort/imports': 'error',
-    'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 2, maxEOF: 0 }],
   },
   overrides: [
+    {
+      files: ['*.ts'],
+      parser: '@typescript-eslint/parser',
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/stylistic',
+        'prettier',
+      ],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+        'import/export': 'off',
+      },
+    },
   ],
   parserOptions: {
     ecmaVersion: 2022,
     sourceType: 'module',
   },
+  ignorePatterns: ['!.*'],
 }
