@@ -21,7 +21,7 @@ describe('events', () => {
       button,
       new MouseEvent('click', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     )
 

@@ -44,7 +44,7 @@
   ],
   "scripts": {
     "toc": "doctoc README.md",
-    "lint": "(prettier . --check || true) && eslint .",
+    "lint": "prettier . --check && eslint .",
     "format": "prettier . --write && eslint . --fix",
     "test": "vitest run --coverage",
     "test:watch": "vitest",

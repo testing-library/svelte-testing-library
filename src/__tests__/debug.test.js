@@ -6,7 +6,7 @@ import Comp from './fixtures/Comp.svelte'
 
 describe('debug', () => {
   beforeEach(() => {
-    vi.spyOn(console, 'log').mockImplementation(() => { })
+    vi.spyOn(console, 'log').mockImplementation(() => {})
   })
 
   afterEach(() => {

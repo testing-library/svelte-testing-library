@@ -5,7 +5,7 @@
   let lapse = 0
   let running = false
 
-  function handleRunClick () {
+  function handleRunClick() {
     if (running) {
       clearInterval(timer)
     } else {
@@ -18,7 +18,7 @@
     running = true
   }
 
-  function handleClearClick () {
+  function handleClearClick() {
     clearInterval(timer)
     lapse = 0
     running = false
@@ -29,8 +29,6 @@
   })
 </script>
 
-<style></style>
-
 <span>{lapse}ms</span>
 
 <button on:click={handleRunClick}>
@@ -38,3 +36,5 @@
 </button>
 
 <button on:click={handleClearClick}>Clear</button>
+
+<style></style>

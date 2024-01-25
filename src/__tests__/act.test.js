@@ -8,13 +8,13 @@ describe('act', () => {
 
   const render = () => {
     return stlRender(Comp, {
-      props
+      props,
     })
   }
 
   beforeEach(() => {
     props = {
-      name: 'World'
+      name: 'World',
     }
   })
 

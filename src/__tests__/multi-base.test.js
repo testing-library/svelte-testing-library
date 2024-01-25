@@ -13,11 +13,11 @@ describe('multi-base', () => {
       {
         target: treeA,
         props: {
-          name: 'Tree A'
-        }
+          name: 'Tree A',
+        },
       },
       {
-        container: treeA
+        container: treeA,
       }
     )
 
@@ -26,11 +26,11 @@ describe('multi-base', () => {
       {
         target: treeB,
         props: {
-          name: 'Tree B'
-        }
+          name: 'Tree B',
+        },
       },
       {
-        container: treeB
+        container: treeB,
       }
     )
 

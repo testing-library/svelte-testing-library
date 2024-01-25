@@ -1,7 +1,7 @@
 import {
   fireEvent as dtlFireEvent,
   getQueriesForElement,
-  prettyDOM
+  prettyDOM,
 } from '@testing-library/dom'
 import { tick } from 'svelte'
 
@@ -14,7 +14,7 @@ const svelteComponentOptions = [
   'props',
   'hydrate',
   'intro',
-  'context'
+  'context',
 ]
 
 const render = (
@@ -56,7 +56,7 @@ const render = (
 
   let component = new ComponentConstructor({
     target,
-    ...checkProps(options)
+    ...checkProps(options),
   })
 
   containerCache.add({ container, target, component })
@@ -76,7 +76,7 @@ const render = (
       // eslint-disable-next-line no-new
       component = new ComponentConstructor({
         target,
-        ...checkProps(options)
+        ...checkProps(options),
       })
 
       containerCache.add({ container, target, component })
@@ -89,7 +89,7 @@ const render = (
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
     },
-    ...getQueriesForElement(container, queries)
+    ...getQueriesForElement(container, queries),
   }
 }
 
