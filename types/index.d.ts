@@ -53,7 +53,7 @@ export function cleanup(): void
 export type FireFunction = (element: Document | Element | Window, event: Event) => Promise<boolean>;
 
 export type FireObject = {
-  [K in EventType]: (element: Document | Element | Window, options?: Record<string, unknown>) => Promise<boolean>;
+  [K in EventType]: (element: Document | Element | Window, options?: {}) => Promise<boolean>;
 };
 
 export const fireEvent: FireFunction & FireObject;

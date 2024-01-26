@@ -25,6 +25,10 @@ module.exports = {
         'prettier',
       ],
       rules: {
+        '@typescript-eslint/ban-types': [
+          'error',
+          { types: { '{}': false }, extendDefaults: true },
+        ],
         '@typescript-eslint/no-explicit-any': 'off',
         'import/export': 'off',
       },
