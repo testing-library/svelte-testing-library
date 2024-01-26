@@ -96,7 +96,7 @@
       "git add README.md .all-contributorsrc"
     ],
     "src/**/*": [
-      "npx --no-install vitest run"
+      "npx --no-install vitest related --run"
     ],
     "*.{js,cjs,ts,svelte,json,yml,yaml}": [
       "npx --no-install prettier --check"
