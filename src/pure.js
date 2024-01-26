@@ -1,9 +1,9 @@
 import {
   fireEvent as dtlFireEvent,
   getQueriesForElement,
-  prettyDOM
+  prettyDOM,
 } from '@testing-library/dom'
-import { tick } from 'svelte'
+import { tick, createRoot } from 'svelte'
 
 const containerCache = new Set()
 const componentCache = new Set()
@@ -14,13 +14,13 @@ const svelteComponentOptions = [
   'props',
   'hydrate',
   'intro',
-  'context'
+  'context',
 ]
 
 const render = (
   Component,
   { target, ...options } = {},
-  { container, queries } = {}
+  { container, queries } = {},
 ) => {
   container = container || document.body
   target = target || container.appendChild(document.createElement('div'))
@@ -29,13 +29,13 @@ const render = (
 
   const checkProps = (options) => {
     const isProps = !Object.keys(options).some((option) =>
-      svelteComponentOptions.includes(option)
+      svelteComponentOptions.includes(option),
     )
 
     // Check if any props and Svelte options were accidentally mixed.
     if (!isProps) {
       const unrecognizedOptions = Object.keys(options).filter(
-        (option) => !svelteComponentOptions.includes(option)
+        (option) => !svelteComponentOptions.includes(option),
       )
 
       if (unrecognizedOptions.length > 0) {
@@ -54,17 +54,14 @@ const render = (
     return { props: options }
   }
 
-  let component = new ComponentConstructor({
+  let component = createRoot(ComponentConstructor, {
     target,
-    ...checkProps(options)
+    ...checkProps(options),
+    ondestroy: () => componentCache.delete(component),
   })
 
   containerCache.add({ container, target, component })
   componentCache.add(component)
-
-  component.$$.on_destroy.push(() => {
-    componentCache.delete(component)
-  })
 
   return {
     container,
@@ -73,23 +70,19 @@ const render = (
     rerender: (options) => {
       if (componentCache.has(component)) component.$destroy()
 
-      // eslint-disable-next-line no-new
-      component = new ComponentConstructor({
+      component = createRoot(ComponentConstructor, {
         target,
-        ...checkProps(options)
+        ...checkProps(options),
+        ondestroy: () => componentCache.delete(component),
       })
 
       containerCache.add({ container, target, component })
       componentCache.add(component)
-
-      component.$$.on_destroy.push(() => {
-        componentCache.delete(component)
-      })
     },
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
     },
-    ...getQueriesForElement(container, queries)
+    ...getQueriesForElement(container, queries),
   }
 }
 
