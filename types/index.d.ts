@@ -2,9 +2,8 @@
 // Project: https://github.com/testing-library/svelte-testing-library
 // Definitions by: Rahim Alwer <https://github.com/mihar-22>
 
-import {queries, Queries, BoundFunction, EventType} from '@testing-library/dom'
-
-import { SvelteComponent, ComponentProps, ComponentConstructorOptions  } from 'svelte'
+import {BoundFunction, EventType,Queries, queries} from '@testing-library/dom'
+import { ComponentConstructorOptions,ComponentProps, SvelteComponent  } from 'svelte'
 
 export * from '@testing-library/dom'
 

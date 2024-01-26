@@ -41,7 +41,8 @@
   ],
   "scripts": {
     "toc": "doctoc README.md",
-    "lint": "eslint src --fix",
+    "lint": "(prettier . --check || true) && eslint .",
+    "format": "prettier . --write && eslint . --fix",
     "test": "vitest run src",
     "test:watch": "npm run test -- --watch",
     "test:update": "npm run test -- --updateSnapshot --coverage",
@@ -61,10 +62,13 @@
     "@commitlint/config-conventional": "^17.6.6",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "@testing-library/jest-dom": "^5.16.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
     "@vitest/coverage-c8": "^0.33.0",
     "all-contributors-cli": "^6.26.0",
     "doctoc": "^2.2.1",
     "eslint": "^8.43.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.1",
@@ -77,30 +81,28 @@
     "lint-staged": "^13.2.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.0.0",
+    "prettier-plugin-svelte": "^3.1.2",
     "svelte": "^4.0.1",
+    "svelte-jester": "^3.0.0",
+    "typescript": "^5.3.3",
     "vite": "^4.3.9",
     "vitest": "^0.33.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
-    "README.md": [
+    "{README.md,.all-contributorsrc}": [
       "npm run toc",
-      "prettier --parser markdown --write",
-      "git add"
-    ],
-    ".all-contributorsrc": [
       "npm run contributors:generate",
-      "git add"
+      "npx --no-install prettier --write README.md .all-contributorsrc",
+      "git add README.md .all-contributorsrc"
     ],
-    "**/*.js": [
-      "npm run lint",
-      "npm test",
-      "git add"
+    "src/**/*": [
+      "npx --no-install vitest related --run"
+    ],
+    "*.{js,cjs,ts,svelte,json,yml,yaml}": [
+      "npx --no-install prettier --check"
+    ],
+    "*.{js,cjs,ts,svelte}": [
+      "npx --no-install eslint"
     ]
   },
   "commitlint": {
