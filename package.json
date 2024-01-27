@@ -7,6 +7,9 @@
     ".": {
       "types": "./types/index.d.ts",
       "default": "./src/index.js"
+    },
+    "./vitest": {
+      "default": "./src/vitest.js"
     }
   },
   "type": "module",
@@ -43,9 +46,9 @@
     "toc": "doctoc README.md",
     "lint": "(prettier . --check || true) && eslint .",
     "format": "prettier . --write && eslint . --fix",
-    "test": "vitest run src",
-    "test:watch": "npm run test -- --watch",
-    "test:update": "npm run test -- --updateSnapshot --coverage",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "test:update": "vitest run --update",
     "setup": "npm install && npm run validate",
     "validate": "npm-run-all lint test",
     "contributors:add": "all-contributors add",
@@ -61,10 +64,10 @@
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.3.0",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
-    "@vitest/coverage-c8": "^0.33.0",
+    "@vitest/coverage-v8": "^0.33.0",
     "all-contributors-cli": "^6.26.0",
     "doctoc": "^2.2.1",
     "eslint": "^8.43.0",
