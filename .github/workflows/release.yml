@@ -14,12 +14,14 @@ jobs:
   main:
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
-    name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}
+    name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.test-runner }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: ['16', '18', '20']
         svelte: ['3', '4']
-    runs-on: ubuntu-latest
+        test-runner: ['vitest:jsdom', 'vitest:happy-dom']
+
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
@@ -35,7 +37,7 @@ jobs:
           npm install --no-save svelte@${{ matrix.svelte }}
 
       - name: ▶️ Run validate script
-        run: npm run validate
+        run: npm run test:${{ matrix.test-runner }}
 
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v3
