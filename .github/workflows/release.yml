@@ -21,6 +21,11 @@ jobs:
         svelte: ['3', '4']
     runs-on: ubuntu-latest
     steps:
+      - name: ⬇️ Checkout main branch of repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
