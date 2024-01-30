@@ -1,0 +1,5 @@
+scripts/*
+.eslintignore
+.prettierignore
+.github/workflows/*
+*.md
