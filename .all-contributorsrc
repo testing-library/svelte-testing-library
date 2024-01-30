@@ -2,9 +2,7 @@
   "projectName": "svelte-testing-library",
   "projectOwner": "testing-library",
   "repoType": "github",
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "imageSize": 100,
   "commit": false,
   "contributors": [
@@ -13,133 +11,98 @@
       "name": "Ben Monro",
       "avatar_url": "https://avatars3.githubusercontent.com/u/399236?v=4",
       "profile": "https://github.com/benmonro",
-      "contributions": [
-        "code",
-        "test",
-        "ideas",
-        "doc"
-      ]
+      "contributions": ["code", "test", "ideas", "doc"]
     },
     {
       "login": "EmilTholin",
       "name": "Emil Tholin",
       "avatar_url": "https://avatars0.githubusercontent.com/u/11573167?v=4",
       "profile": "https://twitter.com/EmilTholin",
-      "contributions": [
-        "code",
-        "test",
-        "ideas"
-      ]
+      "contributions": ["code", "test", "ideas"]
     },
     {
       "login": "oieduardorabelo",
       "name": "Eduardo Rabelo",
       "avatar_url": "https://avatars1.githubusercontent.com/u/829902?v=4",
       "profile": "https://medium.com/@oieduardorabelo",
-      "contributions": [
-        "test",
-        "code",
-        "doc",
-        "example"
-      ]
+      "contributions": ["test", "code", "doc", "example"]
     },
     {
       "login": "timdeschryver",
       "name": "Tim Deschryver",
       "avatar_url": "https://avatars1.githubusercontent.com/u/28659384?v=4",
       "profile": "http://timdeschryver.dev",
-      "contributions": [
-        "doc"
-      ]
+      "contributions": ["doc"]
     },
     {
       "login": "ematipico",
       "name": "Emanuele",
       "avatar_url": "https://avatars3.githubusercontent.com/u/602478?v=4",
       "profile": "http://www.ematipico.com",
-      "contributions": [
-        "code",
-        "test",
-        "doc"
-      ]
+      "contributions": ["code", "test", "doc"]
     },
     {
       "login": "pngwn",
       "name": "pngwn",
       "avatar_url": "https://avatars1.githubusercontent.com/u/12937446?v=4",
       "profile": "https://github.com/pngwn",
-      "contributions": [
-        "code",
-        "test"
-      ]
+      "contributions": ["code", "test"]
     },
     {
       "login": "eps1lon",
       "name": "Sebastian Silbermann",
       "avatar_url": "https://avatars3.githubusercontent.com/u/12292047?v=4",
       "profile": "https://twitter.com/sebsilbermann",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "mihar-22",
       "name": "Rahim Alwer",
       "avatar_url": "https://avatars3.githubusercontent.com/u/14304599?s=460&v=4",
       "profile": "https://github.com/mihar-22",
-      "contributions": [
-        "code",
-        "doc",
-        "test",
-        "review"
-      ]
+      "contributions": ["code", "doc", "test", "review"]
     },
     {
       "login": "MirrorBytes",
       "name": "Bob",
       "avatar_url": "https://avatars3.githubusercontent.com/u/22119469?v=4",
       "profile": "https://github.com/MirrorBytes",
-      "contributions": [
-        "bug",
-        "code"
-      ]
+      "contributions": ["bug", "code"]
     },
     {
       "login": "ronmerkin",
       "name": "Ron Merkin",
       "avatar_url": "https://avatars.githubusercontent.com/u/17492527?v=4",
       "profile": "https://github.com/ronmerkin",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "benmccann",
       "name": "Ben McCann",
       "avatar_url": "https://avatars.githubusercontent.com/u/322311?v=4",
       "profile": "http://www.benmccann.com",
-      "contributions": [
-        "test"
-      ]
+      "contributions": ["test"]
     },
     {
       "login": "jgbowser",
       "name": "John Bowser",
       "avatar_url": "https://avatars.githubusercontent.com/u/66637570?v=4",
       "profile": "https://johnbowser.dev/",
-      "contributions": [
-        "code",
-        "test"
-      ]
+      "contributions": ["code", "test"]
     },
     {
       "login": "ysitbon",
       "name": "Yoann",
       "avatar_url": "https://avatars.githubusercontent.com/u/1370679?v=4",
       "profile": "https://github.com/ysitbon",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
+    },
+    {
+      "login": "yanick",
+      "name": "Yanick Champoux",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19954?v=4",
+      "profile": "https://techblog.babyl.ca/",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 7,
@@ -147,3 +110,4 @@
   "commitConvention": "none",
   "skipCi": true
 }
+
