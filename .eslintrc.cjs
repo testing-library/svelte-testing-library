@@ -11,7 +11,7 @@ module.exports = {
     'plugin:svelte/recommended',
     'prettier',
   ],
-  plugins: ['svelte', 'simple-import-sort'],
+  plugins: ['svelte', 'simple-import-sort', 'json-files'],
   rules: {
     'simple-import-sort/imports': 'error',
   },

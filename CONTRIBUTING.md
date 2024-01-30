@@ -15,10 +15,10 @@ The module is released automatically from the `main` branch using [semantic-rele
 
 ## Development setup
 
-After cloning the repository, use the `setup` script to install development dependencies and the `validate` script to run all checks and tests to verify your setup.
+After cloning the repository, install the project's dependencies and run the `validate` script to run all checks and tests to verify your setup.
 
 ```shell
-npm run setup
+npm install # or `pnpm install`, or `yarn install`, etc.
 npm run validate
 ```
 
@@ -27,13 +27,13 @@ npm run validate
 Run auto-formatting to ensure any changes adhere to the code style of the repository:
 
 ```shell
-npm run format
+npm run format:delta
 ```
 
 To run lint and format checks without making any changes:
 
 ```shell
-npm run lint
+npm run lint:delta
 ```
 
 ### Test
