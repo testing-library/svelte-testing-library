@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+git diff --name-only --diff-filter=d main
