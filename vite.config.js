@@ -5,6 +5,10 @@ import { defineConfig } from 'vite'
 export default defineConfig(({ mode }) => ({
   plugins: [svelte()],
   resolve: {
+    // Ensure `browser` exports are used in tests
+    // Vitest prefers the `node` condition by default
+    // Svelte's `node` export is its SSR bundle, which does not have onMount
+    // https://github.com/testing-library/svelte-testing-library/issues/222#issuecomment-1909993331
     conditions: mode === 'test' ? ['browser'] : [],
   },
   test: {
