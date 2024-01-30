@@ -103,6 +103,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/19954?v=4",
       "profile": "https://techblog.babyl.ca/",
       "contributions": ["code"]
+    },
+    {
+      "login": "mcous",
+      "name": "Michael Cousins",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2963448?v=4",
+      "profile": "https://michael.cousins.io/",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 7,

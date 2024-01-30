@@ -137,6 +137,9 @@ Thanks goes to these people ([emoji key][emojis]):
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ysitbon"><img src="https://avatars.githubusercontent.com/u/1370679?v=4?s=100" width="100px;" alt="Yoann"/><br /><sub><b>Yoann</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=ysitbon" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://techblog.babyl.ca/"><img src="https://avatars.githubusercontent.com/u/19954?v=4?s=100" width="100px;" alt="Yanick Champoux"/><br /><sub><b>Yanick Champoux</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=yanick" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://michael.cousins.io/"><img src="https://avatars.githubusercontent.com/u/2963448?v=4?s=100" width="100px;" alt="Michael Cousins"/><br /><sub><b>Michael Cousins</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=mcous" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 
