@@ -36,8 +36,12 @@ jobs:
           npm install --no-package-lock
           npm install --no-save svelte@${{ matrix.svelte }}
 
-      - name: ▶️ Run validate script
+      - name: ▶️ Run tests
         run: npm run test:${{ matrix.test-runner }}
+
+      - name: ▶️ Run type-checks
+        if: ${{ matrix.node == '20' && matrix.svelte == '4' }}
+        run: npm run types
 
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v3

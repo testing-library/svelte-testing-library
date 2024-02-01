@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "node16",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["svelte", "vite/client", "vitest", "vitest/globals"],
+  },
+  "include": ["src", "types"],
+}
