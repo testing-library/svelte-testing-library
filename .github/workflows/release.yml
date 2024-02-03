@@ -14,29 +14,37 @@ jobs:
   main:
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
+    name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.test-runner }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [16, 18, 20]
-    runs-on: ubuntu-latest
+        node: ['16', '18', '20']
+        svelte: ['3', '4']
+        test-runner: ['vitest:jsdom', 'vitest:happy-dom']
+
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: |
+          npm install --no-package-lock
+          npm install --no-save svelte@${{ matrix.svelte }}
 
-      - name: ▶️ Run validate script
-        run: npm run validate
+      - name: ▶️ Run tests
+        run: npm run test:${{ matrix.test-runner }}
+
+      - name: ▶️ Run type-checks
+        if: ${{ matrix.node == '20' && matrix.svelte == '4' }}
+        run: npm run types
 
       - name: ⬆️ Upload coverage report
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
 
   release:
     needs: main
@@ -46,17 +54,15 @@ jobs:
       github.ref) && github.event_name == 'push' }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 16
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm install --no-package-lock
 
       - name: 🚀 Release
         uses: cycjimmy/semantic-release-action@v2

@@ -97,10 +97,9 @@ const cleanup = () => {
   Array.from(containerCache.keys()).forEach(cleanupAtContainer)
 }
 
-const act = (fn) => {
-  const value = fn && fn()
-  if (value !== undefined && typeof value.then === 'function') {
-    return value.then(() => tick())
+const act = async (fn) => {
+  if (fn) {
+    await fn()
   }
   return tick()
 }
