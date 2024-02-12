@@ -1,38 +1,38 @@
 /**
  * @jest-environment jsdom
  */
-import { describe, expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
+import { writable } from 'svelte/store'
 
-import { render } from '..'
-import Comp from './fixtures/Comp.svelte'
+import { render, waitFor } from '..'
+import Comp from './fixtures/Rerender.svelte'
 
-describe('rerender', () => {
-  test('mounts new component successfully', () => {
-    const { container, rerender } = render(Comp, { props: { name: 'World 1' } })
+const mountCounter = writable(0)
 
-    expect(container.firstChild).toHaveTextContent('Hello World 1!')
-    rerender({ props: { name: 'World 2' } })
-    expect(container.firstChild).toHaveTextContent('Hello World 2!')
+test('mounts new component successfully', async () => {
+  const { getByTestId, rerender } = render(Comp, {
+    props: { name: 'World 1' },
+    context: new Map(Object.entries({ mountCounter })),
   })
 
-  test('destroys old component', () => {
-    let isDestroyed
-
-    const { rerender, component } = render(Comp, { props: { name: '' } })
-
-    component.$$.on_destroy.push(() => {
-      isDestroyed = true
+  const expectToRender = (content) =>
+    waitFor(() => {
+      expect(getByTestId('test')).toHaveTextContent(content)
+      expect(getByTestId('mount-counter')).toHaveTextContent('1')
     })
-    rerender({ props: { name: '' } })
-    expect(isDestroyed).toBeTruthy()
-  })
 
-  test('destroys old components on multiple rerenders', () => {
-    const { rerender, queryByText } = render(Comp, { props: { name: 'Neil' } })
+  await expectToRender('Hello World 1!')
 
-    rerender({ props: { name: 'Alex' } })
-    expect(queryByText('Hello Neil!')).not.toBeInTheDocument()
-    rerender({ props: { name: 'Geddy' } })
-    expect(queryByText('Hello Alex!')).not.toBeInTheDocument()
-  })
+  console.warn = vi.fn()
+
+  rerender({ props: { name: 'World 2' } })
+  await expectToRender('Hello World 2!')
+
+  expect(console.warn).toHaveBeenCalled()
+
+  console.warn.mockClear()
+  rerender({ name: 'World 3' })
+  await expectToRender('Hello World 3!')
+
+  expect(console.warn).not.toHaveBeenCalled()
 })

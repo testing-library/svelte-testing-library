@@ -1,7 +1,7 @@
 import {
   fireEvent as dtlFireEvent,
   getQueriesForElement,
-  prettyDOM
+  prettyDOM,
 } from '@testing-library/dom'
 import { tick } from 'svelte'
 
@@ -14,7 +14,7 @@ const svelteComponentOptions = [
   'props',
   'hydrate',
   'intro',
-  'context'
+  'context',
 ]
 
 const render = (
@@ -56,7 +56,7 @@ const render = (
 
   let component = new ComponentConstructor({
     target,
-    ...checkProps(options)
+    ...checkProps(options),
   })
 
   containerCache.add({ container, target, component })
@@ -70,26 +70,20 @@ const render = (
     container,
     component,
     debug: (el = container) => console.log(prettyDOM(el)),
-    rerender: (options) => {
-      if (componentCache.has(component)) component.$destroy()
-
-      // eslint-disable-next-line no-new
-      component = new ComponentConstructor({
-        target,
-        ...checkProps(options)
-      })
-
-      containerCache.add({ container, target, component })
-      componentCache.add(component)
-
-      component.$$.on_destroy.push(() => {
-        componentCache.delete(component)
-      })
+    rerender: async (props) => {
+      if (props.props) {
+        console.warn(
+          'rerender({ props: {...} }) deprecated, use rerender({...}) instead'
+        )
+        props = props.props
+      }
+      component.$set(props)
+      await tick()
     },
     unmount: () => {
       if (componentCache.has(component)) component.$destroy()
     },
-    ...getQueriesForElement(container, queries)
+    ...getQueriesForElement(container, queries),
   }
 }
 
