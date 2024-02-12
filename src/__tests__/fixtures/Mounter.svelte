@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy,onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
 
   export let onMounted
   export let onDestroyed

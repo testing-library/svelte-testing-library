@@ -1,11 +1,11 @@
 import {
   fireEvent as dtlFireEvent,
   getQueriesForElement,
-  prettyDOM
+  prettyDOM,
 } from '@testing-library/dom'
 import { tick } from 'svelte'
 
-const containerCache = new Set()
+const targetCache = new Set()
 const componentCache = new Set()
 
 const svelteComponentOptions = [
@@ -14,7 +14,7 @@ const svelteComponentOptions = [
   'props',
   'hydrate',
   'intro',
-  'context'
+  'context',
 ]
 
 const render = (
@@ -24,6 +24,7 @@ const render = (
 ) => {
   container = container || document.body
   target = target || container.appendChild(document.createElement('div'))
+  targetCache.add(target)
 
   const ComponentConstructor = Component.default || Component
 
@@ -54,59 +55,56 @@ const render = (
     return { props: options }
   }
 
-  let component = new ComponentConstructor({
-    target,
-    ...checkProps(options)
-  })
+  const renderComponent = (options) => {
+    const component = new ComponentConstructor({
+      target,
+      ...checkProps(options),
+    })
 
-  containerCache.add({ container, target, component })
-  componentCache.add(component)
+    componentCache.add(component)
+    component.$$.on_destroy.push(() => {
+      componentCache.delete(component)
+    })
 
-  component.$$.on_destroy.push(() => {
-    componentCache.delete(component)
-  })
+    return component
+  }
+
+  let component = renderComponent(options)
 
   return {
     container,
     component,
     debug: (el = container) => console.log(prettyDOM(el)),
     rerender: (options) => {
-      if (componentCache.has(component)) component.$destroy()
-
-      // eslint-disable-next-line no-new
-      component = new ComponentConstructor({
-        target,
-        ...checkProps(options)
-      })
-
-      containerCache.add({ container, target, component })
-      componentCache.add(component)
-
-      component.$$.on_destroy.push(() => {
-        componentCache.delete(component)
-      })
+      cleanupComponent(component)
+      component = renderComponent(options)
     },
     unmount: () => {
-      if (componentCache.has(component)) component.$destroy()
+      cleanupComponent(component)
     },
-    ...getQueriesForElement(container, queries)
+    ...getQueriesForElement(container, queries),
   }
 }
 
-const cleanupAtContainer = (cached) => {
-  const { target, component } = cached
+const cleanupComponent = (component) => {
+  const inCache = componentCache.delete(component)
 
-  if (componentCache.has(component)) component.$destroy()
+  if (inCache) {
+    component.$destroy()
+  }
+}
 
-  if (target.parentNode === document.body) {
+const cleanupTarget = (target) => {
+  const inCache = targetCache.delete(target)
+
+  if (inCache && target.parentNode === document.body) {
     document.body.removeChild(target)
   }
-
-  containerCache.delete(cached)
 }
 
 const cleanup = () => {
-  Array.from(containerCache.keys()).forEach(cleanupAtContainer)
+  componentCache.forEach(cleanupComponent)
+  targetCache.forEach(cleanupTarget)
 }
 
 const act = async (fn) => {

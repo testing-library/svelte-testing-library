@@ -18,7 +18,6 @@ exports[`render > should accept svelte component options 1`] = `
     <button>
       Button
     </button>
-    <!--&lt;Comp&gt;-->
     <div />
   </div>
 </body>
