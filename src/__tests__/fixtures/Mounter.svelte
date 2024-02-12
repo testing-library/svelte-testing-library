@@ -1,11 +1,19 @@
 <script>
   import { onDestroy, onMount } from 'svelte'
 
-  export let onMounted
-  export let onDestroyed
+  export let onExecuted = undefined
+  export let onMounted = undefined
+  export let onDestroyed = undefined
 
-  onMount(() => onMounted())
-  onDestroy(() => onDestroyed())
+  onExecuted?.()
+
+  onMount(() => {
+    onMounted?.()
+  })
+
+  onDestroy(() => {
+    onDestroyed?.()
+  })
 </script>
 
 <button />

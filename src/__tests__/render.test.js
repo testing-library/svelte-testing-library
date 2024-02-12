@@ -1,3 +1,4 @@
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { beforeEach, describe, expect, test } from 'vitest'
 
 import { act, render as stlRender } from '..'
@@ -11,13 +12,13 @@ describe('render', () => {
     return stlRender(Comp, {
       target: document.body,
       props,
-      ...additional
+      ...additional,
     })
   }
 
   beforeEach(() => {
     props = {
-      name: 'World'
+      name: 'World',
     }
   })
 
@@ -41,7 +42,9 @@ describe('render', () => {
   })
 
   test('change props with accessors', async () => {
-    const { component, getByText } = render({ accessors: true })
+    const { component, getByText } = render(
+      SVELTE_VERSION < '5' ? { accessors: true } : {}
+    )
 
     expect(getByText('Hello World!')).toBeInTheDocument()
 
@@ -59,23 +62,41 @@ describe('render', () => {
     expect(getByText('Hello World!')).toBeInTheDocument()
   })
 
-  test('should accept svelte component options', () => {
-    const target = document.createElement('div')
-    const div = document.createElement('div')
-    document.body.appendChild(target)
-    target.appendChild(div)
-    const { container } = stlRender(Comp, {
-      target,
-      anchor: div,
-      props: { name: 'World' },
-      context: new Map([['name', 'context']])
-    })
-    expect(container).toMatchSnapshot()
-  })
+  test.runIf(SVELTE_VERSION < '5')(
+    'should accept svelte v4 component options',
+    () => {
+      const target = document.createElement('div')
+      const div = document.createElement('div')
+      document.body.appendChild(target)
+      target.appendChild(div)
+      const { container } = stlRender(Comp, {
+        target,
+        anchor: div,
+        props: { name: 'World' },
+        context: new Map([['name', 'context']]),
+      })
+      expect(container).toMatchSnapshot()
+    }
+  )
+
+  test.runIf(SVELTE_VERSION >= '5')(
+    'should accept svelte v5 component options',
+    () => {
+      const target = document.createElement('section')
+      document.body.appendChild(target)
+
+      const { container } = stlRender(Comp, {
+        target,
+        props: { name: 'World' },
+        context: new Map([['name', 'context']]),
+      })
+      expect(container).toMatchSnapshot()
+    }
+  )
 
   test('should throw error when mixing svelte component options and props', () => {
     expect(() => {
-      stlRender(Comp, { anchor: '', name: 'World' })
+      stlRender(Comp, { props: {}, name: 'World' })
     }).toThrow(/Unknown options were found/)
   })
 
@@ -93,10 +114,8 @@ describe('render', () => {
 
   test("accept the 'context' option", () => {
     const { getByText } = stlRender(Comp, {
-      props: {
-        name: 'Universe'
-      },
-      context: new Map([['name', 'context']])
+      props: { name: 'Universe' },
+      context: new Map([['name', 'context']]),
     })
 
     expect(getByText('we have context')).toBeInTheDocument()

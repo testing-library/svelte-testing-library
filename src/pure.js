@@ -3,19 +3,15 @@ import {
   getQueriesForElement,
   prettyDOM,
 } from '@testing-library/dom'
-import { tick } from 'svelte'
+import * as Svelte from 'svelte'
 
+const IS_SVELTE_5 = typeof Svelte.createRoot === 'function'
 const targetCache = new Set()
 const componentCache = new Set()
 
-const svelteComponentOptions = [
-  'accessors',
-  'anchor',
-  'props',
-  'hydrate',
-  'intro',
-  'context',
-]
+const svelteComponentOptions = IS_SVELTE_5
+  ? ['target', 'props', 'events', 'context', 'intro', 'recover']
+  : ['accessors', 'anchor', 'props', 'hydrate', 'intro', 'context']
 
 const render = (
   Component,
@@ -56,15 +52,21 @@ const render = (
   }
 
   const renderComponent = (options) => {
-    const component = new ComponentConstructor({
-      target,
-      ...checkProps(options),
-    })
+    options = { target, ...checkProps(options) }
+
+    const component = IS_SVELTE_5
+      ? Svelte.createRoot(ComponentConstructor, options)
+      : new ComponentConstructor(options)
 
     componentCache.add(component)
-    component.$$.on_destroy.push(() => {
-      componentCache.delete(component)
-    })
+
+    // TODO(mcous, 2024-02-11): remove this behavior in the next major version
+    // It is unnecessary has no path to implementation in Svelte v5
+    if (!IS_SVELTE_5) {
+      component.$$.on_destroy.push(() => {
+        componentCache.delete(component)
+      })
+    }
 
     return component
   }
@@ -111,19 +113,19 @@ const act = async (fn) => {
   if (fn) {
     await fn()
   }
-  return tick()
+  return Svelte.tick()
 }
 
 const fireEvent = async (...args) => {
   const event = dtlFireEvent(...args)
-  await tick()
+  await Svelte.tick()
   return event
 }
 
 Object.keys(dtlFireEvent).forEach((key) => {
   fireEvent[key] = async (...args) => {
     const event = dtlFireEvent[key](...args)
-    await tick()
+    await Svelte.tick()
     return event
   }
 })

@@ -1,10 +1,8 @@
-/**
- * @jest-environment jsdom
- */
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
-import { render } from '..'
+import { act, render } from '..'
 import Comp from './fixtures/Comp.svelte'
+import Mounter from './fixtures/Mounter.svelte'
 
 describe('rerender', () => {
   test('mounts new component successfully', () => {
@@ -15,16 +13,13 @@ describe('rerender', () => {
     expect(container.firstChild).toHaveTextContent('Hello World 2!')
   })
 
-  test('destroys old component', () => {
-    let isDestroyed
+  test('destroys old component', async () => {
+    const onDestroyed = vi.fn()
+    const { rerender } = render(Mounter, { onDestroyed })
 
-    const { rerender, component } = render(Comp, { props: { name: '' } })
-
-    component.$$.on_destroy.push(() => {
-      isDestroyed = true
-    })
-    rerender({ props: { name: '' } })
-    expect(isDestroyed).toBeTruthy()
+    await act()
+    await act(() => rerender({}))
+    expect(onDestroyed).toHaveBeenCalledOnce()
   })
 
   test('destroys old components on multiple rerenders', () => {

@@ -1,10 +1,11 @@
 import { userEvent } from '@testing-library/user-event'
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { render, screen, waitFor } from '..'
 import Transitioner from './fixtures/Transitioner.svelte'
 
-describe('transitions', () => {
+describe.runIf(SVELTE_VERSION < '5')('transitions', () => {
   beforeEach(() => {
     if (window.navigator.userAgent.includes('jsdom')) {
       const raf = (fn) => setTimeout(() => fn(new Date()), 16)

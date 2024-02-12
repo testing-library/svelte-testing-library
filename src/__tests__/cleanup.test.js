@@ -1,24 +1,29 @@
 import { describe, expect, test, vi } from 'vitest'
 
-import { cleanup, render } from '..'
+import { act, cleanup, render } from '..'
 import Mounter from './fixtures/Mounter.svelte'
 
-const onMounted = vi.fn()
+const onExecuted = vi.fn()
 const onDestroyed = vi.fn()
-const renderSubject = () => render(Mounter, { onMounted, onDestroyed })
+const renderSubject = () => render(Mounter, { onExecuted, onDestroyed })
 
 describe('cleanup', () => {
-  test('cleanup unmounts component and deletes element', () => {
+  test('cleanup deletes element', async () => {
     renderSubject()
-
     cleanup()
 
-    expect(onDestroyed).toHaveBeenCalledOnce()
     expect(document.body).toBeEmptyDOMElement()
   })
 
+  test('cleanup unmounts component', async () => {
+    await act(renderSubject)
+    cleanup()
+
+    expect(onDestroyed).toHaveBeenCalledOnce()
+  })
+
   test('cleanup handles unexpected errors during mount', () => {
-    onMounted.mockImplementation(() => {
+    onExecuted.mockImplementation(() => {
       throw new Error('oh no!')
     })
 
