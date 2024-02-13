@@ -77,9 +77,15 @@ const render = (
     container,
     component,
     debug: (el = container) => console.log(prettyDOM(el)),
-    rerender: (options) => {
-      cleanupComponent(component)
-      component = renderComponent(options)
+    rerender: async (props) => {
+      if (props.props) {
+        console.warn(
+          'rerender({ props: {...} }) deprecated, use rerender({...}) instead'
+        )
+        props = props.props
+      }
+      component.$set(props)
+      await Svelte.tick()
     },
     unmount: () => {
       cleanupComponent(component)

@@ -5,15 +5,13 @@
   export let onMounted = undefined
   export let onDestroyed = undefined
 
+  export let name = ''
+
   onExecuted?.()
 
-  onMount(() => {
-    onMounted?.()
-  })
+  onMount(() => onMounted?.())
 
-  onDestroy(() => {
-    onDestroyed?.()
-  })
+  onDestroy(() => onDestroyed?.())
 </script>
 
-<button />
+<div data-testid="test">Hello {name}!</div>
