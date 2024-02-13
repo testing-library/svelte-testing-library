@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  plugins: [svelte()],
+  plugins: [svelte({ hot: false })],
   resolve: {
     // Ensure `browser` exports are used in tests
     // Vitest prefers modules' `node` export by default

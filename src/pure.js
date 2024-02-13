@@ -3,19 +3,15 @@ import {
   getQueriesForElement,
   prettyDOM,
 } from '@testing-library/dom'
-import { tick } from 'svelte'
+import * as Svelte from 'svelte'
 
-const containerCache = new Set()
+const IS_SVELTE_5 = typeof Svelte.createRoot === 'function'
+const targetCache = new Set()
 const componentCache = new Set()
 
-const svelteComponentOptions = [
-  'accessors',
-  'anchor',
-  'props',
-  'hydrate',
-  'intro',
-  'context',
-]
+const svelteComponentOptions = IS_SVELTE_5
+  ? ['target', 'props', 'events', 'context', 'intro', 'recover']
+  : ['accessors', 'anchor', 'props', 'hydrate', 'intro', 'context']
 
 const render = (
   Component,
@@ -24,6 +20,7 @@ const render = (
 ) => {
   container = container || document.body
   target = target || container.appendChild(document.createElement('div'))
+  targetCache.add(target)
 
   const ComponentConstructor = Component.default || Component
 
@@ -54,17 +51,27 @@ const render = (
     return { props: options }
   }
 
-  let component = new ComponentConstructor({
-    target,
-    ...checkProps(options),
-  })
+  const renderComponent = (options) => {
+    options = { target, ...checkProps(options) }
 
-  containerCache.add({ container, target, component })
-  componentCache.add(component)
+    const component = IS_SVELTE_5
+      ? Svelte.createRoot(ComponentConstructor, options)
+      : new ComponentConstructor(options)
 
-  component.$$.on_destroy.push(() => {
-    componentCache.delete(component)
-  })
+    componentCache.add(component)
+
+    // TODO(mcous, 2024-02-11): remove this behavior in the next major version
+    // It is unnecessary has no path to implementation in Svelte v5
+    if (!IS_SVELTE_5) {
+      component.$$.on_destroy.push(() => {
+        componentCache.delete(component)
+      })
+    }
+
+    return component
+  }
+
+  let component = renderComponent(options)
 
   return {
     container,
@@ -78,48 +85,53 @@ const render = (
         props = props.props
       }
       component.$set(props)
-      await tick()
+      await Svelte.tick()
     },
     unmount: () => {
-      if (componentCache.has(component)) component.$destroy()
+      cleanupComponent(component)
     },
     ...getQueriesForElement(container, queries),
   }
 }
 
-const cleanupAtContainer = (cached) => {
-  const { target, component } = cached
+const cleanupComponent = (component) => {
+  const inCache = componentCache.delete(component)
 
-  if (componentCache.has(component)) component.$destroy()
+  if (inCache) {
+    component.$destroy()
+  }
+}
 
-  if (target.parentNode === document.body) {
+const cleanupTarget = (target) => {
+  const inCache = targetCache.delete(target)
+
+  if (inCache && target.parentNode === document.body) {
     document.body.removeChild(target)
   }
-
-  containerCache.delete(cached)
 }
 
 const cleanup = () => {
-  Array.from(containerCache.keys()).forEach(cleanupAtContainer)
+  componentCache.forEach(cleanupComponent)
+  targetCache.forEach(cleanupTarget)
 }
 
 const act = async (fn) => {
   if (fn) {
     await fn()
   }
-  return tick()
+  return Svelte.tick()
 }
 
 const fireEvent = async (...args) => {
   const event = dtlFireEvent(...args)
-  await tick()
+  await Svelte.tick()
   return event
 }
 
 Object.keys(dtlFireEvent).forEach((key) => {
   fireEvent[key] = async (...args) => {
     const event = dtlFireEvent[key](...args)
-    await tick()
+    await Svelte.tick()
     return event
   }
 })

@@ -1,15 +1,17 @@
 <script>
-  import { getContext, onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
 
-  export let name
+  export let onExecuted = undefined
+  export let onMounted = undefined
+  export let onDestroyed = undefined
 
-  const mountCounter = getContext('mountCounter')
+  export let name = ''
 
-  onMount(() => {
-    mountCounter.update((i) => i + 1)
-  })
+  onExecuted?.()
+
+  onMount(() => onMounted?.())
+
+  onDestroy(() => onDestroyed?.())
 </script>
 
-<h1 data-testid="test">Hello {name}!</h1>
-
-<div data-testid="mount-counter">{$mountCounter}</div>
+<div data-testid="test">Hello {name}!</div>
