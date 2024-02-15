@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 import { act, cleanup } from './svelte5.js'
 
 // If we're running in a test runner that supports afterEach
@@ -12,6 +13,6 @@ if (typeof afterEach === 'function' && !process.env.STL_SKIP_AUTO_CLEANUP) {
   })
 }
 
+export { act, fireEvent } from './pure.js'
 export * from './svelte5.js'
 export * from '@testing-library/dom'
-export { act, fireEvent } from './pure.js'

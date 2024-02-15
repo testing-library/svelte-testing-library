@@ -3,13 +3,14 @@ import {
   getQueriesForElement,
   prettyDOM,
 } from '@testing-library/dom'
-import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import * as Svelte from 'svelte'
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
 const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
 
 export class SvelteTestingLibrary {
   svelteComponentOptions = [
+    'target',
     'accessors',
     'anchor',
     'props',
@@ -48,25 +49,30 @@ export class SvelteTestingLibrary {
     return { props: options }
   }
 
-  render(Component, { target, ...options } = {}, { container, queries } = {}) {
-    container = container || document.body
-    target = target || container.appendChild(document.createElement('div'))
+  render(Component, componentOptions = {}, renderOptions = {}) {
+    componentOptions = this.checkProps(componentOptions)
+
+    const baseElement =
+      renderOptions.baseElement ?? componentOptions.target ?? document.body
+
+    const target =
+      componentOptions.target ??
+      baseElement.appendChild(document.createElement('div'))
+
     this.targetCache.add(target)
 
     const ComponentConstructor = Component.default || Component
 
-    const component = this.renderComponent(
-      {
-        target,
-        ComponentConstructor,
-      },
-      options
-    )
+    const component = this.renderComponent(ComponentConstructor, {
+      ...componentOptions,
+      target,
+    })
 
     return {
-      container,
+      baseElement,
       component,
-      debug: (el = container) => console.log(prettyDOM(el)),
+      container: target,
+      debug: (el = baseElement) => console.log(prettyDOM(el)),
       rerender: async (props) => {
         if (props.props) {
           console.warn(
@@ -80,27 +86,23 @@ export class SvelteTestingLibrary {
       unmount: () => {
         this.cleanupComponent(component)
       },
-      ...getQueriesForElement(container, queries),
+      ...getQueriesForElement(baseElement, renderOptions.queries),
     }
   }
 
-  renderComponent({ target, ComponentConstructor }, options) {
-    options = { target, ...this.checkProps(options) }
-
-    if (IS_SVELTE_5)
+  renderComponent(ComponentConstructor, componentOptions) {
+    if (IS_SVELTE_5) {
       throw new Error('for Svelte 5, use `@testing-library/svelte/svelte5`')
+    }
 
-    const component = new ComponentConstructor(options)
+    const component = new ComponentConstructor(componentOptions)
 
     this.componentCache.add(component)
 
     // TODO(mcous, 2024-02-11): remove this behavior in the next major version
-    // It is unnecessary has no path to implementation in Svelte v5
-    if (!IS_SVELTE_5) {
-      component.$$.on_destroy.push(() => {
-        this.componentCache.delete(component)
-      })
-    }
+    component.$$.on_destroy.push(() => {
+      this.componentCache.delete(component)
+    })
 
     return component
   }

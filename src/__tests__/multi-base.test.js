@@ -1,6 +1,6 @@
+import { render } from '@testing-library/svelte'
 import { describe, expect, test } from 'vitest'
 
-import { render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('multi-base', () => {
@@ -13,11 +13,11 @@ describe('multi-base', () => {
       {
         target: treeA,
         props: {
-          name: 'Tree A'
-        }
+          name: 'Tree A',
+        },
       },
       {
-        container: treeA
+        baseElement: treeA,
       }
     )
 
@@ -26,11 +26,11 @@ describe('multi-base', () => {
       {
         target: treeB,
         props: {
-          name: 'Tree B'
-        }
+          name: 'Tree B',
+        },
       },
       {
-        container: treeB
+        baseElement: treeB,
       }
     )
 
