@@ -25,29 +25,20 @@ const render = (Component, componentOptions = {}, renderOptions = {}) => {
 
   targetCache.add(target)
 
-  const ComponentConstructor = Component.default || Component
+  const ComponentConstructor = Component.default ?? Component
+  const component = IS_SVELTE_5
+      ? Svelte.createRoot(ComponentConstructor, { ...componentOptions, target })
+      : new ComponentConstructor({ ...componentOptions, target })
 
-  const renderComponent = (options) => {
-    options = { target, ...checkProps(options) }
+  componentCache.add(component)
 
-    const component = IS_SVELTE_5
-      ? Svelte.createRoot(ComponentConstructor, options)
-      : new ComponentConstructor(options)
-
-    componentCache.add(component)
-
-    // TODO(mcous, 2024-02-11): remove this behavior in the next major version
-    // It is unnecessary has no path to implementation in Svelte v5
-    if (!IS_SVELTE_5) {
-      component.$$.on_destroy.push(() => {
-        componentCache.delete(component)
-      })
-    }
-
-    return component
+  // TODO(mcous, 2024-02-11): remove this behavior in the next major version
+  // It is unnecessary has no path to implementation in Svelte v5
+  if (!IS_SVELTE_5) {
+    component.$$.on_destroy.push(() => {
+      componentCache.delete(component)
+    })
   }
-
-  const component = renderComponent({ ...componentOptions, target })
 
   return {
     component,
