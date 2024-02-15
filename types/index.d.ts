@@ -18,12 +18,7 @@ export * from '@testing-library/dom'
 
 type SvelteComponentOptions<C extends SvelteComponent> =
   | ComponentProps<C>
-  | Pick<
-      ComponentConstructorOptions<ComponentProps<C>>,
-      'anchor' | 'props' | 'hydrate' | 'intro' | 'context'
-    >
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+  | Partial<ComponentConstructorOptions<ComponentProps<C>>>
 
 type Constructor<T> = new (...args: any[]) => T
 
@@ -35,6 +30,7 @@ export type RenderResult<
   Q extends Queries = typeof queries,
 > = {
   container: HTMLElement
+  baseElement: HTMLElement
   component: C
   debug: (el?: HTMLElement | DocumentFragment) => void
   rerender: (props: ComponentProps<C>) => Promise<void>
@@ -42,17 +38,14 @@ export type RenderResult<
 } & { [P in keyof Q]: BoundFunction<Q[P]> }
 
 export interface RenderOptions<Q extends Queries = typeof queries> {
-  container?: HTMLElement
+  baseElement?: HTMLElement
   queries?: Q
 }
 
-export function render<C extends SvelteComponent>(
-  component: Constructor<C>,
-  componentOptions?: SvelteComponentOptions<C>,
-  renderOptions?: Omit<RenderOptions, 'queries'>
-): RenderResult<C>
-
-export function render<C extends SvelteComponent, Q extends Queries>(
+export function render<
+  C extends SvelteComponent,
+  Q extends Queries = typeof queries,
+>(
   component: Constructor<C>,
   componentOptions?: SvelteComponentOptions<C>,
   renderOptions?: RenderOptions<Q>

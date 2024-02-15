@@ -11,45 +11,21 @@ const componentCache = new Set()
 
 const svelteComponentOptions = IS_SVELTE_5
   ? ['target', 'props', 'events', 'context', 'intro', 'recover']
-  : ['accessors', 'anchor', 'props', 'hydrate', 'intro', 'context']
+  : ['target', 'accessors', 'anchor', 'props', 'hydrate', 'intro', 'context']
 
-const render = (
-  Component,
-  { target, ...options } = {},
-  { container, queries } = {}
-) => {
-  container = container || document.body
-  target = target || container.appendChild(document.createElement('div'))
+const render = (Component, componentOptions = {}, renderOptions = {}) => {
+  componentOptions = checkProps(componentOptions)
+
+  const baseElement =
+    renderOptions.baseElement ?? componentOptions.target ?? document.body
+
+  const target =
+    componentOptions.target ??
+    baseElement.appendChild(document.createElement('div'))
+
   targetCache.add(target)
 
   const ComponentConstructor = Component.default || Component
-
-  const checkProps = (options) => {
-    const isProps = !Object.keys(options).some((option) =>
-      svelteComponentOptions.includes(option)
-    )
-
-    // Check if any props and Svelte options were accidentally mixed.
-    if (!isProps) {
-      const unrecognizedOptions = Object.keys(options).filter(
-        (option) => !svelteComponentOptions.includes(option)
-      )
-
-      if (unrecognizedOptions.length > 0) {
-        throw Error(`
-          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed
-          passing in props with Svelte options into the render function. Valid Svelte options
-          are [${svelteComponentOptions}]. You can either change the prop names, or pass in your
-          props for that component via the \`props\` option.\n\n
-          Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
-        `)
-      }
-
-      return options
-    }
-
-    return { props: options }
-  }
 
   const renderComponent = (options) => {
     options = { target, ...checkProps(options) }
@@ -71,12 +47,13 @@ const render = (
     return component
   }
 
-  let component = renderComponent(options)
+  const component = renderComponent({ ...componentOptions, target })
 
   return {
-    container,
     component,
-    debug: (el = container) => console.log(prettyDOM(el)),
+    baseElement,
+    container: target,
+    debug: (el = baseElement) => console.log(prettyDOM(el)),
     rerender: async (props) => {
       if (props.props) {
         console.warn(
@@ -84,14 +61,43 @@ const render = (
         )
         props = props.props
       }
-      component.$set(props)
-      await Svelte.tick()
+      await act(() => component.$set(props))
     },
     unmount: () => {
       cleanupComponent(component)
     },
-    ...getQueriesForElement(container, queries),
+    ...getQueriesForElement(baseElement, renderOptions.queries),
   }
+}
+
+const checkProps = (options) => {
+  const isOptions = Object.keys(options).some((option) =>
+    svelteComponentOptions.includes(option)
+  )
+
+  // Check if any props and Svelte options were accidentally mixed.
+  if (isOptions) {
+    const unrecognizedOptions = Object.keys(options).filter(
+      (option) => !svelteComponentOptions.includes(option)
+    )
+
+    if (unrecognizedOptions.length > 0) {
+      throw Error(`
+  Unknown component options: [${unrecognizedOptions.join(', ')}]
+  Valid Svelte component options: [${svelteComponentOptions.join(', ')}]
+
+  This error occurs if props are mixed with Svelte component options,
+  or any props use the same name as a Svelte component option.
+  Either rename the props, or place props under the \`props\` option.
+
+  Eg: const { /** results **/ } = render(MyComponent, { props: { /** props here **/ } })
+`)
+    }
+
+    return options
+  }
+
+  return { props: options }
 }
 
 const cleanupComponent = (component) => {

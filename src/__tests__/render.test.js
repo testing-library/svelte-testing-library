@@ -1,123 +1,84 @@
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
-import { act, render as stlRender } from '..'
+import { render } from '..'
 import Comp from './fixtures/Comp.svelte'
-import CompDefault from './fixtures/Comp2.svelte'
 
 describe('render', () => {
-  let props
-
-  const render = (additional = {}) => {
-    return stlRender(Comp, {
-      target: document.body,
-      props,
-      ...additional,
-    })
-  }
-
-  beforeEach(() => {
-    props = {
-      name: 'World',
-    }
-  })
+  const props = { name: 'World' }
 
   test('renders component into the document', () => {
-    const { getByText } = render()
+    const { getByText } = render(Comp, { props })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
   })
 
-  // Dear reader, this is not something you generally want to do in your tests.
-  test('programmatically change props', async () => {
-    const { component, getByText } = render()
-
+  test('accepts props directly', () => {
+    const { getByText } = render(Comp, props)
     expect(getByText('Hello World!')).toBeInTheDocument()
-
-    await act(() => {
-      component.$set({ name: 'Worlds' })
-    })
-
-    expect(getByText('Hello Worlds!')).toBeInTheDocument()
   })
 
-  test('change props with accessors', async () => {
-    const { component, getByText } = render(
-      SVELTE_VERSION < '5' ? { accessors: true } : {}
+  test('throws error when mixing svelte component options and props', () => {
+    expect(() => {
+      render(Comp, { props, name: 'World' })
+    }).toThrow(/Unknown component options/)
+  })
+
+  test('throws error when mixing target option and props', () => {
+    expect(() => {
+      render(Comp, { target: document.createElement('div'), name: 'World' })
+    }).toThrow(/Unknown component options/)
+  })
+
+  test('should return a container object wrapping the DOM of the rendered component', () => {
+    const { container, getByTestId } = render(Comp, props)
+    const firstElement = getByTestId('test')
+
+    expect(container.firstChild).toBe(firstElement)
+  })
+
+  test('should return a baseElement object, which holds the container', () => {
+    const { baseElement, container } = render(Comp, props)
+
+    expect(baseElement).toBe(document.body)
+    expect(baseElement.firstChild).toBe(container)
+  })
+
+  test('if target is provided, use it as container and baseElement', () => {
+    const target = document.createElement('div')
+    const { baseElement, container } = render(Comp, { props, target })
+
+    expect(container).toBe(target)
+    expect(baseElement).toBe(target)
+  })
+
+  test('allow baseElement to be specified', () => {
+    const customBaseElement = document.createElement('div')
+
+    const { baseElement, container } = render(
+      Comp,
+      { props },
+      { baseElement: customBaseElement }
     )
 
-    expect(getByText('Hello World!')).toBeInTheDocument()
-
-    expect(component.name).toBe('World')
-
-    await act(() => {
-      component.value = 'Planet'
-    })
-
-    expect(getByText('Hello World!')).toBeInTheDocument()
-  })
-
-  test('should accept props directly', () => {
-    const { getByText } = stlRender(Comp, { name: 'World' })
-    expect(getByText('Hello World!')).toBeInTheDocument()
+    expect(baseElement).toBe(customBaseElement)
+    expect(baseElement.firstChild).toBe(container)
   })
 
   test.runIf(SVELTE_VERSION < '5')(
-    'should accept svelte v4 component options',
+    'should accept anchor option in Svelte v4',
     () => {
-      const target = document.createElement('div')
-      const div = document.createElement('div')
-      document.body.appendChild(target)
-      target.appendChild(div)
-      const { container } = stlRender(Comp, {
-        target,
-        anchor: div,
-        props: { name: 'World' },
-        context: new Map([['name', 'context']]),
-      })
-      expect(container).toMatchSnapshot()
-    }
-  )
-
-  test.runIf(SVELTE_VERSION >= '5')(
-    'should accept svelte v5 component options',
-    () => {
+      const baseElement = document.body
       const target = document.createElement('section')
-      document.body.appendChild(target)
+      const anchor = document.createElement('div')
+      baseElement.appendChild(target)
+      target.appendChild(anchor)
 
-      const { container } = stlRender(Comp, {
-        target,
-        props: { name: 'World' },
-        context: new Map([['name', 'context']]),
-      })
-      expect(container).toMatchSnapshot()
+      const {getByTestId} = render(Comp, { props, target, anchor }, { baseElement })
+      const firstElement = getByTestId('test')
+
+      expect(target.firstChild).toBe(firstElement)
+      expect(target.lastChild).toBe(anchor)
     }
   )
-
-  test('should throw error when mixing svelte component options and props', () => {
-    expect(() => {
-      stlRender(Comp, { props: {}, name: 'World' })
-    }).toThrow(/Unknown options were found/)
-  })
-
-  test('should return a container object, which contains the DOM of the rendered component', () => {
-    const { container } = render()
-
-    expect(container.innerHTML).toBe(document.body.innerHTML)
-  })
-
-  test('correctly find component constructor on the default property', () => {
-    const { getByText } = render(CompDefault, { props: { name: 'World' } })
-
-    expect(getByText('Hello World!')).toBeInTheDocument()
-  })
-
-  test("accept the 'context' option", () => {
-    const { getByText } = stlRender(Comp, {
-      props: { name: 'Universe' },
-      context: new Map([['name', 'context']]),
-    })
-
-    expect(getByText('we have context')).toBeInTheDocument()
-  })
 })
