@@ -27,8 +27,8 @@ const render = (Component, componentOptions = {}, renderOptions = {}) => {
 
   const ComponentConstructor = Component.default ?? Component
   const component = IS_SVELTE_5
-      ? Svelte.createRoot(ComponentConstructor, { ...componentOptions, target })
-      : new ComponentConstructor({ ...componentOptions, target })
+    ? Svelte.createRoot(ComponentConstructor, { ...componentOptions, target })
+    : new ComponentConstructor({ ...componentOptions, target })
 
   componentCache.add(component)
 
