@@ -33,7 +33,7 @@ export type RenderResult<
   baseElement: HTMLElement
   component: C
   debug: (el?: HTMLElement | DocumentFragment) => void
-  rerender: (props: ComponentProps<C>) => Promise<void>
+  rerender: (props: Partial<ComponentProps<C>>) => Promise<void>
   unmount: () => void
 } & { [P in keyof Q]: BoundFunction<Q[P]> }
 

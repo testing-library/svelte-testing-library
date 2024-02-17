@@ -7,8 +7,15 @@ import * as subject from './index.js'
 
 describe('types', () => {
   test('render is a function that accepts a Svelte component', () => {
-    subject.render(Simple, { name: 'Alice' })
-    subject.render(Simple, { props: { name: 'Alice' } })
+    subject.render(Simple, { name: 'Alice', count: 42 })
+    subject.render(Simple, { props: { name: 'Alice', count: 42 } })
+  })
+
+  test('rerender is a function that accepts partial props', async () => {
+    const { rerender } = subject.render(Simple, { name: 'Alice', count: 42 })
+
+    await rerender({ name: 'Bob' })
+    await rerender({ count: 0 })
   })
 
   test('invalid prop types are rejected', () => {
@@ -20,19 +27,19 @@ describe('types', () => {
   })
 
   test('render result has container and component', () => {
-    const result = subject.render(Simple, { name: 'Alice' })
+    const result = subject.render(Simple, { name: 'Alice', count: 42 })
 
     expectTypeOf(result).toMatchTypeOf<{
       container: HTMLElement
       component: SvelteComponent<{ name: string }>
       debug: (el?: HTMLElement) => void
-      rerender: (options: ComponentProps<Simple>) => void
+      rerender: (props: Partial<ComponentProps<Simple>>) => Promise<void>
       unmount: () => void
     }>()
   })
 
   test('render result has default queries', () => {
-    const result = subject.render(Simple, { name: 'Alice' })
+    const result = subject.render(Simple, { name: 'Alice', count: 42 })
 
     expectTypeOf(result.getByRole).parameters.toMatchTypeOf<
       [role: subject.ByRoleMatcher, options?: subject.ByRoleOptions]
@@ -49,7 +56,7 @@ describe('types', () => {
     )
     const result = subject.render(
       Simple,
-      { name: 'Alice' },
+      { name: 'Alice', count: 42 },
       { queries: { getByVibes } }
     )
 
