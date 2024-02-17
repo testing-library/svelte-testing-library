@@ -74,7 +74,11 @@ describe('render', () => {
       baseElement.appendChild(target)
       target.appendChild(anchor)
 
-      const {getByTestId} = render(Comp, { props, target, anchor }, { baseElement })
+      const { getByTestId } = render(
+        Comp,
+        { props, target, anchor },
+        { baseElement }
+      )
       const firstElement = getByTestId('test')
 
       expect(target.firstChild).toBe(firstElement)
