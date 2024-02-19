@@ -4,8 +4,10 @@ import {
   prettyDOM,
 } from '@testing-library/dom'
 import * as Svelte from 'svelte'
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
-const IS_SVELTE_5 = typeof Svelte.createRoot === 'function'
+const IS_SVELTE_5 = SVELTE_VERSION >= '5'
+
 const targetCache = new Set()
 const componentCache = new Set()
 
@@ -27,7 +29,7 @@ const render = (Component, componentOptions = {}, renderOptions = {}) => {
 
   const ComponentConstructor = Component.default ?? Component
   const component = IS_SVELTE_5
-    ? Svelte.createRoot(ComponentConstructor, { ...componentOptions, target })
+    ? Svelte.mount(ComponentConstructor, { ...componentOptions, target })
     : new ComponentConstructor({ ...componentOptions, target })
 
   componentCache.add(component)
@@ -95,7 +97,11 @@ const cleanupComponent = (component) => {
   const inCache = componentCache.delete(component)
 
   if (inCache) {
-    component.$destroy()
+    if (IS_SVELTE_5) {
+      Svelte.unmount(component)
+    } else {
+      component.$destroy()
+    }
   }
 }
 
