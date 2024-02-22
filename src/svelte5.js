@@ -4,14 +4,12 @@ import {
   prettyDOM,
 } from '@testing-library/dom'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
+import { createClassComponent as createComponentSvelte5 } from 'svelte/legacy'
 import * as Svelte from 'svelte'
 
 const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
 const targetCache = new Set()
 const componentCache = new Set()
-
-if (IS_SVELTE_5)
-  console.warn('for Svelte 5, use `@testing-library/svelte/svelte5`')
 
 const svelteComponentOptions = IS_SVELTE_5
   ? ['target', 'props', 'events', 'context', 'intro', 'recover']
@@ -58,10 +56,9 @@ const render = (
   const renderComponent = (options) => {
     options = { target, ...checkProps(options) }
 
-    if (IS_SVELTE_5)
-      throw new Error('for Svelte 5, use `@testing-library/svelte/svelte5`')
-
-    const component = new ComponentConstructor(options)
+    const component = IS_SVELTE_5
+      ? createComponentSvelte5({ component: ComponentConstructor, ...options })
+      : new ComponentConstructor(options)
 
     componentCache.add(component)
 

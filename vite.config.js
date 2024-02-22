@@ -1,5 +1,10 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
+
+const alias = {}
+
+if (SVELTE_VERSION >= '5') alias['./pure.js'] = './svelte5.js'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -20,5 +25,6 @@ export default defineConfig(({ mode }) => ({
       provider: 'v8',
       include: ['src'],
     },
+    alias,
   },
 }))
