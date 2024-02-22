@@ -80,6 +80,21 @@ This library has `peerDependencies` listings for `svelte >= 3`.
 You may also be interested in installing `@testing-library/jest-dom` so you can use
 [the custom jest matchers](https://github.com/testing-library/jest-dom).
 
+### Svelte 5 support
+
+If you are riding the bleeding edge of Svelte 5, you'll need to either
+import from `@testing-library/svelte/svelte5` instead of `@testing-library/svelte`, or have your `vite.config.js` contains the following alias:
+
+```
+export default defineConfig(({ }) => ({
+  test: {
+    alias: {
+      './pure.js': './svelte5.js'
+    }
+  },
+}))
+```
+
 ## Docs
 
 See the [**docs**](https://testing-library.com/docs/svelte-testing-library/intro) over at the Testing Library website.

@@ -4,10 +4,8 @@
   "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
   "main": "src/index.js",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "default": "./src/index.js"
-    },
+    ".": "./src/index.js",
+    "./svelte5": "./src/svelte5-index.js",
     "./vitest": {
       "default": "./src/vitest.js"
     }
