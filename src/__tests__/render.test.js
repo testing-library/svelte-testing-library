@@ -107,7 +107,7 @@ describe('render', () => {
   })
 
   test('correctly find component constructor on the default property', () => {
-    const { getByText } = render(CompDefault, { props: { name: 'World' } })
+    const { getByText } = stlRender(CompDefault, { props: { name: 'World' } })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
   })
