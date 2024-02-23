@@ -1,7 +1,7 @@
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { beforeEach, describe, expect, test } from 'vitest'
 
-import { act, render as stlRender } from '..'
+import { act, render as stlRender } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 import CompDefault from './fixtures/Comp2.svelte'
 

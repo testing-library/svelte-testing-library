@@ -4,7 +4,7 @@
 import { describe, expect, test, vi } from 'vitest'
 import { writable } from 'svelte/store'
 
-import { act, render, waitFor } from '..'
+import { act, render, waitFor } from '@testing-library/svelte'
 import Comp from './fixtures/Rerender.svelte'
 
 test('mounts new component successfully', async () => {

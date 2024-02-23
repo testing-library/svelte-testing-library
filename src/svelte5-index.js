@@ -13,3 +13,5 @@ if (typeof afterEach === 'function' && !process.env.STL_SKIP_AUTO_CLEANUP) {
 }
 
 export * from './svelte5.js'
+export * from '@testing-library/dom'
+export { act, fireEvent } from './pure.js'

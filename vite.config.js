@@ -1,10 +1,19 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
+import path from 'path'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
-const alias = {}
+const IS_SVELTE_5 = SVELTE_VERSION >= '5'
 
-if (SVELTE_VERSION >= '5') alias['./pure.js'] = './svelte5.js'
+const alias = [
+  {
+    find: '@testing-library/svelte',
+    replacement: path.resolve(
+      __dirname,
+      IS_SVELTE_5 ? 'src/svelte5-index.js' : 'src/index.js'
+    ),
+  },
+]
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -17,6 +26,7 @@ export default defineConfig(({ mode }) => ({
     conditions: mode === 'test' ? ['browser'] : [],
   },
   test: {
+    alias,
     environment: 'jsdom',
     setupFiles: ['./src/__tests__/_vitest-setup.js'],
     mockReset: true,
@@ -25,6 +35,5 @@ export default defineConfig(({ mode }) => ({
       provider: 'v8',
       include: ['src'],
     },
-    alias,
   },
 }))

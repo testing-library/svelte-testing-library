@@ -13,3 +13,4 @@ if (typeof afterEach === 'function' && !process.env.STL_SKIP_AUTO_CLEANUP) {
 }
 
 export * from './pure.js'
+export * from '@testing-library/dom'

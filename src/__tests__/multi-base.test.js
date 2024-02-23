@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import { render } from '..'
+import { render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('multi-base', () => {

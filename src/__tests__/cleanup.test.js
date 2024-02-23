@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from 'vitest'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
-import { act, cleanup, render } from '..'
+import { act, cleanup, render } from '@testing-library/svelte'
 import Mounter from './fixtures/Mounter.svelte'
 
 const onExecuted = vi.fn()

@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
-import { render } from '..'
+import { render } from '@testing-library/svelte'
 import Comp from './fixtures/Context.svelte'
 
 test.skipIf(SVELTE_VERSION >= '5' && process.env.VITEST_ENV == 'happy-dom')(

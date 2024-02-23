@@ -1,7 +1,7 @@
 import { prettyDOM } from '@testing-library/dom'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { render } from '..'
+import { render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('debug', () => {

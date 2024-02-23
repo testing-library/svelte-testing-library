@@ -2,7 +2,7 @@ import { userEvent } from '@testing-library/user-event'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { render, screen, waitFor } from '..'
+import { render, screen, waitFor } from '@testing-library/svelte'
 import Transitioner from './fixtures/Transitioner.svelte'
 
 describe.runIf(SVELTE_VERSION < '5')('transitions', () => {
