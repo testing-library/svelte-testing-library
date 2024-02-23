@@ -10,9 +10,6 @@ const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
 export const targetCache = new Set()
 export const componentCache = new Set()
 
-if (IS_SVELTE_5)
-  console.warn('for Svelte 5, use `@testing-library/svelte/svelte5`')
-
 const svelteComponentOptions = [
   'accessors',
   'anchor',

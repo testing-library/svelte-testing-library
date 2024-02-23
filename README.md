@@ -89,7 +89,7 @@ import from `@testing-library/svelte/svelte5` instead of `@testing-library/svelt
 export default defineConfig(({ }) => ({
   test: {
     alias: {
-      './pure.js': './svelte5.js'
+      '@testing-library/svelte': '@testing-library/svelte/svelte5'
     }
   },
 }))
