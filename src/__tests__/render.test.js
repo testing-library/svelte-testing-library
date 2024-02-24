@@ -1,7 +1,7 @@
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { beforeEach, describe, expect, test } from 'vitest'
 
-import { act, render as stlRender } from '..'
+import { act, render as stlRender } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 import CompDefault from './fixtures/Comp2.svelte'
 
@@ -107,7 +107,7 @@ describe('render', () => {
   })
 
   test('correctly find component constructor on the default property', () => {
-    const { getByText } = render(CompDefault, { props: { name: 'World' } })
+    const { getByText } = stlRender(CompDefault, { props: { name: 'World' } })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
   })

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import { fireEvent, render } from '..'
+import { fireEvent, render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('events', () => {

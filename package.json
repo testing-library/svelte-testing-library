@@ -8,6 +8,10 @@
       "types": "./types/index.d.ts",
       "default": "./src/index.js"
     },
+    "./svelte5": {
+      "types": "./types/index.d.ts",
+      "default": "./src/svelte5-index.js"
+    },
     "./vitest": {
       "default": "./src/vitest.js"
     }
