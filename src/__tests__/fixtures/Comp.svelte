@@ -7,17 +7,15 @@
 
   let buttonText = 'Button'
 
-  const contextName = getContext('name')
-
-  function handleClick () {
+  function handleClick() {
     buttonText = 'Button Clicked'
   }
+
+  const contextName = getContext('name')
 </script>
 
 <h1 data-testid="test">Hello {name}!</h1>
 
-<div>we have {contextName}</div>
-
 <button on:click={handleClick}>{buttonText}</button>
 
-<style></style>
+<div>we have {contextName}</div>
