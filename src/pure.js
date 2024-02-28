@@ -5,10 +5,8 @@ import {
 } from '@testing-library/dom'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import * as Svelte from 'svelte'
-import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
-const IS_SVELTE_5 = SVELTE_VERSION >= '5'
-
+const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
 export const targetCache = new Set()
 export const componentCache = new Set()
 
@@ -22,24 +20,27 @@ const svelteComponentOptions = [
 ]
 
 export const buildCheckProps = (svelteComponentOptions) => (options) => {
-  const isProps = !Object.keys(options).some((option) =>
+  const isOptions = Object.keys(options).some((option) =>
     svelteComponentOptions.includes(option)
   )
 
   // Check if any props and Svelte options were accidentally mixed.
-  if (!isProps) {
+  if (isOptions) {
     const unrecognizedOptions = Object.keys(options).filter(
       (option) => !svelteComponentOptions.includes(option)
     )
 
     if (unrecognizedOptions.length > 0) {
       throw Error(`
-          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed
-          passing in props with Svelte options into the render function. Valid Svelte options
-          are [${svelteComponentOptions}]. You can either change the prop names, or pass in your
-          props for that component via the \`props\` option.\n\n
-          Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
-        `)
+  Unknown component options: [${unrecognizedOptions.join(', ')}]
+  Valid Svelte component options: [${svelteComponentOptions.join(', ')}]
+
+  This error occurs if props are mixed with Svelte component options,
+  or any props use the same name as a Svelte component option.
+  Either rename the props, or place props under the \`props\` option.
+
+  Eg: const { /** results **/ } = render(MyComponent, { props: { /** props here **/ } })
+`)
     }
 
     return options
@@ -53,7 +54,7 @@ const checkProps = buildCheckProps(svelteComponentOptions)
 const buildRenderComponent =
   ({ target, ComponentConstructor }) =>
   (options) => {
-    options = { target, ...checkProps(options) }
+    options = checkProps(options)
 
     if (IS_SVELTE_5)
       throw new Error('for Svelte 5, use `@testing-library/svelte/svelte5`')
@@ -75,9 +76,13 @@ const buildRenderComponent =
 
 export const buildRender =
   (buildRenderComponent) =>
-  (Component, { target, ...options } = {}, { container, queries } = {}) => {
-    container = container || document.body
-    target = target || container.appendChild(document.createElement('div'))
+  (Component, options = {}, renderOptions = {}) => {
+    const baseElement =
+      renderOptions.baseElement ?? options.target ?? document.body
+
+    const target =
+      options.target ?? baseElement.appendChild(document.createElement('div'))
+
     targetCache.add(target)
 
     const ComponentConstructor = Component.default || Component
@@ -87,7 +92,7 @@ export const buildRender =
       ComponentConstructor,
     })
 
-    let component = renderComponent(options)
+    let component = renderComponent({ target, ...options })
 
     return {
       container,
@@ -116,11 +121,7 @@ export const cleanupComponent = (component) => {
   const inCache = componentCache.delete(component)
 
   if (inCache) {
-    if (IS_SVELTE_5) {
-      Svelte.unmount(component)
-    } else {
-      component.$destroy()
-    }
+    component.$destroy()
   }
 }
 

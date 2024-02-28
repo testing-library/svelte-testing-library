@@ -20,7 +20,7 @@ const checkProps = buildCheckProps(svelteComponentOptions)
 const buildRenderComponent =
   ({ target, ComponentConstructor }) =>
   (options) => {
-    options = { target, ...checkProps(options) }
+    options = checkProps(options)
 
     const component = createClassComponent({
       component: ComponentConstructor,
