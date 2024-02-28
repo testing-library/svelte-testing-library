@@ -16,6 +16,7 @@ export class SvelteTestingLibrary {
     'hydrate',
     'intro',
     'context',
+    'target',
   ]
 
   targetCache = new Set()
