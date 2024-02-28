@@ -6,7 +6,7 @@ import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
 import { act, screen, render, waitFor } from '@testing-library/svelte'
 
-import Comp from './fixtures/Rerender.svelte'
+import Comp from './fixtures/Comp.svelte'
 
 describe('rerender', () => {
   test('updates props', async () => {

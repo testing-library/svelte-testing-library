@@ -1,7 +1,7 @@
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { describe, expect, test } from 'vitest'
 
-import { act, render as stlRender } from '@testing-library/svelte'
+import { act, render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('render', () => {
@@ -21,13 +21,13 @@ describe('render', () => {
   test('throws error when mixing svelte component options and props', () => {
     expect(() => {
       render(Comp, { props, name: 'World' })
-    }).toThrow(/Unknown component options/)
+    }).toThrow(/Unknown options/)
   })
 
   test('throws error when mixing target option and props', () => {
     expect(() => {
       render(Comp, { target: document.createElement('div'), name: 'World' })
-    }).toThrow(/Unknown component options/)
+    }).toThrow(/Unknown options/)
   })
 
   test('should return a container object wrapping the DOM of the rendered component', () => {
@@ -88,24 +88,24 @@ describe('render', () => {
 
   test('should throw error when mixing svelte component options and props', () => {
     expect(() => {
-      stlRender(Comp, { props: {}, name: 'World' })
+      render(Comp, { props: {}, name: 'World' })
     }).toThrow(/Unknown options were found/)
   })
 
   test('should return a container object, which contains the DOM of the rendered component', () => {
-    const { container } = render()
+    const { baseElement } = render(Comp)
 
-    expect(container.innerHTML).toBe(document.body.innerHTML)
+    expect(baseElement.innerHTML).toBe(document.body.innerHTML)
   })
 
   test('correctly find component constructor on the default property', () => {
-    const { getByText } = stlRender(CompDefault, { props: { name: 'World' } })
+    const { getByText } = render(Comp, { props: { name: 'World' } })
 
     expect(getByText('Hello World!')).toBeInTheDocument()
   })
 
   test("accept the 'context' option", () => {
-    const { getByText } = stlRender(Comp, {
+    const { getByText } = render(Comp, {
       props: { name: 'Universe' },
       context: new Map([['name', 'context']]),
     })

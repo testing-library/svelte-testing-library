@@ -11,17 +11,11 @@ class Svelte5TestingLibrary extends SvelteTestingLibrary {
     'recover',
   ]
 
-  renderComponent({ target, ComponentConstructor }, options) {
-    options = { target, ...this.checkProps(options) }
-
-    const component = createClassComponent({
+  renderComponent(ComponentConstructor, options) {
+    return createClassComponent({
       component: ComponentConstructor,
       ...options,
     })
-
-    this.componentCache.add(component)
-
-    return component
   }
 }
 
