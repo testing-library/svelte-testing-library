@@ -7,92 +7,61 @@ import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import * as Svelte from 'svelte'
 
 const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
-export const targetCache = new Set()
-export const componentCache = new Set()
 
-const svelteComponentOptions = [
-  'accessors',
-  'anchor',
-  'props',
-  'hydrate',
-  'intro',
-  'context',
-]
+export class SvelteTestingLibrary {
+  svelteComponentOptions = [
+    'accessors',
+    'anchor',
+    'props',
+    'hydrate',
+    'intro',
+    'context',
+  ]
 
-export const buildCheckProps = (svelteComponentOptions) => (options) => {
-  const isOptions = Object.keys(options).some((option) =>
-    svelteComponentOptions.includes(option)
-  )
+  targetCache = new Set()
+  componentCache = new Set()
 
-  // Check if any props and Svelte options were accidentally mixed.
-  if (isOptions) {
-    const unrecognizedOptions = Object.keys(options).filter(
-      (option) => !svelteComponentOptions.includes(option)
+  checkProps(options) {
+    const isProps = !Object.keys(options).some((option) =>
+      this.svelteComponentOptions.includes(option)
     )
 
-    if (unrecognizedOptions.length > 0) {
-      throw Error(`
-  Unknown component options: [${unrecognizedOptions.join(', ')}]
-  Valid Svelte component options: [${svelteComponentOptions.join(', ')}]
+    // Check if any props and Svelte options were accidentally mixed.
+    if (!isProps) {
+      const unrecognizedOptions = Object.keys(options).filter(
+        (option) => !this.svelteComponentOptions.includes(option)
+      )
 
-  This error occurs if props are mixed with Svelte component options,
-  or any props use the same name as a Svelte component option.
-  Either rename the props, or place props under the \`props\` option.
+      if (unrecognizedOptions.length > 0) {
+        throw Error(`
+          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed
+          passing in props with Svelte options into the render function. Valid Svelte options
+          are [${this.svelteComponentOptions}]. You can either change the prop names, or pass in your
+          props for that component via the \`props\` option.\n\n
+          Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
+        `)
+      }
 
-  Eg: const { /** results **/ } = render(MyComponent, { props: { /** props here **/ } })
-`)
+      return options
     }
 
-    return options
+    return { props: options }
   }
 
-  return { props: options }
-}
-
-const checkProps = buildCheckProps(svelteComponentOptions)
-
-const buildRenderComponent =
-  ({ target, ComponentConstructor }) =>
-  (options) => {
-    options = checkProps(options)
-
-    if (IS_SVELTE_5)
-      throw new Error('for Svelte 5, use `@testing-library/svelte/svelte5`')
-
-    const component = new ComponentConstructor(options)
-
-    componentCache.add(component)
-
-    // TODO(mcous, 2024-02-11): remove this behavior in the next major version
-    // It is unnecessary has no path to implementation in Svelte v5
-    if (!IS_SVELTE_5) {
-      component.$$.on_destroy.push(() => {
-        componentCache.delete(component)
-      })
-    }
-
-    return component
-  }
-
-export const buildRender =
-  (buildRenderComponent) =>
-  (Component, options = {}, renderOptions = {}) => {
-    const baseElement =
-      renderOptions.baseElement ?? options.target ?? document.body
-
-    const target =
-      options.target ?? baseElement.appendChild(document.createElement('div'))
-
-    targetCache.add(target)
+  render(Component, { target, ...options } = {}, { container, queries } = {}) {
+    container = container || document.body
+    target = target || container.appendChild(document.createElement('div'))
+    this.targetCache.add(target)
 
     const ComponentConstructor = Component.default || Component
 
-    const renderComponent = buildRenderComponent({
-      target,
-      ComponentConstructor,
-    })
-
-    let component = renderComponent({ target, ...options })
+    const component = this.renderComponent(
+      {
+        target,
+        ComponentConstructor,
+      },
+      options
+    )
 
     return {
       container,
@@ -109,34 +78,60 @@ export const buildRender =
         await Svelte.tick()
       },
       unmount: () => {
-        cleanupComponent(component)
+        this.cleanupComponent(component)
       },
       ...getQueriesForElement(container, queries),
     }
   }
 
-export const render = buildRender(buildRenderComponent)
+  renderComponent({ target, ComponentConstructor }, options) {
+    options = { target, ...this.checkProps(options) }
 
-export const cleanupComponent = (component) => {
-  const inCache = componentCache.delete(component)
+    if (IS_SVELTE_5)
+      throw new Error('for Svelte 5, use `@testing-library/svelte/svelte5`')
 
-  if (inCache) {
-    component.$destroy()
+    const component = new ComponentConstructor(options)
+
+    this.componentCache.add(component)
+
+    // TODO(mcous, 2024-02-11): remove this behavior in the next major version
+    // It is unnecessary has no path to implementation in Svelte v5
+    if (!IS_SVELTE_5) {
+      component.$$.on_destroy.push(() => {
+        this.componentCache.delete(component)
+      })
+    }
+
+    return component
+  }
+
+  cleanupComponent(component) {
+    const inCache = this.componentCache.delete(component)
+
+    if (inCache) {
+      component.$destroy()
+    }
+  }
+
+  cleanupTarget(target) {
+    const inCache = this.targetCache.delete(target)
+
+    if (inCache && target.parentNode === document.body) {
+      document.body.removeChild(target)
+    }
+  }
+
+  cleanup() {
+    this.componentCache.forEach(this.cleanupComponent.bind(this))
+    this.targetCache.forEach(this.cleanupTarget.bind(this))
   }
 }
 
-const cleanupTarget = (target) => {
-  const inCache = targetCache.delete(target)
+const instance = new SvelteTestingLibrary()
 
-  if (inCache && target.parentNode === document.body) {
-    document.body.removeChild(target)
-  }
-}
+export const render = instance.render.bind(instance)
 
-export const cleanup = () => {
-  componentCache.forEach(cleanupComponent)
-  targetCache.forEach(cleanupTarget)
-}
+export const cleanup = instance.cleanup.bind(instance)
 
 export const act = async (fn) => {
   if (fn) {
