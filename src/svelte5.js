@@ -1,41 +1,31 @@
 import { createClassComponent } from 'svelte/legacy'
-import {
-  componentCache,
-  cleanup,
-  buildCheckProps,
-  buildRender,
-} from './pure.js'
+import { SvelteTestingLibrary } from './pure.js'
 
-const svelteComponentOptions = [
-  'target',
-  'props',
-  'events',
-  'context',
-  'intro',
-  'recover',
-]
+class Svelte5TestingLibrary extends SvelteTestingLibrary {
+  svelteComponentOptions = [
+    'target',
+    'props',
+    'events',
+    'context',
+    'intro',
+    'recover',
+  ]
 
-const checkProps = buildCheckProps(svelteComponentOptions)
-
-const buildRenderComponent =
-  ({ target, ComponentConstructor }) =>
-  (options) => {
-    options = { target, ...checkProps(options) }
+  renderComponent({ target, ComponentConstructor }, options) {
+    options = { target, ...this.checkProps(options) }
 
     const component = createClassComponent({
       component: ComponentConstructor,
       ...options,
     })
 
-    componentCache.add(component)
+    this.componentCache.add(component)
 
     return component
   }
+}
 
-const render = buildRender(buildRenderComponent)
+const instance = new Svelte5TestingLibrary()
 
-/* eslint-disable import/export */
-
-import { act, fireEvent } from './pure.js'
-
-export { render, cleanup, fireEvent, act }
+export const render = instance.render.bind(instance)
+export const cleanup = instance.cleanup.bind(instance)
