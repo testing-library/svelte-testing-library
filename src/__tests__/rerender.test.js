@@ -1,8 +1,12 @@
-import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
+/**
+ * @jest-environment jsdom
+ */
 import { describe, expect, test, vi } from 'vitest'
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
-import { act, render, screen } from '..'
-import Comp from './fixtures/Comp.svelte'
+import { act, screen, render, waitFor } from '@testing-library/svelte'
+
+import Comp from './fixtures/Rerender.svelte'
 
 describe('rerender', () => {
   test('updates props', async () => {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 
-import { act, fireEvent, render as stlRender } from '..'
+import { act, fireEvent, render as stlRender } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('act', () => {
