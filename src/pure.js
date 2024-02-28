@@ -8,7 +8,7 @@ import * as Svelte from 'svelte'
 
 const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
 
-class SvelteTestingLibrary {
+export class SvelteTestingLibrary {
   svelteComponentOptions = [
     'accessors',
     'anchor',
@@ -78,7 +78,7 @@ class SvelteTestingLibrary {
         await Svelte.tick()
       },
       unmount: () => {
-        cleanupComponent(component)
+        this.cleanupComponent(component)
       },
       ...getQueriesForElement(container, queries),
     }
@@ -122,18 +122,14 @@ class SvelteTestingLibrary {
   }
 
   cleanup() {
-    this.componentCache.forEach(cleanupComponent)
-    this.targetCache.forEach(cleanupTarget)
+    this.componentCache.forEach(this.cleanupComponent.bind(this))
+    this.targetCache.forEach(this.cleanupTarget.bind(this))
   }
 }
 
 const instance = new SvelteTestingLibrary()
 
 export const render = instance.render.bind(instance)
-
-export const cleanupComponent = instance.cleanupComponent.bind(instance)
-
-const cleanupTarget = instance.cleanupTarget.bind(instance)
 
 export const cleanup = instance.cleanup.bind(instance)
 
