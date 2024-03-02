@@ -1,8 +1,8 @@
 <script>
   import { blur } from 'svelte/transition'
 
-  let show = false
-  let introDone = false
+  export let show = false
+  export let introDone = false
 </script>
 
 <button on:click={() => (show = true)}>Show</button>
