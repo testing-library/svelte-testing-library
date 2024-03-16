@@ -1,6 +1,6 @@
+import { render } from '@testing-library/svelte'
 import { describe, expect, test } from 'vitest'
 
-import { render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('auto-cleanup', () => {
