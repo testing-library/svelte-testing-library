@@ -1,6 +1,6 @@
+import { fireEvent, render } from '@testing-library/svelte'
 import { describe, expect, test } from 'vitest'
 
-import { fireEvent, render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('events', () => {
@@ -8,8 +8,9 @@ describe('events', () => {
     const { getByText } = render(Comp, { props: { name: 'World' } })
     const button = getByText('Button')
 
-    await fireEvent.click(button)
+    const result = fireEvent.click(button)
 
+    await expect(result).resolves.toBe(true)
     expect(button).toHaveTextContent('Button Clicked')
   })
 
@@ -17,14 +18,15 @@ describe('events', () => {
     const { getByText } = render(Comp, { props: { name: 'World' } })
     const button = getByText('Button')
 
-    await fireEvent(
+    const result = fireEvent(
       button,
       new MouseEvent('click', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     )
 
+    await expect(result).resolves.toBe(true)
     expect(button).toHaveTextContent('Button Clicked')
   })
 })
