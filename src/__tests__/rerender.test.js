@@ -1,41 +1,50 @@
-/**
- * @jest-environment jsdom
- */
-import { expect, test, vi } from 'vitest'
+import { act, render, screen } from '@testing-library/svelte'
+import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
+import { describe, expect, test, vi } from 'vitest'
 
-import { render, waitFor } from '@testing-library/svelte'
+import Comp from './fixtures/Comp.svelte'
 
-import Comp from './fixtures/Rerender.svelte'
+describe('rerender', () => {
+  test('updates props', async () => {
+    const { rerender } = render(Comp, { name: 'World' })
+    const element = screen.getByText('Hello World!')
 
-test('mounts new component successfully', async () => {
-  const onMounted = vi.fn()
-  const onDestroyed = vi.fn()
+    await rerender({ name: 'Dolly' })
 
-  const { getByTestId, rerender } = render(Comp, {
-    props: { name: 'World 1', onMounted, onDestroyed },
+    expect(element).toHaveTextContent('Hello Dolly!')
   })
 
-  const expectToRender = (content) =>
-    waitFor(() => {
-      expect(getByTestId('test')).toHaveTextContent(content)
-      expect(onMounted).toHaveBeenCalledOnce()
+  test('warns if incorrect arguments shape used', async () => {
+    vi.stubGlobal('console', { warn: vi.fn() })
+
+    const { rerender } = render(Comp, { name: 'World' })
+    const element = screen.getByText('Hello World!')
+
+    await rerender({ props: { name: 'Dolly' } })
+
+    expect(element).toHaveTextContent('Hello Dolly!')
+    expect(console.warn).toHaveBeenCalledOnce()
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/deprecated/iu)
+    )
+  })
+
+  test('change props with accessors', async () => {
+    const { component, getByText } = render(
+      Comp,
+      SVELTE_VERSION < '5'
+        ? { accessors: true, props: { name: 'World' } }
+        : { name: 'World' }
+    )
+    const element = getByText('Hello World!')
+
+    expect(element).toBeInTheDocument()
+    expect(component.name).toBe('World')
+
+    await act(() => {
+      component.name = 'Planet'
     })
 
-  await expectToRender('Hello World 1!')
-
-  console.warn = vi.fn()
-
-  rerender({ props: { name: 'World 2' } })
-  await expectToRender('Hello World 2!')
-  expect(onDestroyed).not.toHaveBeenCalled()
-
-  expect(console.warn).toHaveBeenCalledOnce()
-
-  console.warn.mockClear()
-  onDestroyed.mockReset()
-  rerender({ name: 'World 3' })
-  await expectToRender('Hello World 3!')
-  expect(onDestroyed).not.toHaveBeenCalled()
-
-  expect(console.warn).not.toHaveBeenCalled()
+    expect(element).toHaveTextContent('Hello Planet!')
+  })
 })

@@ -1,7 +1,7 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { defineConfig } from 'vite'
 import path from 'path'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
+import { defineConfig } from 'vite'
 
 const IS_SVELTE_5 = SVELTE_VERSION >= '5'
 

@@ -14,6 +14,7 @@ module.exports = {
   plugins: ['svelte', 'simple-import-sort', 'json-files'],
   rules: {
     'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
   overrides: [
     {

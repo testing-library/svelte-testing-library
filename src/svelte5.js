@@ -1,4 +1,5 @@
 import { createClassComponent } from 'svelte/legacy'
+
 import { SvelteTestingLibrary } from './pure.js'
 
 class Svelte5TestingLibrary extends SvelteTestingLibrary {
@@ -11,12 +12,10 @@ class Svelte5TestingLibrary extends SvelteTestingLibrary {
     'recover',
   ]
 
-  renderComponent({ target, ComponentConstructor }, options) {
-    options = { target, ...this.checkProps(options) }
-
+  renderComponent(ComponentConstructor, componentOptions) {
     const component = createClassComponent({
+      ...componentOptions,
       component: ComponentConstructor,
-      ...options,
     })
 
     this.componentCache.add(component)
