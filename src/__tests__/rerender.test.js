@@ -15,7 +15,7 @@ describe('rerender', () => {
   })
 
   test('warns if incorrect arguments shape used', async () => {
-    vi.stubGlobal('console', { warn: vi.fn() })
+    vi.stubGlobal('console', { log: vi.fn(), warn: vi.fn(), error: vi.fn() })
 
     const { rerender } = render(Comp, { name: 'World' })
     const element = screen.getByText('Hello World!')

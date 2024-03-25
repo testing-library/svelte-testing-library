@@ -1,7 +1,7 @@
 <script>
-  import { getContext } from 'svelte';
+  import { getContext } from 'svelte'
 
-  const ctx = getContext('foo');
+  const ctx = getContext('foo')
 </script>
 
 <div>{ctx.message}</div>

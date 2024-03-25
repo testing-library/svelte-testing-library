@@ -1,6 +1,6 @@
+import { render } from '@testing-library/svelte'
 import { expect, test } from 'vitest'
 
-import { render } from '@testing-library/svelte'
 import Comp from './fixtures/Context.svelte'
 import { IS_HAPPYDOM, IS_SVELTE_5 } from './utils.js'
 

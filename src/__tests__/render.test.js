@@ -1,8 +1,8 @@
 import { render } from '@testing-library/svelte'
-import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { describe, expect, test } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
+import { IS_SVELTE_5 } from './utils.js'
 
 describe('render', () => {
   const props = { name: 'World' }
@@ -65,24 +65,21 @@ describe('render', () => {
     expect(baseElement.firstChild).toBe(container)
   })
 
-  test.runIf(SVELTE_VERSION < '5')(
-    'should accept anchor option in Svelte v4',
-    () => {
-      const baseElement = document.body
-      const target = document.createElement('section')
-      const anchor = document.createElement('div')
-      baseElement.appendChild(target)
-      target.appendChild(anchor)
+  test.skipIf(IS_SVELTE_5)('should accept anchor option in Svelte v4', () => {
+    const baseElement = document.body
+    const target = document.createElement('section')
+    const anchor = document.createElement('div')
+    baseElement.appendChild(target)
+    target.appendChild(anchor)
 
-      const { getByTestId } = render(
-        Comp,
-        { props, target, anchor },
-        { baseElement }
-      )
-      const firstElement = getByTestId('test')
+    const { getByTestId } = render(
+      Comp,
+      { props, target, anchor },
+      { baseElement }
+    )
+    const firstElement = getByTestId('test')
 
-      expect(target.firstChild).toBe(firstElement)
-      expect(target.lastChild).toBe(anchor)
-    }
-  )
+    expect(target.firstChild).toBe(firstElement)
+    expect(target.lastChild).toBe(anchor)
+  })
 })

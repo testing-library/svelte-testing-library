@@ -1,7 +1,7 @@
 <svelte:options accessors />
 
 <script>
-  export let name
+  export let name = 'World'
 
   let buttonText = 'Button'
 

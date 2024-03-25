@@ -1,6 +1,6 @@
+import { fireEvent, render } from '@testing-library/svelte'
 import { describe, expect, test } from 'vitest'
 
-import { fireEvent, render } from '@testing-library/svelte'
 import Comp from './fixtures/Comp.svelte'
 
 describe('events', () => {
@@ -21,7 +21,7 @@ describe('events', () => {
       button,
       new MouseEvent('click', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     )
 

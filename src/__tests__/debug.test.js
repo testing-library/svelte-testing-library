@@ -1,19 +1,13 @@
 import { prettyDOM } from '@testing-library/dom'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-
 import { render } from '@testing-library/svelte'
+import { describe, expect, test, vi } from 'vitest'
+
 import Comp from './fixtures/Comp.svelte'
 
 describe('debug', () => {
-  beforeEach(() => {
-    vi.spyOn(console, 'log').mockImplementation(() => {})
-  })
-
-  afterEach(() => {
-    console.log.mockRestore()
-  })
-
   test('pretty prints the base element', () => {
+    vi.stubGlobal('console', { log: vi.fn(), warn: vi.fn(), error: vi.fn() })
+
     const { baseElement, debug } = render(Comp, { props: { name: 'world' } })
 
     debug()
