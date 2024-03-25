@@ -1,5 +1,6 @@
+import path from 'node:path'
+
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import path from 'path'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { defineConfig } from 'vite'
 

@@ -8,8 +8,9 @@ describe('events', () => {
     const { getByText } = render(Comp, { props: { name: 'World' } })
     const button = getByText('Button')
 
-    await fireEvent.click(button)
+    const result = fireEvent.click(button)
 
+    await expect(result).resolves.toBe(true)
     expect(button).toHaveTextContent('Button Clicked')
   })
 
@@ -17,7 +18,7 @@ describe('events', () => {
     const { getByText } = render(Comp, { props: { name: 'World' } })
     const button = getByText('Button')
 
-    await fireEvent(
+    const result = fireEvent(
       button,
       new MouseEvent('click', {
         bubbles: true,
@@ -25,6 +26,7 @@ describe('events', () => {
       })
     )
 
+    await expect(result).resolves.toBe(true)
     expect(button).toHaveTextContent('Button Clicked')
   })
 })

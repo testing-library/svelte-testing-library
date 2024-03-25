@@ -13,5 +13,9 @@ if (typeof afterEach === 'function' && !process.env.STL_SKIP_AUTO_CLEANUP) {
   })
 }
 
-export * from './pure.js'
+// export all base queries, screen, etc.
 export * from '@testing-library/dom'
+
+// export svelte-specific functions and custom `fireEvent`
+// `fireEvent` must be a named export to take priority over wildcard export above
+export { act, cleanup, fireEvent, render } from './pure.js'
