@@ -1,5 +1,6 @@
 /* eslint-disable import/export */
-import { act, cleanup } from './svelte5.js'
+import { act } from './pure.js'
+import { cleanup } from './svelte5.js'
 
 // If we're running in a test runner that supports afterEach
 // then we'll automatically run cleanup afterEach test
