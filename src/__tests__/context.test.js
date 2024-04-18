@@ -1,6 +1,6 @@
+import { render } from '@testing-library/svelte'
 import { expect, test } from 'vitest'
 
-import { render } from '..'
 import Comp from './fixtures/Context.svelte'
 
 test('can set a context', () => {

@@ -1,6 +1,5 @@
+import { act, cleanup } from '@testing-library/svelte'
 import { afterEach } from 'vitest'
-
-import { act, cleanup } from './pure.js'
 
 afterEach(async () => {
   await act()

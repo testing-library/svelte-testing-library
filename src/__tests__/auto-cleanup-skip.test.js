@@ -7,7 +7,7 @@ describe('auto-cleanup-skip', () => {
 
   beforeAll(async () => {
     process.env.STL_SKIP_AUTO_CLEANUP = 'true'
-    const stl = await import('..')
+    const stl = await import('@testing-library/svelte')
     render = stl.render
   })
 

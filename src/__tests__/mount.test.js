@@ -1,33 +1,33 @@
+import { act, render, screen } from '@testing-library/svelte'
 import { describe, expect, test, vi } from 'vitest'
 
-import { act, render, screen } from '..'
 import Mounter from './fixtures/Mounter.svelte'
 
-describe('mount and destroy', () => {
-  const handleMount = vi.fn()
-  const handleDestroy = vi.fn()
+const onMounted = vi.fn()
+const onDestroyed = vi.fn()
+const renderSubject = () => render(Mounter, { onMounted, onDestroyed })
 
+describe('mount and destroy', () => {
   test('component is mounted', async () => {
-    await act(() => {
-      render(Mounter, { onMounted: handleMount, onDestroyed: handleDestroy })
-    })
+    renderSubject()
 
     const content = screen.getByRole('button')
 
-    expect(handleMount).toHaveBeenCalledOnce()
     expect(content).toBeInTheDocument()
+    await act()
+    expect(onMounted).toHaveBeenCalledOnce()
   })
 
   test('component is destroyed', async () => {
-    const { unmount } = render(Mounter, {
-      onMounted: handleMount,
-      onDestroyed: handleDestroy,
-    })
+    const { unmount } = renderSubject()
 
-    await act(() => unmount())
+    await act()
+    unmount()
+
     const content = screen.queryByRole('button')
 
-    expect(handleDestroy).toHaveBeenCalledOnce()
     expect(content).not.toBeInTheDocument()
+    await act()
+    expect(onDestroyed).toHaveBeenCalledOnce()
   })
 })

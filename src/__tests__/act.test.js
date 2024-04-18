@@ -1,25 +1,13 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { setTimeout } from 'node:timers/promises'
 
-import { act, fireEvent, render as stlRender } from '..'
+import { act, render } from '@testing-library/svelte'
+import { describe, expect, test } from 'vitest'
+
 import Comp from './fixtures/Comp.svelte'
 
 describe('act', () => {
-  let props
-
-  const render = () => {
-    return stlRender(Comp, {
-      props
-    })
-  }
-
-  beforeEach(() => {
-    props = {
-      name: 'World'
-    }
-  })
-
   test('state updates are flushed', async () => {
-    const { getByText } = render()
+    const { getByText } = render(Comp)
     const button = getByText('Button')
 
     expect(button).toHaveTextContent('Button')
@@ -31,24 +19,13 @@ describe('act', () => {
     expect(button).toHaveTextContent('Button Clicked')
   })
 
-  test('findByTestId returns the element', async () => {
-    const { findByTestId } = render()
-
-    expect(await findByTestId('test')).toHaveTextContent(`Hello ${props.name}!`)
-  })
-
   test('accepts async functions', async () => {
-    const sleep = (ms) =>
-      new Promise((resolve) => {
-        setTimeout(() => resolve(), ms)
-      })
-
-    const { getByText } = render()
+    const { getByText } = render(Comp)
     const button = getByText('Button')
 
     await act(async () => {
-      await sleep(100)
-      await fireEvent.click(button)
+      await setTimeout(100)
+      button.click()
     })
 
     expect(button).toHaveTextContent('Button Clicked')

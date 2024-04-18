@@ -5,6 +5,9 @@ on:
     branches: [main, next]
   pull_request:
     branches: [main, next]
+  schedule:
+    # Tuesdays at 14:45 UTC (10:45 EST)
+    - cron: 45 14 * * 1
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,11 +19,23 @@ jobs:
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
     name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.test-runner }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: false
       matrix:
         node: ['16', '18', '20']
         svelte: ['3', '4']
         test-runner: ['vitest:jsdom', 'vitest:happy-dom']
+        experimental: [false]
+        include:
+          - node: '20'
+            svelte: 'next'
+            test-runner: 'vitest:jsdom'
+            experimental: true
+          - node: '20'
+            svelte: 'next'
+            test-runner: 'vitest:happy-dom'
+            experimental: true
 
     steps:
       - name: ⬇️ Checkout repo

@@ -14,6 +14,7 @@ module.exports = {
   plugins: ['svelte', 'simple-import-sort', 'json-files'],
   rules: {
     'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
   overrides: [
     {
@@ -21,6 +22,9 @@ module.exports = {
       parser: 'svelte-eslint-parser',
       parserOptions: {
         parser: '@typescript-eslint/parser',
+      },
+      rules: {
+        'no-undef-init': 'off',
       },
     },
     {

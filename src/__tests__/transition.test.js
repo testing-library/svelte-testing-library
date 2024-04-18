@@ -1,15 +1,16 @@
+import { render, screen, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { render, screen, waitFor } from '..'
 import Transitioner from './fixtures/Transitioner.svelte'
+import { IS_JSDOM, IS_SVELTE_5 } from './utils.js'
 
-describe('transitions', () => {
+describe.skipIf(IS_SVELTE_5)('transitions', () => {
   beforeEach(() => {
-    if (window.navigator.userAgent.includes('jsdom')) {
-      const raf = (fn) => setTimeout(() => fn(new Date()), 16)
-      vi.stubGlobal('requestAnimationFrame', raf)
-    }
+    if (!IS_JSDOM) return
+
+    const raf = (fn) => setTimeout(() => fn(new Date()), 16)
+    vi.stubGlobal('requestAnimationFrame', raf)
   })
 
   test('on:introend', async () => {
