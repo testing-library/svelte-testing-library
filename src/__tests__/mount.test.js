@@ -2,13 +2,12 @@ import { act, render, screen } from '@testing-library/svelte'
 import { describe, expect, test, vi } from 'vitest'
 
 import Mounter from './fixtures/Mounter.svelte'
-import { IS_HAPPYDOM, IS_SVELTE_5 } from './utils.js'
 
 const onMounted = vi.fn()
 const onDestroyed = vi.fn()
 const renderSubject = () => render(Mounter, { onMounted, onDestroyed })
 
-describe.skipIf(IS_SVELTE_5 && IS_HAPPYDOM)('mount and destroy', () => {
+describe('mount and destroy', () => {
   test('component is mounted', async () => {
     renderSubject()
 
