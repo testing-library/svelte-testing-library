@@ -44,6 +44,7 @@ describe('rerender', () => {
     await act(() => {
       component.name = 'Planet'
     })
+    await act()
 
     expect(element).toHaveTextContent('Hello Planet!')
   })
