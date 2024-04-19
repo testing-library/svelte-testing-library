@@ -18,11 +18,12 @@ jobs:
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
     name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.test-runner }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
+        os: ['ubuntu-latest']
         node: ['16', '18', '20']
         svelte: ['3', '4']
         test-runner: ['vitest:jsdom', 'vitest:happy-dom']
@@ -32,10 +33,12 @@ jobs:
             svelte: 'next'
             test-runner: 'vitest:jsdom'
             experimental: true
+            os: 'macos-latest'
           - node: '20'
             svelte: 'next'
             test-runner: 'vitest:happy-dom'
             experimental: true
+            os: 'ubuntu-latest'
 
     steps:
       - name: ⬇️ Checkout repo
