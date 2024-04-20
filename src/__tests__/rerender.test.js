@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/svelte'
+import { act, render, screen } from '@testing-library/svelte'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { describe, expect, test, vi } from 'vitest'
 
@@ -45,6 +45,6 @@ describe('rerender', () => {
       component.name = 'Planet'
     })
 
-    await waitFor(() => expect(element).toHaveTextContent('Hello Planet!'))
+    expect(element).toHaveTextContent('Hello Planet!')
   })
 })
