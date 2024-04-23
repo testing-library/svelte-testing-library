@@ -13,7 +13,7 @@
 <p>Simple and complete Svelte testing utilities that encourage good testing practices.</p>
 
 [**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
-[Edit the docs](https://github.com/alexkrolick/testing-library-docs)
+[Edit the docs](https://github.com/testing-library/testing-library-docs)
 
 <!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
@@ -80,19 +80,42 @@ This library has `peerDependencies` listings for `svelte >= 3`.
 You may also be interested in installing `@testing-library/jest-dom` so you can use
 [the custom jest matchers](https://github.com/testing-library/jest-dom).
 
+## Setup
+
+We recommend using `@testing-library/svelte` with [Vitest][] as your test runner. To get started, add the `svelteTesting` plugin to your Vite or Vitest config.
+
+```diff
+  // vite.config.js
+  import { svelte } from '@sveltejs/vite-plugin-svelte'
++ import { svelteTesting } from '@testing-library/svelte/vite'
+
+  export default defineConfig({
+    plugins: [
+      svelte(),
++     svelteTesting(),
+    ]
+  });
+```
+
+See the [setup docs][] for more detailed setup instructions, including for other test runners like Jest.
+
+[vitest]: https://vitest.dev/
+[setup docs]: https://testing-library.com/docs/svelte-testing-library/setup
+
 ### Svelte 5 support
 
 If you are riding the bleeding edge of Svelte 5, you'll need to either
-import from `@testing-library/svelte/svelte5` instead of `@testing-library/svelte`, or have your `vite.config.js` contains the following alias:
+import from `@testing-library/svelte/svelte5` instead of `@testing-library/svelte`, or add an alias to your `vite.config.js`:
 
-```
-export default defineConfig(({ }) => ({
+```js
+export default defineConfig({
+  plugins: [svelte(), svelteTesting()],
   test: {
     alias: {
-      '@testing-library/svelte': '@testing-library/svelte/svelte5'
-    }
+      '@testing-library/svelte': '@testing-library/svelte/svelte5',
+    },
   },
-}))
+})
 ```
 
 ## Docs

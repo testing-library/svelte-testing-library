@@ -15,9 +15,9 @@
     "./vitest": {
       "default": "./src/vitest.js"
     },
-    "./vite-plugin": {
-      "types": "./src/vite-plugin.d.ts",
-      "default": "./src/vite-plugin.js"
+    "./vite": {
+      "types": "./src/vite.d.ts",
+      "default": "./src/vite.js"
     }
   },
   "type": "module",
