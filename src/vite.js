@@ -62,7 +62,8 @@ const addBrowserCondition = (config) => {
  */
 const addAutoCleanup = (config) => {
   const test = config.test ?? {}
-  const setupFiles = test.setupFiles ?? []
+  const setupFiles =
+    test.setupFiles !== undefined ? [test.setupFiles].flat() : []
 
   setupFiles.push(join(dirname(fileURLToPath(import.meta.url)), './vitest.js'))
 
