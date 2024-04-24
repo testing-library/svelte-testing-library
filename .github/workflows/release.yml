@@ -61,6 +61,12 @@ jobs:
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v3
 
+      - name: 🚀 Release dry run
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 23
+          dry_run: true
+
   release:
     needs: main
     runs-on: ubuntu-latest
@@ -74,24 +80,15 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: '20'
 
       - name: 📥 Download deps
         run: npm install --no-package-lock
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v4
         with:
-          semantic_version: 17
-          branches: |
-            [
-              '+([0-9])?(.{+([0-9]),x}).x',
-              'main',
-              'next',
-              'next-major',
-              {name: 'beta', prerelease: true},
-              {name: 'alpha', prerelease: true}
-            ]
+          semantic_version: 23
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
