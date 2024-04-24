@@ -4,6 +4,8 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 import { defineConfig } from 'vite'
 
+import { svelteTesting } from './src/vite.js'
+
 const IS_SVELTE_5 = SVELTE_VERSION >= '5'
 
 const alias = [
@@ -17,15 +19,8 @@ const alias = [
 ]
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  plugins: [svelte({ hot: false })],
-  resolve: {
-    // Ensure `browser` exports are used in tests
-    // Vitest prefers modules' `node` export by default
-    // Svelte's `node` export is its SSR bundle, which does not have onMount
-    // https://github.com/testing-library/svelte-testing-library/issues/222#issuecomment-1909993331
-    conditions: mode === 'test' ? ['browser'] : [],
-  },
+export default defineConfig({
+  plugins: [svelte({ hot: false }), svelteTesting()],
   test: {
     alias,
     environment: 'jsdom',
@@ -37,4 +32,4 @@ export default defineConfig(({ mode }) => ({
       include: ['src'],
     },
   },
-}))
+})

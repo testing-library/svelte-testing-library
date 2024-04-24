@@ -14,6 +14,10 @@
     },
     "./vitest": {
       "default": "./src/vitest.js"
+    },
+    "./vite": {
+      "types": "./types/vite.d.ts",
+      "default": "./src/vite.js"
     }
   },
   "type": "module",
@@ -43,8 +47,10 @@
     "e2e"
   ],
   "files": [
-    "src/",
-    "types/index.d.ts"
+    "src",
+    "types",
+    "!*.test-d.ts",
+    "!__tests__"
   ],
   "scripts": {
     "toc": "doctoc README.md",
@@ -68,7 +74,17 @@
     "contributors:generate": "all-contributors generate"
   },
   "peerDependencies": {
-    "svelte": "^3 || ^4 || ^5"
+    "svelte": "^3 || ^4 || ^5",
+    "vite": "*",
+    "vitest": "*"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
+    "vitest": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@testing-library/dom": "^9.3.1"
