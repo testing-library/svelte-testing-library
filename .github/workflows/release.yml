@@ -25,7 +25,7 @@ jobs:
       matrix:
         node: ['16', '18', '20']
         svelte: ['3', '4']
-        test-runner: ['vitest:jsdom', 'vitest:happy-dom']
+        test-runner: ['vitest:jsdom', 'vitest:happy-dom', 'jest']
         experimental: [false]
         include:
           - node: '20'
@@ -35,6 +35,10 @@ jobs:
           - node: '20'
             svelte: 'next'
             test-runner: 'vitest:happy-dom'
+            experimental: true
+          - node: '20'
+            svelte: 'next'
+            test-runner: 'jest'
             experimental: true
 
     steps:

@@ -67,6 +67,7 @@
     "test:watch": "vitest",
     "test:vitest:jsdom": "vitest run --coverage --environment jsdom",
     "test:vitest:happy-dom": "vitest run --coverage --environment happy-dom",
+    "test:jest": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --coverage",
     "types": "svelte-check",
     "validate": "npm-run-all test:vitest:* types",
     "contributors:add": "all-contributors add",
@@ -89,6 +90,7 @@
     "@testing-library/dom": "^10.0.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@testing-library/jest-dom": "^6.3.0",
     "@testing-library/user-event": "^14.5.2",
@@ -109,6 +111,8 @@
     "eslint-plugin-vitest-globals": "1.5.0",
     "expect-type": "^0.19.0",
     "happy-dom": "^14.7.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "3.2.5",
