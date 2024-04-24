@@ -61,7 +61,21 @@ jobs:
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v3
 
-      - name: 🚀 Release dry run
+  release-dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📥 Download deps
+        run: npm install --no-package-lock
+
+      - name: 🚀 Release
         uses: cycjimmy/semantic-release-action@v4
         with:
           semantic_version: 23
