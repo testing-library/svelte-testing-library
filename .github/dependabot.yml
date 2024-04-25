@@ -1,8 +1,33 @@
 version: 2
 updates:
-  - package-ecosystem: npm
+  # Update npm dependencies
+  - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: daily
-      time: '10:00'
-    open-pull-requests-limit: 10
+      interval: 'monthly'
+    groups:
+      lint:
+        patterns:
+          - '*eslint*'
+          - '*prettier*'
+          - '*typescript*'
+      test:
+        patterns:
+          - '*svelte*'
+          - '*testing-library*'
+          - '*vite*'
+          - '*vitest*'
+          - 'jsdom'
+          - 'happy-dom'
+      development:
+        dependency-type: 'development'
+
+  # Update GitHub Actions dependencies
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    groups:
+      actions:
+        patterns:
+          - '*'
