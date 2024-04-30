@@ -59,7 +59,7 @@ jobs:
         run: npm run test:${{ matrix.test-runner }}
 
       - name: ▶️ Run type-checks
-        if: ${{ matrix.node == '20' && matrix.svelte == '4' }}
+        if: ${{ matrix.node == '20' && matrix.svelte == '4' && matrix.test-runner == 'vitest:jsdom' }}
         run: npm run types
 
       - name: ⬆️ Upload coverage report
