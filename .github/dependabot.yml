@@ -17,8 +17,9 @@ updates:
           - '*testing-library*'
           - '*vite*'
           - '*vitest*'
-          - 'jsdom'
-          - 'happy-dom'
+          - '*jsdom*'
+          - '*happy-dom*'
+          - 'expect-type'
       development:
         dependency-type: 'development'
 

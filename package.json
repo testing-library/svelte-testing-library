@@ -87,7 +87,7 @@
     }
   },
   "dependencies": {
-    "@testing-library/dom": "^9.3.1"
+    "@testing-library/dom": "^10.0.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
@@ -95,7 +95,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@typescript-eslint/eslint-plugin": "6.19.1",
     "@typescript-eslint/parser": "6.19.1",
-    "@vitest/coverage-v8": "^0.33.0",
+    "@vitest/coverage-v8": "^1.5.2",
     "all-contributors-cli": "^6.26.1",
     "doctoc": "^2.2.1",
     "eslint": "8.56.0",
@@ -108,9 +108,9 @@
     "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-svelte": "2.35.1",
     "eslint-plugin-vitest-globals": "1.4.0",
-    "expect-type": "^0.17.3",
+    "expect-type": "^0.19.0",
     "happy-dom": "^14.7.1",
-    "jsdom": "^22.1.0",
+    "jsdom": "^24.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "3.2.4",
     "prettier-plugin-svelte": "3.1.2",
@@ -119,6 +119,6 @@
     "svelte-jester": "^3.0.0",
     "typescript": "^5.3.3",
     "vite": "^5.1.1",
-    "vitest": "^0.33.0"
+    "vitest": "^1.5.2"
   }
 }
