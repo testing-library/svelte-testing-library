@@ -8,6 +8,10 @@
       "types": "./types/index.d.ts",
       "default": "./src/index.js"
     },
+    "./pure": {
+      "types": "./types/index.d.ts",
+      "default": "./src/pure.js"
+    },
     "./svelte5": {
       "types": "./types/index.d.ts",
       "default": "./src/svelte5-index.js"
@@ -65,7 +69,6 @@
     "setup": "npm install && npm run validate",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "test:update": "vitest run --update",
     "test:vitest:jsdom": "vitest run --coverage --environment jsdom",
     "test:vitest:happy-dom": "vitest run --coverage --environment happy-dom",
     "types": "svelte-check",
