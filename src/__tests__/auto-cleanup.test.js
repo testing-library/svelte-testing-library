@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
-import Comp from './fixtures/Comp.svelte'
 import { IS_SVELTE_5 } from './utils.js'
 
 const importSvelteTestingLibrary = async () =>
@@ -24,12 +23,14 @@ describe('auto-cleanup', () => {
 
   test('calls afterEach with cleanup if globally defined', async () => {
     const { render } = await importSvelteTestingLibrary()
+    const { default: Comp } = await import('./fixtures/Comp.svelte')
+
     render(Comp, { props: { name: 'world' } })
 
     expect(globalAfterEach).toHaveBeenCalledTimes(1)
     expect(globalAfterEach).toHaveBeenLastCalledWith(expect.any(Function))
 
-    await afterEach.mock.lastCall[0]()
+    await globalAfterEach.mock.lastCall[0]()
 
     expect(document.body).toBeEmptyDOMElement()
   })
@@ -38,6 +39,8 @@ describe('auto-cleanup', () => {
     process.env.STL_SKIP_AUTO_CLEANUP = 'true'
 
     const { render } = await importSvelteTestingLibrary()
+    const { default: Comp } = await import('./fixtures/Comp.svelte')
+
     render(Comp, { props: { name: 'world' } })
 
     expect(globalAfterEach).toHaveBeenCalledTimes(0)
@@ -45,6 +48,8 @@ describe('auto-cleanup', () => {
 
   test('does not call afterEach if you import from `pure`', async () => {
     const { render } = await importSvelteTestingLibraryPure()
+    const { default: Comp } = await import('./fixtures/Comp.svelte')
+
     render(Comp, { props: { name: 'world' } })
 
     expect(globalAfterEach).toHaveBeenCalledTimes(0)
