@@ -19,7 +19,7 @@ describe('cleanup', () => {
     renderSubject()
     cleanup()
 
-    expect(onDestroyed).toHaveBeenCalledTimes(1)
+    expect(onDestroyed).toHaveBeenCalledOnce()
   })
 
   test('cleanup handles unexpected errors during mount', () => {

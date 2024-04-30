@@ -23,7 +23,7 @@ describe('rerender', () => {
     await rerender({ props: { name: 'Dolly' } })
 
     expect(element).toHaveTextContent('Hello Dolly!')
-    expect(console.warn).toHaveBeenCalledTimes(1)
+    expect(console.warn).toHaveBeenCalledOnce()
     expect(console.warn).toHaveBeenCalledWith(
       expect.stringMatching(/deprecated/iu)
     )

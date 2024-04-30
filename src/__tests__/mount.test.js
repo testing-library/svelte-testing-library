@@ -15,7 +15,7 @@ describe('mount and destroy', () => {
 
     expect(content).toBeInTheDocument()
     await act()
-    expect(onMounted).toHaveBeenCalledTimes(1)
+    expect(onMounted).toHaveBeenCalledOnce()
   })
 
   test('component is destroyed', async () => {
@@ -28,6 +28,6 @@ describe('mount and destroy', () => {
 
     expect(content).not.toBeInTheDocument()
     await act()
-    expect(onDestroyed).toHaveBeenCalledTimes(1)
+    expect(onDestroyed).toHaveBeenCalledOnce()
   })
 })
