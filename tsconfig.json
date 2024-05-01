@@ -4,7 +4,7 @@
     "noEmit": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": ["svelte", "vite/client", "vitest", "vitest/globals"],
+    "types": ["svelte", "vite/client", "vitest", "vitest/globals"]
   },
-  "include": ["src", "types"],
+  "include": ["src", "types"]
 }
