@@ -23,6 +23,13 @@ updates:
       development:
         dependency-type: 'development'
 
+    # TODO(mcous, 2024-04-30): update to ESLint v9 + flat config
+    ignore:
+      - dependency-name: 'eslint'
+        versions: ['>=9']
+      - dependency-name: 'eslint-plugin-n'
+        versions: ['>=17']
+
   # Update GitHub Actions dependencies
   - package-ecosystem: 'github-actions'
     directory: '/'
