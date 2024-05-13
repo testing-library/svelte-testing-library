@@ -13,5 +13,3 @@
 <h1 data-testid="test">Hello {name}!</h1>
 
 <button on:click={handleClick}>{buttonText}</button>
-
-<style></style>

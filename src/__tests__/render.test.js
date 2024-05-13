@@ -1,11 +1,15 @@
 import { render } from '@testing-library/svelte'
-import { describe, expect, test } from 'vitest'
+import { beforeAll, describe, expect, test } from 'vitest'
 
-import Comp from './fixtures/Comp.svelte'
-import { IS_SVELTE_5 } from './utils.js'
+import { COMPONENT_FIXTURES, IS_SVELTE_5 } from './utils.js'
 
-describe('render', () => {
+describe.each(COMPONENT_FIXTURES)('render $name', ({ component }) => {
   const props = { name: 'World' }
+  let Comp
+
+  beforeAll(async () => {
+    Comp = await import(component)
+  })
 
   test('renders component into the document', () => {
     const { getByText } = render(Comp, { props })

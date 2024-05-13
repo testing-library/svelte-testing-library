@@ -1,6 +1,6 @@
 /* eslint-disable import/export */
 import { act } from './pure.js'
-import { cleanup } from './svelte5.js'
+import { cleanup } from './svelte5.svelte.js'
 
 // If we're running in a test runner that supports afterEach
 // then we'll automatically run cleanup afterEach test
@@ -20,4 +20,4 @@ export * from '@testing-library/dom'
 // export svelte-specific functions and custom `fireEvent`
 // `fireEvent` must be a named export to take priority over wildcard export above
 export { act, fireEvent } from './pure.js'
-export { cleanup, render } from './svelte5.js'
+export { cleanup, render } from './svelte5.svelte.js'

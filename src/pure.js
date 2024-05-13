@@ -80,7 +80,8 @@ export class SvelteTestingLibrary {
           )
           props = props.props
         }
-        component.$set(props)
+
+        this.rerenderComponent(component, props)
         await Svelte.tick()
       },
       unmount: () => {
@@ -105,6 +106,10 @@ export class SvelteTestingLibrary {
     })
 
     return component
+  }
+
+  rerenderComponent(component, nextProps) {
+    component.$set(nextProps)
   }
 
   cleanupComponent(component) {

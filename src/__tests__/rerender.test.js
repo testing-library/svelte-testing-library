@@ -1,10 +1,15 @@
 import { act, render, screen } from '@testing-library/svelte'
-import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
-import { describe, expect, test, vi } from 'vitest'
+import { beforeAll, describe, expect, test, vi } from 'vitest'
 
-import Comp from './fixtures/Comp.svelte'
+import { COMPONENT_FIXTURES, IS_SVELTE_5, TYPE_RUNES } from './utils.js'
 
-describe('rerender', () => {
+describe.each(COMPONENT_FIXTURES)('rerender $type', ({ type, component }) => {
+  let Comp
+
+  beforeAll(async () => {
+    Comp = await import(component)
+  })
+
   test('updates props', async () => {
     const { rerender } = render(Comp, { name: 'World' })
     const element = screen.getByText('Hello World!')
@@ -29,13 +34,12 @@ describe('rerender', () => {
     )
   })
 
-  test('change props with accessors', async () => {
-    const { component, getByText } = render(
-      Comp,
-      SVELTE_VERSION < '5'
-        ? { accessors: true, props: { name: 'World' } }
-        : { name: 'World' }
-    )
+  test.skipIf(type === TYPE_RUNES)('change props with accessors', async () => {
+    const componentOptions = IS_SVELTE_5
+      ? { name: 'World' }
+      : { accessors: true, props: { name: 'World' } }
+
+    const { component, getByText } = render(Comp, componentOptions)
     const element = getByText('Hello World!')
 
     expect(element).toBeInTheDocument()
