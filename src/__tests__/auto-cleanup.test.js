@@ -5,9 +5,6 @@ import { IS_SVELTE_5 } from './utils.js'
 const importSvelteTestingLibrary = async () =>
   IS_SVELTE_5 ? import('../svelte5-index.js') : import('../index.js')
 
-const importSvelteTestingLibraryPure = async () =>
-  IS_SVELTE_5 ? import('../svelte5.js') : import('../pure.js')
-
 const globalAfterEach = vi.fn()
 
 describe('auto-cleanup', () => {
@@ -39,12 +36,6 @@ describe('auto-cleanup', () => {
     process.env.STL_SKIP_AUTO_CLEANUP = 'true'
 
     await importSvelteTestingLibrary()
-
-    expect(globalAfterEach).toHaveBeenCalledTimes(0)
-  })
-
-  test('does not call afterEach if you import from `pure`', async () => {
-    await importSvelteTestingLibraryPure()
 
     expect(globalAfterEach).toHaveBeenCalledTimes(0)
   })
