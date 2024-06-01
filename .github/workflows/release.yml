@@ -63,7 +63,7 @@ jobs:
         run: npm run types
 
       - name: ⬆️ Upload coverage report
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
 
   release:
     needs: main
@@ -84,7 +84,7 @@ jobs:
         run: npm install --no-package-lock
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v4
         with:
           semantic_version: 17
           branches: |
