@@ -20,7 +20,7 @@ const alias = [
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte({ hot: false }), svelteTesting()],
+  plugins: [svelte(), svelteTesting()],
   test: {
     alias,
     environment: 'jsdom',
