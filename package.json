@@ -69,7 +69,7 @@
     "test:vitest:happy-dom": "vitest run --coverage --environment happy-dom",
     "test:jest": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --coverage",
     "types": "svelte-check",
-    "validate": "npm-run-all test:vitest:* types",
+    "validate": "npm-run-all test:vitest:* test:jest types",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
   },
