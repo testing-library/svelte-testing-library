@@ -9,9 +9,22 @@
 
 ## Release
 
-The module is released automatically from the `main` branch using [semantic-release-action][]. Version bumps and change logs are generated from the commit messages.
+The module is released automatically from the `main` and `next` branches using [semantic-release-action][]. Version bumps and change logs are generated from the commit messages.
 
 [semantic-release-action]: https://github.com/cycjimmy/semantic-release-action
+
+### Preview release
+
+If you would like to preview the release from a given branch, and...
+
+- You have push access to the repository
+- The branch exists in GitHub
+
+...you can preview the next release version and changelog using:
+
+```shell
+npm run preview-release
+```
 
 ## Development setup
 

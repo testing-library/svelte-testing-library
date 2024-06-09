@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Preview the next release from a branch
+#
+# Prerequisites:
+# - You must have push access to repository at the `origin`  URL
+# - The branch you are on must exist on `origin`
+
+set -euxo pipefail
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+repository_url="$(git remote get-url origin)"
+
+npx \
+  --package semantic-release@24 \
+  --package conventional-changelog-conventionalcommits@8 \
+  -- \
+  semantic-release \
+  --plugins="@semantic-release/commit-analyzer,@semantic-release/release-notes-generator" \
+  --dry-run \
+  --branches="$branch" \
+  --repository-url="$repository_url"
