@@ -71,7 +71,8 @@
     "types": "svelte-check",
     "validate": "npm-run-all test:vitest:* test:jest types",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "preview-release": "./scripts/preview-release"
   },
   "peerDependencies": {
     "svelte": "^3 || ^4 || ^5",
