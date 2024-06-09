@@ -3,155 +3,105 @@ import {
   getQueriesForElement,
   prettyDOM,
 } from '@testing-library/dom'
-import * as Svelte from 'svelte'
-import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
+import { tick } from 'svelte'
 
-const IS_SVELTE_5 = /^5\./.test(SVELTE_VERSION)
+import {
+  mount,
+  UnknownSvelteOptionsError,
+  unmount,
+  updateProps,
+  validateOptions,
+} from './core/index.js'
 
-export class SvelteTestingLibrary {
-  svelteComponentOptions = [
-    'target',
-    'accessors',
-    'anchor',
-    'props',
-    'hydrate',
-    'intro',
-    'context',
-  ]
+const targetCache = new Set()
+const componentCache = new Set()
 
-  targetCache = new Set()
-  componentCache = new Set()
+const render = (Component, options = {}, renderOptions = {}) => {
+  options = validateOptions(options)
 
-  checkProps(options) {
-    const isProps = !Object.keys(options).some((option) =>
-      this.svelteComponentOptions.includes(option)
-    )
+  const baseElement =
+    renderOptions.baseElement ?? options.target ?? document.body
 
-    // Check if any props and Svelte options were accidentally mixed.
-    if (!isProps) {
-      const unrecognizedOptions = Object.keys(options).filter(
-        (option) => !this.svelteComponentOptions.includes(option)
-      )
+  const queries = getQueriesForElement(baseElement, renderOptions.queries)
 
-      if (unrecognizedOptions.length > 0) {
-        throw Error(`
-          Unknown options were found [${unrecognizedOptions}]. This might happen if you've mixed
-          passing in props with Svelte options into the render function. Valid Svelte options
-          are [${this.svelteComponentOptions}]. You can either change the prop names, or pass in your
-          props for that component via the \`props\` option.\n\n
-          Eg: const { /** Results **/ } = render(MyComponent, { props: { /** props here **/ } })\n\n
-        `)
+  const target =
+    options.target ?? baseElement.appendChild(document.createElement('div'))
+
+  targetCache.add(target)
+
+  const component = mount(
+    Component.default ?? Component,
+    { ...options, target },
+    cleanupComponent
+  )
+
+  componentCache.add(component)
+
+  return {
+    baseElement,
+    component,
+    container: target,
+    debug: (el = baseElement) => {
+      console.log(prettyDOM(el))
+    },
+    rerender: async (props) => {
+      if (props.props) {
+        console.warn(
+          'rerender({ props: {...} }) deprecated, use rerender({...}) instead'
+        )
+        props = props.props
       }
 
-      return options
-    }
-
-    return { props: options }
-  }
-
-  render(Component, componentOptions = {}, renderOptions = {}) {
-    componentOptions = this.checkProps(componentOptions)
-
-    const baseElement =
-      renderOptions.baseElement ?? componentOptions.target ?? document.body
-
-    const target =
-      componentOptions.target ??
-      baseElement.appendChild(document.createElement('div'))
-
-    this.targetCache.add(target)
-
-    const ComponentConstructor = Component.default || Component
-
-    const component = this.renderComponent(ComponentConstructor, {
-      ...componentOptions,
-      target,
-    })
-
-    return {
-      baseElement,
-      component,
-      container: target,
-      debug: (el = baseElement) => console.log(prettyDOM(el)),
-      rerender: async (props) => {
-        if (props.props) {
-          console.warn(
-            'rerender({ props: {...} }) deprecated, use rerender({...}) instead'
-          )
-          props = props.props
-        }
-        component.$set(props)
-        await Svelte.tick()
-      },
-      unmount: () => {
-        this.cleanupComponent(component)
-      },
-      ...getQueriesForElement(baseElement, renderOptions.queries),
-    }
-  }
-
-  renderComponent(ComponentConstructor, componentOptions) {
-    if (IS_SVELTE_5) {
-      throw new Error('for Svelte 5, use `@testing-library/svelte/svelte5`')
-    }
-
-    const component = new ComponentConstructor(componentOptions)
-
-    this.componentCache.add(component)
-
-    // TODO(mcous, 2024-02-11): remove this behavior in the next major version
-    component.$$.on_destroy.push(() => {
-      this.componentCache.delete(component)
-    })
-
-    return component
-  }
-
-  cleanupComponent(component) {
-    const inCache = this.componentCache.delete(component)
-
-    if (inCache) {
-      component.$destroy()
-    }
-  }
-
-  cleanupTarget(target) {
-    const inCache = this.targetCache.delete(target)
-
-    if (inCache && target.parentNode === document.body) {
-      document.body.removeChild(target)
-    }
-  }
-
-  cleanup() {
-    this.componentCache.forEach(this.cleanupComponent.bind(this))
-    this.targetCache.forEach(this.cleanupTarget.bind(this))
+      updateProps(component, props)
+      await tick()
+    },
+    unmount: () => {
+      cleanupComponent(component)
+    },
+    ...queries,
   }
 }
 
-const instance = new SvelteTestingLibrary()
+const cleanupComponent = (component) => {
+  const inCache = componentCache.delete(component)
 
-export const render = instance.render.bind(instance)
+  if (inCache) {
+    unmount(component)
+  }
+}
 
-export const cleanup = instance.cleanup.bind(instance)
+const cleanupTarget = (target) => {
+  const inCache = targetCache.delete(target)
 
-export const act = async (fn) => {
+  if (inCache && target.parentNode === document.body) {
+    document.body.removeChild(target)
+  }
+}
+
+const cleanup = () => {
+  componentCache.forEach(cleanupComponent)
+  targetCache.forEach(cleanupTarget)
+}
+
+const act = async (fn) => {
   if (fn) {
     await fn()
   }
-  return Svelte.tick()
+  return tick()
 }
 
-export const fireEvent = async (...args) => {
+const fireEvent = async (...args) => {
   const event = dtlFireEvent(...args)
-  await Svelte.tick()
+  await tick()
   return event
 }
 
 Object.keys(dtlFireEvent).forEach((key) => {
   fireEvent[key] = async (...args) => {
     const event = dtlFireEvent[key](...args)
-    await Svelte.tick()
+    await tick()
     return event
   }
 })
+
+export { act, cleanup, fireEvent, render, UnknownSvelteOptionsError }

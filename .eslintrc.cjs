@@ -25,6 +25,7 @@ module.exports = {
       },
       rules: {
         'no-undef-init': 'off',
+        'prefer-const': 'off',
       },
     },
     {
@@ -49,5 +50,6 @@ module.exports = {
     ecmaVersion: 2022,
     sourceType: 'module',
   },
+  globals: { $state: 'readonly', $props: 'readonly' },
   ignorePatterns: ['!/.*'],
 }
