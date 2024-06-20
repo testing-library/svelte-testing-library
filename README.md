@@ -71,11 +71,11 @@ primary guiding principle is:
 This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
-```
+```shell
 npm install --save-dev @testing-library/svelte
 ```
 
-This library has `peerDependencies` listings for `svelte >= 3`.
+This library supports `svelte` versions `3`, `4`, and `5`.
 
 You may also be interested in installing `@testing-library/jest-dom` so you can use
 [the custom jest matchers](https://github.com/testing-library/jest-dom).
@@ -101,22 +101,6 @@ See the [setup docs][] for more detailed setup instructions, including for other
 
 [vitest]: https://vitest.dev/
 [setup docs]: https://testing-library.com/docs/svelte-testing-library/setup
-
-### Svelte 5 support
-
-If you are riding the bleeding edge of Svelte 5, you'll need to either
-import from `@testing-library/svelte/svelte5` instead of `@testing-library/svelte`, or add an alias to your `vite.config.js`:
-
-```js
-export default defineConfig({
-  plugins: [svelte(), svelteTesting()],
-  test: {
-    alias: {
-      '@testing-library/svelte': '@testing-library/svelte/svelte5',
-    },
-  },
-})
-```
 
 ## Docs
 

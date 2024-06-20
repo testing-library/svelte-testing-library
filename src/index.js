@@ -17,4 +17,10 @@ export * from '@testing-library/dom'
 
 // export svelte-specific functions and custom `fireEvent`
 // `fireEvent` must be a named export to take priority over wildcard export above
-export { act, cleanup, fireEvent, render } from './pure.js'
+export {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  UnknownSvelteOptionsError,
+} from './pure.js'

@@ -1,10 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { IS_SVELTE_5 } from './utils.js'
-
-const importSvelteTestingLibrary = async () =>
-  IS_SVELTE_5 ? import('../svelte5-index.js') : import('../index.js')
-
 const globalAfterEach = vi.fn()
 
 describe('auto-cleanup', () => {
@@ -19,7 +14,7 @@ describe('auto-cleanup', () => {
   })
 
   test('calls afterEach with cleanup if globally defined', async () => {
-    const { render } = await importSvelteTestingLibrary()
+    const { render } = await import('../index.js')
 
     expect(globalAfterEach).toHaveBeenCalledTimes(1)
     expect(globalAfterEach).toHaveBeenLastCalledWith(expect.any(Function))
@@ -35,7 +30,7 @@ describe('auto-cleanup', () => {
   test('does not call afterEach if process STL_SKIP_AUTO_CLEANUP is set', async () => {
     process.env.STL_SKIP_AUTO_CLEANUP = 'true'
 
-    await importSvelteTestingLibrary()
+    await import('../index.js')
 
     expect(globalAfterEach).toHaveBeenCalledTimes(0)
   })

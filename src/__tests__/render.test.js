@@ -1,11 +1,15 @@
 import { render } from '@testing-library/svelte'
-import { describe, expect, test } from 'vitest'
+import { beforeAll, describe, expect, test } from 'vitest'
 
-import Comp from './fixtures/Comp.svelte'
-import { IS_SVELTE_5 } from './utils.js'
+import { COMPONENT_FIXTURES } from './utils.js'
 
-describe('render', () => {
+describe.each(COMPONENT_FIXTURES)('render ($mode)', ({ component }) => {
   const props = { name: 'World' }
+  let Comp
+
+  beforeAll(async () => {
+    Comp = await import(component)
+  })
 
   test('renders component into the document', () => {
     const { getByText } = render(Comp, { props })
@@ -65,7 +69,7 @@ describe('render', () => {
     expect(baseElement.firstChild).toBe(container)
   })
 
-  test.skipIf(IS_SVELTE_5)('should accept anchor option in Svelte v4', () => {
+  test('should accept anchor option', () => {
     const baseElement = document.body
     const target = document.createElement('section')
     const anchor = document.createElement('div')

@@ -16,4 +16,4 @@
   })
 </script>
 
-<button />
+<button></button>

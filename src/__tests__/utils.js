@@ -5,3 +5,20 @@ export const IS_JSDOM = window.navigator.userAgent.includes('jsdom')
 export const IS_HAPPYDOM = !IS_JSDOM // right now it's happy or js
 
 export const IS_SVELTE_5 = SVELTE_VERSION >= '5'
+
+export const MODE_LEGACY = 'legacy'
+
+export const MODE_RUNES = 'runes'
+
+export const COMPONENT_FIXTURES = [
+  {
+    mode: MODE_LEGACY,
+    component: './fixtures/Comp.svelte',
+    isEnabled: true,
+  },
+  {
+    mode: MODE_RUNES,
+    component: './fixtures/CompRunes.svelte',
+    isEnabled: IS_SVELTE_5,
+  },
+].filter(({ isEnabled }) => isEnabled)
