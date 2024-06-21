@@ -53,7 +53,7 @@
     "!__tests__"
   ],
   "scripts": {
-    "toc": "doctoc README.md",
+    "toc": "doctoc README.md ./src/core/README.md",
     "lint": "prettier . --check && eslint .",
     "lint:delta": "npm-run-all -p prettier:delta eslint:delta",
     "prettier:delta": "prettier --check `./scripts/changed-files`",
