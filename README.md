@@ -12,17 +12,18 @@
 
 <p>Simple and complete Svelte testing utilities that encourage good testing practices.</p>
 
-[**Read The Docs**](https://testing-library.com/docs/svelte-testing-library/intro) |
-[Edit the docs](https://github.com/testing-library/testing-library-docs)
+[**Read The Docs**][stl-docs] | [Edit the docs][stl-docs-repo]
 
 <!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
-[![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
+[![version][version-badge]][package]
+[![downloads][downloads-badge]][downloads]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
-[![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
+[![All Contributors][contributors-badge]][contributors]
+[![PRs Welcome][prs-badge]][prs]
+[![Code of Conduct][coc-badge]][coc]
 [![Discord][discord-badge]][discord]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
@@ -33,6 +34,33 @@
 
 <hr />
 
+[stl-docs]: https://testing-library.com/docs/svelte-testing-library/intro
+[stl-docs-repo]: https://github.com/testing-library/testing-library-docs
+[build-badge]: https://img.shields.io/github/actions/workflow/status/testing-library/svelte-testing-library/release.yml?style=flat-square
+[build]: https://github.com/testing-library/svelte-testing-library/actions
+[coverage-badge]: https://img.shields.io/codecov/c/github/testing-library/svelte-testing-library.svg?style=flat-square
+[coverage]: https://codecov.io/github/testing-library/svelte-testing-library
+[version-badge]: https://img.shields.io/npm/v/@testing-library/svelte.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@testing-library/svelte
+[downloads-badge]: https://img.shields.io/npm/dm/@testing-library/svelte.svg?style=flat-square
+[downloads]: http://www.npmtrends.com/@testing-library/svelte
+[license-badge]: https://img.shields.io/github/license/testing-library/svelte-testing-library?color=b&style=flat-square
+[license]: https://github.com/testing-library/svelte-testing-library/blob/main/LICENSE
+[contributors-badge]: https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square
+[contributors]: #contributors
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[prs]: http://makeapullrequest.com
+[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[coc]: https://github.com/testing-library/svelte-testing-library/blob/main/CODE_OF_CONDUCT.md
+[discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
+[discord]: https://discord.gg/testing-library
+[github-watch-badge]: https://img.shields.io/github/watchers/testing-library/svelte-testing-library.svg?style=social
+[github-watch]: https://github.com/testing-library/svelte-testing-library/watchers
+[github-star-badge]: https://img.shields.io/github/stars/testing-library/svelte-testing-library.svg?style=social
+[github-star]: https://github.com/testing-library/svelte-testing-library/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20svelte-testing-library%20by%20%40@TestingLib%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fsvelte-testing-library%20%F0%9F%91%8D
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/testing-library/svelte-testing-library.svg?style=social
+
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,30 +69,34 @@
 - [The Problem](#the-problem)
 - [This Solution](#this-solution)
 - [Installation](#installation)
+- [Setup](#setup)
 - [Docs](#docs)
+- [Core](#core)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
   - [❓ Questions](#-questions)
 - [Contributors](#contributors)
-- [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## The Problem
 
-You want to write tests for your Svelte components so that they avoid including implementation
-details, and are maintainable in the long run.
+You want to write maintainable tests for your [Svelte][svelte] components.
+
+[svelte]: https://svelte.dev/
 
 ## This Solution
 
-The `svelte-testing-library` is a very lightweight solution for testing Svelte
-components. It provides light utility functions on top of `svelte` and
-`dom-testing-library`, in a way that encourages better testing practices. Its
-primary guiding principle is:
+`@testing-library/svelte` is a lightweight library for testing Svelte
+components. It provides functions on top of `svelte` and
+`@testing-library/dom` so you can mount Svelte components and query their
+rendered output in the DOM. Its primary guiding principle is:
 
 > [The more your tests resemble the way your software is used, the more
 > confidence they can give you.][guiding-principle]
+
+[guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106
 
 ## Installation
 
@@ -77,12 +109,18 @@ npm install --save-dev @testing-library/svelte
 
 This library supports `svelte` versions `3`, `4`, and `5`.
 
-You may also be interested in installing `@testing-library/jest-dom` so you can use
-[the custom jest matchers](https://github.com/testing-library/jest-dom).
+You may also be interested in installing `@testing-library/jest-dom` so you can
+use [the custom jest matchers][jest-dom].
+
+[npm]: https://www.npmjs.com/
+[node]: https://nodejs.org
+[jest-dom]: https://github.com/testing-library/jest-dom
 
 ## Setup
 
-We recommend using `@testing-library/svelte` with [Vitest][] as your test runner. To get started, add the `svelteTesting` plugin to your Vite or Vitest config.
+We recommend using `@testing-library/svelte` with [Vitest][] as your test
+runner. To get started, add the `svelteTesting` plugin to your Vite or Vitest
+config.
 
 ```diff
   // vite.config.js
@@ -97,25 +135,38 @@ We recommend using `@testing-library/svelte` with [Vitest][] as your test runner
   });
 ```
 
-See the [setup docs][] for more detailed setup instructions, including for other test runners like Jest.
+See the [setup docs][] for more detailed setup instructions, including for other
+test runners like Jest.
 
 [vitest]: https://vitest.dev/
 [setup docs]: https://testing-library.com/docs/svelte-testing-library/setup
 
 ## Docs
 
-See the [**docs**](https://testing-library.com/docs/svelte-testing-library/intro) over at the Testing Library website.
+See the [**docs**][stl-docs] over at the Testing Library website.
+
+## Core
+
+Are you building your own Svelte testing library? Check out our
+[low-level core][core], which provides Svelte-version-agnostic methods for
+rendering components.
+
+[core]: ./src/core
 
 ## Issues
 
 _Looking to contribute? Look for the [Good First Issue][good-first-issue]
 label._
 
+[good-first-issue]: https://github.com/testing-library/svelte-testing-library/issues?utf8=✓&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3A"good+first+issue"+
+
 ### 🐛 Bugs
 
 Please file an issue for bugs, missing documentation, or unexpected behavior.
 
 [**See Bugs**][bugs]
+
+[bugs]: https://github.com/testing-library/svelte-testing-library/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Acreated-desc
 
 ### 💡 Feature Requests
 
@@ -124,6 +175,8 @@ a 👍. This helps maintainers prioritize what to work on.
 
 [**See Feature Requests**][requests]
 
+[requests]: https://github.com/testing-library/svelte-testing-library/issues?q=is%3Aissue+sort%3Areactions-%2B1-desc+label%3Aenhancement+is%3Aopen
+
 ### ❓ Questions
 
 For questions related to using the library, please visit a support community
@@ -131,6 +184,8 @@ instead of filing an issue on GitHub.
 
 - [Discord][discord]
 - [Stack Overflow][stackoverflow]
+
+[stackoverflow]: https://stackoverflow.com/questions/tagged/svelte-testing-library
 
 ## Contributors
 
@@ -173,44 +228,5 @@ Thanks goes to these people ([emoji key][emojis]):
 This project follows the [all-contributors][all-contributors] specification.
 Contributions of any kind welcome!
 
-## LICENSE
-
-[MIT](LICENSE)
-
-<!-- prettier-ignore-start -->
-
-[npm]: https://www.npmjs.com/
-[node]: https://nodejs.org
-[build-badge]: https://img.shields.io/github/actions/workflow/status/testing-library/svelte-testing-library/release.yml?style=flat-square
-[build]: https://github.com/testing-library/svelte-testing-library/actions
-[coverage-badge]: https://img.shields.io/codecov/c/github/testing-library/svelte-testing-library.svg?style=flat-square
-[coverage]: https://codecov.io/github/testing-library/svelte-testing-library
-[version-badge]: https://img.shields.io/npm/v/@testing-library/svelte.svg?style=flat-square
-[package]: https://www.npmjs.com/package/@testing-library/svelte
-[downloads-badge]: https://img.shields.io/npm/dm/@testing-library/svelte.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/@testing-library/svelte
-[discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
-[discord]: https://discord.gg/testing-library
-[license-badge]: https://img.shields.io/github/license/testing-library/svelte-testing-library?color=b&style=flat-square
-[license]: https://github.com/testing-library/svelte-testing-library/blob/main/LICENSE
-[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
-[prs]: http://makeapullrequest.com
-[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/testing-library/svelte-testing-library/blob/main/CODE_OF_CONDUCT.md
-[github-watch-badge]: https://img.shields.io/github/watchers/testing-library/svelte-testing-library.svg?style=social
-[github-watch]: https://github.com/testing-library/svelte-testing-library/watchers
-[github-star-badge]: https://img.shields.io/github/stars/testing-library/svelte-testing-library.svg?style=social
-[github-star]: https://github.com/testing-library/svelte-testing-library/stargazers
-[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20svelte-testing-library%20by%20%40@TestingLib%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fsvelte-testing-library%20%F0%9F%91%8D
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/testing-library/svelte-testing-library.svg?style=social
 [emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[set-immediate]: https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate
-[guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106
-[bugs]: https://github.com/testing-library/svelte-testing-library/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Acreated-desc
-[requests]: https://github.com/testing-library/svelte-testing-library/issues?q=is%3Aissue+sort%3Areactions-%2B1-desc+label%3Aenhancement+is%3Aopen
-[good-first-issue]: https://github.com/testing-library/svelte-testing-library/issues?utf8=✓&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3A"good+first+issue"+
-[stackoverflow]: https://stackoverflow.com/questions/tagged/svelte-testing-library
-
-<!-- prettier-ignore-end -->
