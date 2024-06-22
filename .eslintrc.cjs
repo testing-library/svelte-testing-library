@@ -26,6 +26,7 @@ module.exports = {
       rules: {
         'no-undef-init': 'off',
         'prefer-const': 'off',
+        'svelte/no-unused-svelte-ignore': 'off',
       },
     },
     {

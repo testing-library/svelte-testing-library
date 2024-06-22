@@ -2,8 +2,8 @@ import { expectTypeOf } from 'expect-type'
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import { describe, test } from 'vitest'
 
-import Simple from '../src/__tests__/fixtures/Simple.svelte'
-import * as subject from './index.js'
+import * as subject from '../index.js'
+import Simple from './fixtures/Simple.svelte'
 
 describe('types', () => {
   test('render is a function that accepts a Svelte component', () => {
@@ -61,5 +61,37 @@ describe('types', () => {
     )
 
     expectTypeOf(result.getByVibes).parameters.toMatchTypeOf<[vibes: string]>()
+  })
+
+  test('act is an async function', () => {
+    expectTypeOf(subject.act).toMatchTypeOf<() => Promise<void>>()
+  })
+
+  test('act accepts a sync function', () => {
+    expectTypeOf(subject.act).toMatchTypeOf<(fn: () => void) => Promise<void>>()
+  })
+
+  test('act accepts an async function', () => {
+    expectTypeOf(subject.act).toMatchTypeOf<
+      (fn: () => Promise<void>) => Promise<void>
+    >()
+  })
+
+  test('fireEvent is an async function', () => {
+    expectTypeOf(subject.fireEvent).toMatchTypeOf<
+      (
+        element: Element | Node | Document | Window,
+        event: Event
+      ) => Promise<boolean>
+    >()
+  })
+
+  test('fireEvent[eventName] is an async function', () => {
+    expectTypeOf(subject.fireEvent.click).toMatchTypeOf<
+      (
+        element: Element | Node | Document | Window,
+        options?: {}
+      ) => Promise<boolean>
+    >()
   })
 })

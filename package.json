@@ -13,6 +13,7 @@
       "default": "./src/index.js"
     },
     "./vitest": {
+      "types": "./types/vitest.d.ts",
       "default": "./src/vitest.js"
     },
     "./vite": {
@@ -26,7 +27,7 @@
   "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/testing-library/svelte-testing-library"
+    "url": "git+https://github.com/testing-library/svelte-testing-library.git"
   },
   "bugs": {
     "url": "https://github.com/testing-library/svelte-testing-library/issues"
@@ -49,7 +50,6 @@
   "files": [
     "src",
     "types",
-    "!*.test-d.ts",
     "!__tests__"
   ],
   "scripts": {
@@ -69,7 +69,8 @@
     "test:vitest:happy-dom": "vitest run --coverage --environment happy-dom",
     "test:jest": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --coverage",
     "types": "svelte-check",
-    "validate": "npm-run-all test:vitest:* test:jest types",
+    "validate": "npm-run-all test:vitest:* test:jest types build",
+    "build": "tsc -p tsconfig.build.json",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "preview-release": "./scripts/preview-release"

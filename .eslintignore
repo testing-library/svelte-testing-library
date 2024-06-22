@@ -3,3 +3,4 @@ scripts/*
 .prettierignore
 .github/workflows/*
 *.md
+types
