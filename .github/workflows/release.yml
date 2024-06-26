@@ -59,14 +59,38 @@ jobs:
         run: npm run test:${{ matrix.test-runner }}
 
       - name: ▶️ Run type-checks
-        if: ${{ matrix.node == '20' && matrix.svelte == '4' && matrix.test-runner == 'vitest:jsdom' }}
+        # NOTE: `SvelteComponent` is not generic in Svelte v3, so type-checking will not pass
+        if: ${{ matrix.node == '20' && matrix.svelte != '3' && matrix.test-runner == 'vitest:jsdom' }}
         run: npm run types
 
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v3
 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Download deps
+        run: npm install --no-package-lock
+
+      - name: 🏗️ Build types
+        run: npm run build
+
+      - name: ⬆️ Upload types build
+        uses: actions/upload-artifact@v4
+        with:
+          name: types
+          path: types
+
   release:
-    needs: main
+    needs: [main, build]
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'testing-library/svelte-testing-library' &&
       contains('refs/heads/main,refs/heads/next', github.ref) &&
@@ -79,6 +103,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: 📥 Downloads types build
+        uses: actions/download-artifact@v4
+        with:
+          name: types
+          path: types
 
       - name: 🚀 Release
         uses: cycjimmy/semantic-release-action@v4
