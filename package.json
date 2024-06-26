@@ -76,7 +76,7 @@
     "preview-release": "./scripts/preview-release"
   },
   "peerDependencies": {
-    "svelte": "^3 || ^4 || ^5",
+    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
     "vite": "*",
     "vitest": "*"
   },
@@ -119,7 +119,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "3.2.5",
     "prettier-plugin-svelte": "3.2.3",
-    "svelte": "^3 || ^4 || ^5",
+    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
     "svelte-check": "^3.6.3",
     "svelte-jester": "^5.0.0",
     "typescript": "^5.3.3",
