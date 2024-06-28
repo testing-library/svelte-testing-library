@@ -1,3 +1,4 @@
+<!-- svelte-ignore options_deprecated_accessors -->
 <svelte:options accessors />
 
 <script>

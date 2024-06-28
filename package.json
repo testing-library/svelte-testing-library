@@ -10,9 +10,10 @@
     },
     "./svelte5": {
       "types": "./types/index.d.ts",
-      "default": "./src/svelte5-index.js"
+      "default": "./src/index.js"
     },
     "./vitest": {
+      "types": "./types/vitest.d.ts",
       "default": "./src/vitest.js"
     },
     "./vite": {
@@ -26,7 +27,7 @@
   "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/testing-library/svelte-testing-library"
+    "url": "git+https://github.com/testing-library/svelte-testing-library.git"
   },
   "bugs": {
     "url": "https://github.com/testing-library/svelte-testing-library/issues"
@@ -49,7 +50,6 @@
   "files": [
     "src",
     "types",
-    "!*.test-d.ts",
     "!__tests__"
   ],
   "scripts": {
@@ -69,12 +69,14 @@
     "test:vitest:happy-dom": "vitest run --coverage --environment happy-dom",
     "test:jest": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --coverage",
     "types": "svelte-check",
-    "validate": "npm-run-all test:vitest:* types",
+    "validate": "npm-run-all test:vitest:* test:jest types build",
+    "build": "tsc -p tsconfig.build.json",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "preview-release": "./scripts/preview-release"
   },
   "peerDependencies": {
-    "svelte": "^3 || ^4 || ^5",
+    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
     "vite": "*",
     "vitest": "*"
   },
@@ -117,9 +119,9 @@
     "npm-run-all": "^4.1.5",
     "prettier": "3.2.5",
     "prettier-plugin-svelte": "3.2.3",
-    "svelte": "^3 || ^4 || ^5",
+    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
     "svelte-check": "^3.6.3",
-    "svelte-jester": "^3.0.0",
+    "svelte-jester": "^5.0.0",
     "typescript": "^5.3.3",
     "vite": "^5.1.1",
     "vitest": "^1.5.2"

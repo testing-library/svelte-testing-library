@@ -9,3 +9,6 @@ dist
 yarn-error.log
 package-lock.json
 yarn.lock
+
+# generated typing output
+types
