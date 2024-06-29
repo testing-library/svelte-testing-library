@@ -20,6 +20,11 @@ jobs:
     name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.test-runner }}
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
+
+    # enable OIDC for codecov uploads
+    permissions:
+      id-token: write
+
     strategy:
       fail-fast: false
       matrix:
@@ -64,7 +69,10 @@ jobs:
         run: npm run types
 
       - name: ⬆️ Upload coverage report
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with:
+          use_oidc: true
+          fail_ci_if_error: true
 
   build:
     runs-on: ubuntu-latest
