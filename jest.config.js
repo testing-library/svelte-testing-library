@@ -18,4 +18,10 @@ export default {
   },
   resetMocks: true,
   restoreMocks: true,
+  collectCoverageFrom: ['<rootDir>/src/**/*'],
+  coveragePathIgnorePatterns: [
+    '/__tests__/',
+    '<rootDir>/src/vite.js',
+    '<rootDir>/src/vitest.js',
+  ],
 }
