@@ -13,7 +13,8 @@ export default defineConfig({
     unstubGlobals: true,
     coverage: {
       provider: 'v8',
-      include: ['src'],
+      include: ['src/**/*'],
+      exclude: ['**/__tests__/**', 'src/vite.js', 'src/vitest.js'],
     },
   },
 })
