@@ -4,6 +4,8 @@
  * Supports Svelte <= 4.
  */
 
+import { removeItemFromCleanup } from './cleanup.js'
+
 /** Allowed options for the component constructor. */
 const allowedOptions = [
   'target',
@@ -15,32 +17,27 @@ const allowedOptions = [
   'context',
 ]
 
-/**
- * Mount the component into the DOM.
- *
- * The `onDestroy` callback is included for strict backwards compatibility
- * with previous versions of this library. It's mostly unnecessary logic.
- */
-const mount = (Component, options, onDestroy) => {
+/** Mount the component into the DOM. */
+const mountComponent = (Component, options) => {
   const component = new Component(options)
 
-  if (typeof onDestroy === 'function') {
-    component.$$.on_destroy.push(() => {
-      onDestroy(component)
-    })
+  // This `$$.on_destroy` handler is included for strict backwards compatibility
+  // with previous versions of this library. It's mostly unnecessary logic.
+  component.$$.on_destroy.push(() => {
+    removeItemFromCleanup(component)
+  })
+
+  /** Remove the component from the DOM. */
+  const unmountComponent = () => {
+    component.$destroy()
   }
 
-  return component
+  /** Update the component's props. */
+  const updateProps = (nextProps) => {
+    component.$set(nextProps)
+  }
+
+  return { component, unmountComponent, updateProps }
 }
 
-/** Remove the component from the DOM. */
-const unmount = (component) => {
-  component.$destroy()
-}
-
-/** Update the component's props. */
-const updateProps = (component, nextProps) => {
-  component.$set(nextProps)
-}
-
-export { allowedOptions, mount, unmount, updateProps }
+export { allowedOptions, mountComponent }

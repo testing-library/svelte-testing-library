@@ -8,6 +8,10 @@
       "types": "./types/index.d.ts",
       "default": "./src/index.js"
     },
+    "./core": {
+      "types": "./types/core/index.d.ts",
+      "default": "./src/core/index.js"
+    },
     "./svelte5": {
       "types": "./types/index.d.ts",
       "default": "./src/index.js"
@@ -53,7 +57,7 @@
     "!__tests__"
   ],
   "scripts": {
-    "toc": "doctoc README.md",
+    "toc": "doctoc README.md src/core/README.md",
     "lint": "prettier . --check && eslint .",
     "lint:delta": "npm-run-all -p prettier:delta eslint:delta",
     "prettier:delta": "prettier --check `./scripts/changed-files`",

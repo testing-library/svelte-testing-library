@@ -15,7 +15,7 @@ class UnknownSvelteOptionsError extends TypeError {
   }
 }
 
-const createValidateOptions = (allowedOptions) => (options) => {
+const validateOptions = (allowedOptions, options) => {
   const isProps = !Object.keys(options).some((option) =>
     allowedOptions.includes(option)
   )
@@ -36,4 +36,4 @@ const createValidateOptions = (allowedOptions) => (options) => {
   return options
 }
 
-export { createValidateOptions, UnknownSvelteOptionsError }
+export { UnknownSvelteOptionsError, validateOptions }
