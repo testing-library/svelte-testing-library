@@ -5,9 +5,6 @@
  */
 import * as Svelte from 'svelte'
 
-/** Props signals for each rendered component. */
-const propsByComponent = new Map()
-
 /** Whether we're using Svelte >= 5. */
 const IS_MODERN_SVELTE = typeof Svelte.mount === 'function'
 
@@ -22,29 +19,21 @@ const allowedOptions = [
 ]
 
 /** Mount the component into the DOM. */
-const mount = (Component, options) => {
+const mountComponent = (Component, options) => {
   const props = $state(options.props ?? {})
   const component = Svelte.mount(Component, { ...options, props })
 
-  propsByComponent.set(component, props)
+  /** Remove the component from the DOM. */
+  const unmountComponent = () => {
+    Svelte.unmount(component)
+  }
 
-  return component
+  /** Update the component's props. */
+  const updateProps = (nextProps) => {
+    Object.assign(props, nextProps)
+  }
+
+  return { component, unmountComponent, updateProps }
 }
 
-/** Remove the component from the DOM. */
-const unmount = (component) => {
-  propsByComponent.delete(component)
-  Svelte.unmount(component)
-}
-
-/**
- * Update the component's props.
- *
- * Relies on the `$state` signal added in `mount`.
- */
-const updateProps = (component, nextProps) => {
-  const prevProps = propsByComponent.get(component)
-  Object.assign(prevProps, nextProps)
-}
-
-export { allowedOptions, IS_MODERN_SVELTE, mount, unmount, updateProps }
+export { allowedOptions, IS_MODERN_SVELTE, mountComponent }
