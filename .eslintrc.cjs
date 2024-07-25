@@ -3,14 +3,8 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    'vitest-globals/env': true,
   },
-  extends: [
-    'standard',
-    'plugin:vitest-globals/recommended',
-    'plugin:svelte/recommended',
-    'prettier',
-  ],
+  extends: ['standard', 'plugin:svelte/recommended', 'prettier'],
   plugins: ['svelte', 'simple-import-sort', 'json-files'],
   rules: {
     'simple-import-sort/imports': 'error',
@@ -51,6 +45,6 @@ module.exports = {
     ecmaVersion: 2022,
     sourceType: 'module',
   },
-  globals: { $state: 'readonly', $props: 'readonly' },
+  globals: { afterEach: 'readonly', $state: 'readonly', $props: 'readonly' },
   ignorePatterns: ['!/.*'],
 }
