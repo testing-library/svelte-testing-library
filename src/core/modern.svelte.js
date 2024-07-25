@@ -26,6 +26,7 @@ const mount = (Component, options) => {
   const props = $state(options.props ?? {})
   const component = Svelte.mount(Component, { ...options, props })
 
+  Svelte.flushSync()
   propsByComponent.set(component, props)
 
   return component
@@ -34,7 +35,7 @@ const mount = (Component, options) => {
 /** Remove the component from the DOM. */
 const unmount = (component) => {
   propsByComponent.delete(component)
-  Svelte.unmount(component)
+  Svelte.flushSync(() => Svelte.unmount(component))
 }
 
 /**

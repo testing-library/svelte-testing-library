@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/svelte'
+import { render, screen } from '@testing-library/svelte'
 import { describe, expect, test, vi } from 'vitest'
 
 import Mounter from './fixtures/Mounter.svelte'
@@ -14,20 +14,17 @@ describe('mount and destroy', () => {
     const content = screen.getByRole('button')
 
     expect(content).toBeInTheDocument()
-    await act()
     expect(onMounted).toHaveBeenCalledTimes(1)
   })
 
   test('component is destroyed', async () => {
     const { unmount } = renderSubject()
 
-    await act()
     unmount()
 
     const content = screen.queryByRole('button')
 
     expect(content).not.toBeInTheDocument()
-    await act()
     expect(onDestroyed).toHaveBeenCalledTimes(1)
   })
 })
