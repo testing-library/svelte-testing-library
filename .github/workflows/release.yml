@@ -17,9 +17,8 @@ jobs:
   main:
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
-    name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.test-runner }}
+    name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.check }}
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
 
     # enable OIDC for codecov uploads
     permissions:
@@ -30,21 +29,17 @@ jobs:
       matrix:
         node: ['16', '18', '20']
         svelte: ['3', '4']
-        test-runner: ['vitest:jsdom', 'vitest:happy-dom', 'jest']
-        experimental: [false]
+        check: ['test:vitest:jsdom', 'test:vitest:happy-dom', 'test:jest']
         include:
-          - node: '20'
-            svelte: 'next'
-            test-runner: 'vitest:jsdom'
-            experimental: true
-          - node: '20'
-            svelte: 'next'
-            test-runner: 'vitest:happy-dom'
-            experimental: true
-          - node: '20'
-            svelte: 'next'
-            test-runner: 'jest'
-            experimental: true
+          # We only need to lint once, so do it on latest Node and Svelte
+          - { node: '20', svelte: '4', check: 'lint' }
+          # `SvelteComponent` is not generic in Svelte 3, so type-checking only passes in >= 4
+          - { node: '20', svelte: '4', check: 'types' }
+          - { node: '20', svelte: 'next', check: 'types' }
+          # Only run Svelte 5 checks on latest Node
+          - { node: '20', svelte: 'next', check: 'test:vitest:jsdom' }
+          - { node: '20', svelte: 'next', check: 'test:vitest:happy-dom' }
+          - { node: '20', svelte: 'next', check: 'test:jest' }
 
     steps:
       - name: ⬇️ Checkout repo
@@ -60,15 +55,11 @@ jobs:
           npm install --no-package-lock
           npm install --no-save svelte@${{ matrix.svelte }}
 
-      - name: ▶️ Run tests
-        run: npm run test:${{ matrix.test-runner }}
-
-      - name: ▶️ Run type-checks
-        # NOTE: `SvelteComponent` is not generic in Svelte v3, so type-checking will not pass
-        if: ${{ matrix.node == '20' && matrix.svelte != '3' && matrix.test-runner == 'vitest:jsdom' }}
-        run: npm run types
+      - name: ▶️ Run ${{ matrix.check }}
+        run: npm run ${{ matrix.check }}
 
       - name: ⬆️ Upload coverage report
+        if: ${{ startsWith(matrix.check, 'test:') }}
         uses: codecov/codecov-action@v4
         with:
           use_oidc: true
