@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
   },
   extends: ['standard', 'plugin:svelte/recommended', 'prettier'],
-  plugins: ['svelte', 'simple-import-sort', 'json-files'],
+  plugins: ['svelte', 'simple-import-sort'],
   rules: {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
@@ -31,14 +31,6 @@ module.exports = {
         'plugin:@typescript-eslint/stylistic',
         'prettier',
       ],
-      rules: {
-        '@typescript-eslint/ban-types': [
-          'error',
-          { types: { '{}': false }, extendDefaults: true },
-        ],
-        '@typescript-eslint/no-explicit-any': 'off',
-        'import/export': 'off',
-      },
     },
   ],
   parserOptions: {
