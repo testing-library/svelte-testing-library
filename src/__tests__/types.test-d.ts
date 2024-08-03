@@ -90,6 +90,7 @@ describe('types', () => {
     expectTypeOf(subject.fireEvent.click).toMatchTypeOf<
       (
         element: Element | Node | Document | Window,
+        // eslint-disable-next-line @typescript-eslint/no-empty-object-type
         options?: {}
       ) => Promise<boolean>
     >()

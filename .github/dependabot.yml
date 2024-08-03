@@ -29,6 +29,8 @@ updates:
         versions: ['>=9']
       - dependency-name: 'eslint-plugin-n'
         versions: ['>=17']
+      - dependency-name: 'eslint-plugin-promise'
+        versions: ['>=7']
 
   # Update GitHub Actions dependencies
   - package-ecosystem: 'github-actions'
