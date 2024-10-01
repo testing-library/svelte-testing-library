@@ -70,6 +70,7 @@
     "test:vitest:happy-dom": "vitest run --coverage --environment happy-dom",
     "test:jest": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --coverage",
     "types": "svelte-check",
+    "types:legacy": "svelte-check --tsconfig tsconfig.legacy.json",
     "validate": "npm-run-all test:vitest:* test:jest types build",
     "build": "tsc -p tsconfig.build.json",
     "contributors:add": "all-contributors add",
