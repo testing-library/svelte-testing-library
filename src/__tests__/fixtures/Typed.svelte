@@ -1,6 +1,8 @@
 <script lang="ts">
   export let name: string
   export let count: number
+
+  export const hello: string = 'hello'
 </script>
 
 <h1>hello {name}</h1>

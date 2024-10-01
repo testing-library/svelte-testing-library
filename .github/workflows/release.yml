@@ -34,7 +34,7 @@ jobs:
           # We only need to lint once, so do it on latest Node and Svelte
           - { node: '20', svelte: '4', check: 'lint' }
           # `SvelteComponent` is not generic in Svelte 3, so type-checking only passes in >= 4
-          - { node: '20', svelte: '4', check: 'types' }
+          - { node: '20', svelte: '4', check: 'types:legacy' }
           - { node: '20', svelte: 'next', check: 'types' }
           # Only run Svelte 5 checks on latest Node
           - { node: '20', svelte: 'next', check: 'test:vitest:jsdom' }
