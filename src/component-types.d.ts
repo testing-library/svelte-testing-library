@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type * as Svelte from 'svelte'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type IS_MODERN_SVELTE = any extends Svelte.Component ? false : true
 
 /** A compiled, imported Svelte component. */
-export type Component<P> = IS_MODERN_SVELTE extends true
-  ? Svelte.Component<P> | Svelte.SvelteComponent<P>
+export type Component<
+  P extends Record<string, any>,
+  E extends Record<string, any>,
+> = IS_MODERN_SVELTE extends true
+  ? Svelte.Component<P, E> | Svelte.SvelteComponent<P>
   : Svelte.SvelteComponent<P>
 
 /**
@@ -19,7 +22,7 @@ export type ComponentType<C> = C extends Svelte.SvelteComponent
   : C
 
 /** The props of a component. */
-export type Props<C> = Svelte.ComponentProps<C>
+export type Props<C extends Component<any, any>> = Svelte.ComponentProps<C>
 
 /**
  * The exported fields of a component.
@@ -29,7 +32,7 @@ export type Props<C> = Svelte.ComponentProps<C>
  */
 export type Exports<C> = C extends Svelte.SvelteComponent
   ? C
-  : C extends Svelte.Component<unknown, infer E>
+  : C extends Svelte.Component<any, infer E>
     ? E
     : never
 
@@ -38,6 +41,7 @@ export type Exports<C> = C extends Svelte.SvelteComponent
  *
  * In Svelte 4, these are the options passed to the component constructor.
  */
-export type MountOptions<C> = IS_MODERN_SVELTE extends true
-  ? Parameters<typeof Svelte.mount<Props<C>, Exports<C>>>[1]
-  : Svelte.ComponentConstructorOptions<Props<C>>
+export type MountOptions<C extends Component<any, any>> =
+  IS_MODERN_SVELTE extends true
+    ? Parameters<typeof Svelte.mount<Props<C>, Exports<C>>>[1]
+    : Svelte.ComponentConstructorOptions<Props<C>>

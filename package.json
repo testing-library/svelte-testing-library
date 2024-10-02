@@ -72,7 +72,7 @@
     "types": "svelte-check",
     "types:legacy": "svelte-check --tsconfig tsconfig.legacy.json",
     "validate": "npm-run-all test:vitest:* test:jest types build",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && cp src/component-types.d.ts types",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "preview-release": "./scripts/preview-release"
