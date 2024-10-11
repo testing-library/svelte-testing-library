@@ -4,6 +4,8 @@ export const IS_JSDOM = window.navigator.userAgent.includes('jsdom')
 
 export const IS_HAPPYDOM = !IS_JSDOM // right now it's happy or js
 
+export const IS_JEST = Boolean(process.env.JEST_WORKER_ID)
+
 export const IS_SVELTE_5 = SVELTE_VERSION >= '5'
 
 export const MODE_LEGACY = 'legacy'

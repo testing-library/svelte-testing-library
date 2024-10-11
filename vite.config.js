@@ -11,6 +11,7 @@ export default defineConfig({
     setupFiles: ['./src/__tests__/_vitest-setup.js'],
     mockReset: true,
     unstubGlobals: true,
+    unstubEnvs: true,
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
