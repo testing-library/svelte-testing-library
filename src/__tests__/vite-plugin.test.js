@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { beforeEach, deepClone, describe, expect, test, vi } from 'vitest'
 
 import { svelteTesting } from '../vite.js'
 import { IS_JEST } from './utils.js'
@@ -45,7 +45,7 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     'adds browser condition if necessary',
     ({ config, expectedConditions }) => {
       const subject = svelteTesting()
-      const viteConfig = structuredClone(config)
+      const viteConfig = deepClone(config)
 
       subject.config(viteConfig)
 
@@ -74,7 +74,7 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     'skips browser condition if possible',
     ({ config, expectedConditions }) => {
       const subject = svelteTesting()
-      const viteConfig = structuredClone(config)
+      const viteConfig = deepClone(config)
 
       subject.config(viteConfig)
 
@@ -104,7 +104,7 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     },
   ])('adds cleanup', ({ config, expectedSetupFiles }) => {
     const subject = svelteTesting()
-    const viteConfig = structuredClone(config)
+    const viteConfig = deepClone(config)
 
     subject.config(viteConfig)
 
@@ -134,7 +134,7 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     },
   ])('adds noExternal rule', ({ config, expectedNoExternal }) => {
     const subject = svelteTesting()
-    const viteConfig = structuredClone(config)
+    const viteConfig = deepClone(config)
 
     subject.config(viteConfig)
 
@@ -160,7 +160,7 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     },
   ])('skips noExternal if able', ({ config, expectedNoExternal }) => {
     const subject = svelteTesting()
-    const viteConfig = structuredClone(config)
+    const viteConfig = deepClone(config)
 
     subject.config(viteConfig)
 
@@ -173,7 +173,7 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
 
   test('bails on noExternal if input is unexpected', () => {
     const subject = svelteTesting()
-    const viteConfig = structuredClone({ ssr: { noExternal: false } })
+    const viteConfig = deepClone({ ssr: { noExternal: false } })
 
     subject.config(viteConfig)
 
