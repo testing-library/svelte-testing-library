@@ -1,4 +1,4 @@
-import { beforeEach, deepClone, describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { svelteTesting } from '../vite.js'
 import { IS_JEST } from './utils.js'
@@ -15,41 +15,41 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
       noExternal: false,
     })
 
-    const config = {}
-    subject.config(config)
+    const result = {}
+    subject.config(result)
 
-    expect(config).toEqual({})
+    expect(result).toEqual({})
   })
 
   test('does not modify config if not Vitest', () => {
     vi.stubEnv('VITEST', '')
 
     const subject = svelteTesting()
-    const config = {}
 
-    subject.config(config)
+    const result = {}
+    subject.config(result)
 
-    expect(config).toEqual({})
+    expect(result).toEqual({})
   })
 
   test.each([
     {
-      config: { resolve: { conditions: ['node'] } },
+      config: () => ({ resolve: { conditions: ['node'] } }),
       expectedConditions: ['browser', 'node'],
     },
     {
-      config: { resolve: { conditions: ['svelte', 'node'] } },
+      config: () => ({ resolve: { conditions: ['svelte', 'node'] } }),
       expectedConditions: ['svelte', 'browser', 'node'],
     },
   ])(
     'adds browser condition if necessary',
     ({ config, expectedConditions }) => {
       const subject = svelteTesting()
-      const viteConfig = deepClone(config)
 
-      subject.config(viteConfig)
+      const result = config()
+      subject.config(result)
 
-      expect(viteConfig).toMatchObject({
+      expect(result).toMatchObject({
         resolve: {
           conditions: expectedConditions,
         },
@@ -59,26 +59,26 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
 
   test.each([
     {
-      config: {},
+      config: () => ({}),
       expectedConditions: [],
     },
     {
-      config: { resolve: { conditions: [] } },
+      config: () => ({ resolve: { conditions: [] } }),
       expectedConditions: [],
     },
     {
-      config: { resolve: { conditions: ['svelte'] } },
+      config: () => ({ resolve: { conditions: ['svelte'] } }),
       expectedConditions: ['svelte'],
     },
   ])(
     'skips browser condition if possible',
     ({ config, expectedConditions }) => {
       const subject = svelteTesting()
-      const viteConfig = deepClone(config)
 
-      subject.config(viteConfig)
+      const result = config()
+      subject.config(result)
 
-      expect(viteConfig).toMatchObject({
+      expect(result).toMatchObject({
         resolve: {
           conditions: expectedConditions,
         },
@@ -88,15 +88,15 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
 
   test.each([
     {
-      config: {},
+      config: () => ({}),
       expectedSetupFiles: [expect.stringMatching(/src\/vitest.js$/u)],
     },
     {
-      config: { test: { setupFiles: [] } },
+      config: () => ({ test: { setupFiles: [] } }),
       expectedSetupFiles: [expect.stringMatching(/src\/vitest.js$/u)],
     },
     {
-      config: { test: { setupFiles: 'other-file.js' } },
+      config: () => ({ test: { setupFiles: 'other-file.js' } }),
       expectedSetupFiles: [
         'other-file.js',
         expect.stringMatching(/src\/vitest.js$/u),
@@ -104,11 +104,11 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     },
   ])('adds cleanup', ({ config, expectedSetupFiles }) => {
     const subject = svelteTesting()
-    const viteConfig = deepClone(config)
 
-    subject.config(viteConfig)
+    const result = config()
+    subject.config(result)
 
-    expect(viteConfig).toMatchObject({
+    expect(result).toMatchObject({
       test: {
         setupFiles: expectedSetupFiles,
       },
@@ -117,28 +117,28 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
 
   test.each([
     {
-      config: { ssr: { noExternal: [] } },
+      config: () => ({ ssr: { noExternal: [] } }),
       expectedNoExternal: ['@testing-library/svelte'],
     },
     {
-      config: {},
+      config: () => ({}),
       expectedNoExternal: ['@testing-library/svelte'],
     },
     {
-      config: { ssr: { noExternal: 'other-file.js' } },
+      config: () => ({ ssr: { noExternal: 'other-file.js' } }),
       expectedNoExternal: ['other-file.js', '@testing-library/svelte'],
     },
     {
-      config: { ssr: { noExternal: /other/u } },
+      config: () => ({ ssr: { noExternal: /other/u } }),
       expectedNoExternal: [/other/u, '@testing-library/svelte'],
     },
   ])('adds noExternal rule', ({ config, expectedNoExternal }) => {
     const subject = svelteTesting()
-    const viteConfig = deepClone(config)
 
-    subject.config(viteConfig)
+    const result = config()
+    subject.config(result)
 
-    expect(viteConfig).toMatchObject({
+    expect(result).toMatchObject({
       ssr: {
         noExternal: expectedNoExternal,
       },
@@ -147,24 +147,24 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
 
   test.each([
     {
-      config: { ssr: { noExternal: true } },
+      config: () => ({ ssr: { noExternal: true } }),
       expectedNoExternal: true,
     },
     {
-      config: { ssr: { noExternal: '@testing-library/svelte' } },
+      config: () => ({ ssr: { noExternal: '@testing-library/svelte' } }),
       expectedNoExternal: '@testing-library/svelte',
     },
     {
-      config: { ssr: { noExternal: /svelte/u } },
+      config: () => ({ ssr: { noExternal: /svelte/u } }),
       expectedNoExternal: /svelte/u,
     },
   ])('skips noExternal if able', ({ config, expectedNoExternal }) => {
     const subject = svelteTesting()
-    const viteConfig = deepClone(config)
 
-    subject.config(viteConfig)
+    const result = config()
+    subject.config(result)
 
-    expect(viteConfig).toMatchObject({
+    expect(result).toMatchObject({
       ssr: {
         noExternal: expectedNoExternal,
       },
@@ -173,11 +173,11 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
 
   test('bails on noExternal if input is unexpected', () => {
     const subject = svelteTesting()
-    const viteConfig = deepClone({ ssr: { noExternal: false } })
 
-    subject.config(viteConfig)
+    const result = { ssr: { noExternal: false } }
+    subject.config(result)
 
-    expect(viteConfig).toMatchObject({
+    expect(result).toMatchObject({
       ssr: {
         noExternal: false,
       },
