@@ -7,12 +7,13 @@ import { fileURLToPath } from 'node:url'
  * Ensures Svelte is imported correctly in tests
  * and that the DOM is cleaned up after each test.
  *
- * @param {{resolveBrowser?: boolean, autoCleanup?: boolean}} options
+ * @param {{resolveBrowser?: boolean, autoCleanup?: boolean, noExternal?: boolean}} options
  * @returns {import('vite').Plugin}
  */
 export const svelteTesting = ({
   resolveBrowser = true,
   autoCleanup = true,
+  noExternal = true,
 } = {}) => ({
   name: 'vite-plugin-svelte-testing-library',
   config: (config) => {
@@ -26,6 +27,10 @@ export const svelteTesting = ({
 
     if (autoCleanup) {
       addAutoCleanup(config)
+    }
+
+    if (noExternal) {
+      addNoExternal(config)
     }
   },
 })
@@ -64,6 +69,10 @@ const addAutoCleanup = (config) => {
   const test = config.test ?? {}
   let setupFiles = test.setupFiles ?? []
 
+  if (test.globals) {
+    return
+  }
+
   if (typeof setupFiles === 'string') {
     setupFiles = [setupFiles]
   }
@@ -72,4 +81,41 @@ const addAutoCleanup = (config) => {
 
   test.setupFiles = setupFiles
   config.test = test
+}
+
+/**
+ * Add `@testing-library/svelte` to Vite's noExternal rules, if not present.
+ *
+ * This ensures `@testing-library/svelte` is processed by `@sveltejs/vite-plugin-svelte`
+ * in certain monorepo setups.
+ */
+const addNoExternal = (config) => {
+  const ssr = config.ssr ?? {}
+  let noExternal = ssr.noExternal ?? []
+
+  if (noExternal === true) {
+    return
+  }
+
+  if (typeof noExternal === 'string' || noExternal instanceof RegExp) {
+    noExternal = [noExternal]
+  }
+
+  if (!Array.isArray(noExternal)) {
+    return
+  }
+
+  for (const rule of noExternal) {
+    if (typeof rule === 'string' && rule === '@testing-library/svelte') {
+      return
+    }
+
+    if (rule instanceof RegExp && rule.test('@testing-library/svelte')) {
+      return
+    }
+  }
+
+  noExternal.push('@testing-library/svelte')
+  ssr.noExternal = noExternal
+  config.ssr = ssr
 }
