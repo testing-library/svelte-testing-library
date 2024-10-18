@@ -44,12 +44,16 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
   ])(
     'adds browser condition if necessary',
     ({ config, expectedConditions }) => {
-      const subject = svelteTesting()
+      const subject = svelteTesting({
+        resolveBrowser: true,
+        autoCleanup: false,
+        noExternal: false,
+      })
 
       const result = config()
       subject.config(result)
 
-      expect(result).toMatchObject({
+      expect(result).toEqual({
         resolve: {
           conditions: expectedConditions,
         },
@@ -73,12 +77,16 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
   ])(
     'skips browser condition if possible',
     ({ config, expectedConditions }) => {
-      const subject = svelteTesting()
+      const subject = svelteTesting({
+        resolveBrowser: true,
+        autoCleanup: false,
+        noExternal: false,
+      })
 
       const result = config()
       subject.config(result)
 
-      expect(result).toMatchObject({
+      expect(result).toEqual({
         resolve: {
           conditions: expectedConditions,
         },
@@ -103,14 +111,35 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
       ],
     },
   ])('adds cleanup', ({ config, expectedSetupFiles }) => {
-    const subject = svelteTesting()
+    const subject = svelteTesting({
+      resolveBrowser: false,
+      autoCleanup: true,
+      noExternal: false,
+    })
 
     const result = config()
     subject.config(result)
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       test: {
         setupFiles: expectedSetupFiles,
+      },
+    })
+  })
+
+  test('skips cleanup in global mode', () => {
+    const subject = svelteTesting({
+      resolveBrowser: false,
+      autoCleanup: true,
+      noExternal: false,
+    })
+
+    const result = { test: { globals: true } }
+    subject.config(result)
+
+    expect(result).toEqual({
+      test: {
+        globals: true,
       },
     })
   })
@@ -133,12 +162,16 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
       expectedNoExternal: [/other/u, '@testing-library/svelte'],
     },
   ])('adds noExternal rule', ({ config, expectedNoExternal }) => {
-    const subject = svelteTesting()
+    const subject = svelteTesting({
+      resolveBrowser: false,
+      autoCleanup: false,
+      noExternal: true,
+    })
 
     const result = config()
     subject.config(result)
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       ssr: {
         noExternal: expectedNoExternal,
       },
@@ -159,12 +192,16 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
       expectedNoExternal: /svelte/u,
     },
   ])('skips noExternal if able', ({ config, expectedNoExternal }) => {
-    const subject = svelteTesting()
+    const subject = svelteTesting({
+      resolveBrowser: false,
+      autoCleanup: false,
+      noExternal: true,
+    })
 
     const result = config()
     subject.config(result)
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       ssr: {
         noExternal: expectedNoExternal,
       },
@@ -172,12 +209,16 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
   })
 
   test('bails on noExternal if input is unexpected', () => {
-    const subject = svelteTesting()
+    const subject = svelteTesting({
+      resolveBrowser: false,
+      autoCleanup: false,
+      noExternal: true,
+    })
 
     const result = { ssr: { noExternal: false } }
     subject.config(result)
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       ssr: {
         noExternal: false,
       },

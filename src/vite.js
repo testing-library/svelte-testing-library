@@ -69,6 +69,10 @@ const addAutoCleanup = (config) => {
   const test = config.test ?? {}
   let setupFiles = test.setupFiles ?? []
 
+  if (test.globals) {
+    return
+  }
+
   if (typeof setupFiles === 'string') {
     setupFiles = [setupFiles]
   }
@@ -106,10 +110,7 @@ const addNoExternal = (config) => {
       return
     }
 
-    if (
-      noExternal instanceof RegExp &&
-      noExternal.test('@testing-library/svelte')
-    ) {
+    if (rule instanceof RegExp && rule.test('@testing-library/svelte')) {
       return
     }
   }
