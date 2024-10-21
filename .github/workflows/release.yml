@@ -56,7 +56,7 @@ jobs:
           npm install --no-save svelte@${SVELTE_VERSION} @sveltejs/vite-plugin-svelte@${VITE_PLUGIN_VERSION}
         env:
           SVELTE_VERSION: ${{ matrix.svelte }}
-          VITE_PLUGIN_VERSION: ${{ matrix.svelte == '5' && '4' || '3' }}
+          VITE_PLUGIN_VERSION: ${{ matrix.svelte == '5' && '4' || matrix.svelte == '4' && '3' || '2' }}
 
       - name: ▶️ Run ${{ matrix.check }}
         run: npm run ${{ matrix.check }}
