@@ -35,11 +35,11 @@ jobs:
           - { node: '20', svelte: '4', check: 'lint' }
           # `SvelteComponent` is not generic in Svelte 3, so type-checking only passes in >= 4
           - { node: '20', svelte: '4', check: 'types:legacy' }
-          - { node: '20', svelte: 'next', check: 'types' }
+          - { node: '20', svelte: '5', check: 'types' }
           # Only run Svelte 5 checks on latest Node
-          - { node: '20', svelte: 'next', check: 'test:vitest:jsdom' }
-          - { node: '20', svelte: 'next', check: 'test:vitest:happy-dom' }
-          - { node: '20', svelte: 'next', check: 'test:jest' }
+          - { node: '20', svelte: '5', check: 'test:vitest:jsdom' }
+          - { node: '20', svelte: '5', check: 'test:vitest:happy-dom' }
+          - { node: '20', svelte: '5', check: 'test:jest' }
 
     steps:
       - name: ⬇️ Checkout repo
@@ -53,7 +53,10 @@ jobs:
       - name: 📥 Download deps
         run: |
           npm install --no-package-lock
-          npm install --no-save svelte@${{ matrix.svelte }}
+          npm install --no-save svelte@${SVELTE_VERSION} @sveltejs/vite-plugin-svelte@${VITE_PLUGIN_VERSION}
+        env:
+          SVELTE_VERSION: ${{ matrix.svelte }}
+          VITE_PLUGIN_VERSION: ${{ matrix.svelte == '5' && '4' || '3' }}
 
       - name: ▶️ Run ${{ matrix.check }}
         run: npm run ${{ matrix.check }}
