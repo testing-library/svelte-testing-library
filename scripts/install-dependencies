@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Install dependencies for a given version of Svelte
+set -euo pipefail
+
+svelte_version=${1}
+
+rm -rf node_modules
+npm install --no-package-lock
+
+if [[ "${svelte_version}" == "4" ]]; then
+  npm uninstall --no-save @sveltejs/vite-plugin-svelte svelte
+  npm install --no-save @sveltejs/vite-plugin-svelte@3 svelte@4
+elif [[ "${svelte_version}" == "3" ]]; then
+  npm uninstall --no-save vite vitest @vitest/coverage-v8 @sveltejs/vite-plugin-svelte svelte-check svelte
+  npm install --no-save vite@4 vitest@1 @vitest/coverage-v8@1 @sveltejs/vite-plugin-svelte@2 svelte-check@3 svelte@3
+fi
+
+npm ls --depth=0 svelte
