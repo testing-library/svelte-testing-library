@@ -5,14 +5,13 @@
  */
 import * as Svelte from 'svelte'
 
-/** Props signals for each rendered component. */
-const propsByComponent = new Map()
+import { addCleanupTask, removeCleanupTask } from './cleanup.js'
 
 /** Whether we're using Svelte >= 5. */
 const IS_MODERN_SVELTE = typeof Svelte.mount === 'function'
 
 /** Allowed options to the `mount` call. */
-const allowedOptions = [
+const ALLOWED_OPTIONS = [
   'target',
   'anchor',
   'props',
@@ -26,26 +25,21 @@ const mount = (Component, options) => {
   const props = $state(options.props ?? {})
   const component = Svelte.mount(Component, { ...options, props })
 
+  /** Remove the component from the DOM. */
+  const unmount = () => {
+    Svelte.flushSync(() => Svelte.unmount(component))
+    removeCleanupTask(unmount)
+  }
+
+  /** Update the component's props. */
+  const rerender = (nextProps) => {
+    Svelte.flushSync(() => Object.assign(props, nextProps))
+  }
+
+  addCleanupTask(unmount)
   Svelte.flushSync()
-  propsByComponent.set(component, props)
 
-  return component
+  return { component, unmount, rerender }
 }
 
-/** Remove the component from the DOM. */
-const unmount = (component) => {
-  propsByComponent.delete(component)
-  Svelte.flushSync(() => Svelte.unmount(component))
-}
-
-/**
- * Update the component's props.
- *
- * Relies on the `$state` signal added in `mount`.
- */
-const updateProps = (component, nextProps) => {
-  const prevProps = propsByComponent.get(component)
-  Object.assign(prevProps, nextProps)
-}
-
-export { allowedOptions, IS_MODERN_SVELTE, mount, unmount, updateProps }
+export { ALLOWED_OPTIONS, IS_MODERN_SVELTE, mount }
