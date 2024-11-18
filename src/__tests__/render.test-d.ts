@@ -1,4 +1,5 @@
 import { expectTypeOf } from 'expect-type'
+import { ComponentProps } from 'svelte'
 import { describe, test } from 'vitest'
 
 import * as subject from '../index.js'
@@ -35,5 +36,15 @@ describe('types', () => {
       rerender: (props: { name?: string; count?: number }) => Promise<void>
       unmount: () => void
     }>()
+  })
+
+  test('render function may be wrapped', () => {
+    const renderSubject = (props: ComponentProps<Component>) => {
+      return subject.render(Component, props)
+    }
+
+    renderSubject({ name: 'Alice', count: 42 })
+    // @ts-expect-error: name should be a string
+    renderSubject(Component, { name: 42 })
   })
 })
