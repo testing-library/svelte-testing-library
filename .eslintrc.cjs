@@ -26,9 +26,12 @@ module.exports = {
     {
       files: ['*.ts'],
       parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json',
+      },
       extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/stylistic',
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
         'prettier',
       ],
     },
