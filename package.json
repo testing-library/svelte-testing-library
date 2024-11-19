@@ -75,7 +75,10 @@
     "build": "tsc -p tsconfig.build.json && cp src/component-types.d.ts types",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "preview-release": "./scripts/preview-release"
+    "preview-release": "./scripts/preview-release",
+    "install:3": "./scripts/install-dependencies 3",
+    "install:4": "./scripts/install-dependencies 4",
+    "install:5": "./scripts/install-dependencies 5"
   },
   "peerDependencies": {
     "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",

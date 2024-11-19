@@ -52,7 +52,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: 📥 Download deps
-        run: ./scripts/install-dependencies ${{ matrix.svelte }}
+        run: npm run install:${{ matrix.svelte }}
 
       - name: ▶️ Run ${{ matrix.check }}
         run: npm run ${{ matrix.check }}
