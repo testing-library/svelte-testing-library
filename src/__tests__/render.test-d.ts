@@ -18,6 +18,14 @@ describe('types', () => {
     await rerender({ count: 0 })
   })
 
+  test('non-components are rejected', () => {
+    // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+    class NotComponent {}
+
+    // @ts-expect-error: component should be a Svelte component
+    subject.render(NotComponent)
+  })
+
   test('invalid prop types are rejected', () => {
     // @ts-expect-error: name should be a string
     subject.render(Component, { name: 42 })

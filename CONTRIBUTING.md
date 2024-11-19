@@ -58,6 +58,23 @@ npm test
 npm run test:watch
 ```
 
+### Using different versions of Svelte
+
+Use the provided script to set up your environment for different versions of Svelte:
+
+```shell
+# install Svelte 5
+npm run install:5
+
+# install Svelte 4
+npm run install:4
+
+# install Svelte 3
+npm run install:3
+```
+
+Not all checks will pass on `svelte<5`. Reference the CI workflows to see which checks are expected to pass on older versions.
+
 ### Docs
 
 Use the `toc` script to ensure the README's table of contents is up to date:
