@@ -103,9 +103,10 @@
     "@testing-library/user-event": "^14.5.2",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "@vitest/coverage-v8": "^2.0.2",
+    "@vitest/coverage-v8": "^1.0.0 || ^2.0.2",
     "all-contributors-cli": "^6.26.1",
     "doctoc": "^2.2.1",
+    "esbuild": "*",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
@@ -123,10 +124,10 @@
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.5",
     "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
-    "svelte-check": "^4.0.4",
+    "svelte-check": "^3.0.0 || ^4.0.4",
     "svelte-jester": "^5.0.0",
     "typescript": "^5.5.3",
-    "vite": "^5.3.3",
-    "vitest": "^2.0.2"
+    "vite": "^4.0.0 || ^5.3.3",
+    "vitest": "^1.0.0 || ^2.0.2"
   }
 }
