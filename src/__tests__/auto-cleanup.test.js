@@ -1,8 +1,13 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
-const globalAfterEach = vi.fn()
+import { IS_JEST } from './utils.js'
 
-describe('auto-cleanup', () => {
+// TODO(mcous, 2024-12-08): clearing module cache and re-importing
+// in Jest breaks Svelte's environment checking heuristics.
+// Re-implement this test in a more accurate environment, without mocks.
+describe.skipIf(IS_JEST)('auto-cleanup', () => {
+  const globalAfterEach = vi.fn()
+
   beforeEach(() => {
     vi.resetModules()
     globalThis.afterEach = globalAfterEach
