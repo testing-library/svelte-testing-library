@@ -1,6 +1,6 @@
 import { render } from '@testing-library/svelte'
-import { beforeAll, describe, expect, test } from 'vitest'
 
+import { beforeAll, describe, expect, test } from './runner.js'
 import { COMPONENT_FIXTURES } from './utils.js'
 
 describe.each(COMPONENT_FIXTURES)('render ($mode)', ({ component }) => {

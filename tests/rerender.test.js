@@ -1,6 +1,6 @@
 import { act, render, screen } from '@testing-library/svelte'
-import { beforeAll, describe, expect, test, vi } from 'vitest'
 
+import { beforeAll, describe, expect, test, vi } from './runner.js'
 import { COMPONENT_FIXTURES, IS_SVELTE_5, MODE_RUNES } from './utils.js'
 
 describe.each(COMPONENT_FIXTURES)('rerender ($mode)', ({ mode, component }) => {

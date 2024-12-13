@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { svelteTesting } from '@testing-library/svelte/vite'
 
-import { svelteTesting } from '../src/vite.js'
+import { beforeEach, describe, expect, test, vi } from './runner.js'
 import { IS_JEST } from './utils.js'
 
 describe.skipIf(IS_JEST)('vite plugin', () => {

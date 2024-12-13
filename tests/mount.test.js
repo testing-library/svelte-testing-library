@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/svelte'
-import { describe, expect, test, vi } from 'vitest'
 
 import Mounter from './fixtures/Mounter.svelte'
+import { describe, expect, test, vi } from './runner.js'
 
 const onMounted = vi.fn()
 const onDestroyed = vi.fn()

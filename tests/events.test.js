@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/svelte'
-import { describe, expect, test } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
+import { describe, expect, test } from './runner.js'
 
 describe('events', () => {
   test('state changes are flushed after firing an event', async () => {

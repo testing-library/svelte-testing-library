@@ -1,7 +1,7 @@
 import { render } from '@testing-library/svelte'
-import { describe, expect, test } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
+import { describe, expect, test } from './runner.js'
 
 describe('multi-base', () => {
   const treeA = document.createElement('div')

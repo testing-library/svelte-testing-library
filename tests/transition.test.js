@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import Transitioner from './fixtures/Transitioner.svelte'
+import { beforeEach, describe, expect, test, vi } from './runner.js'
 import { IS_JSDOM, IS_SVELTE_5 } from './utils.js'
 
 describe.skipIf(IS_SVELTE_5)('transitions', () => {

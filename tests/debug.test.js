@@ -1,8 +1,8 @@
 import { prettyDOM } from '@testing-library/dom'
 import { render } from '@testing-library/svelte'
-import { describe, expect, test, vi } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
+import { describe, expect, test, vi } from './runner.js'
 
 describe('debug', () => {
   test('pretty prints the base element', () => {
