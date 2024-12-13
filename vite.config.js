@@ -8,14 +8,14 @@ export default defineConfig({
   plugins: [svelte(), svelteTesting()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./src/__tests__/_vitest-setup.js'],
+    setupFiles: ['./tests/_vitest-setup.js'],
     mockReset: true,
     unstubGlobals: true,
     unstubEnvs: true,
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['**/__tests__/**', 'src/vite.js', 'src/vitest.js'],
+      exclude: ['src/vitest.js'],
     },
   },
 })

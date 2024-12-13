@@ -1,7 +1,7 @@
 import { expectTypeOf } from 'expect-type'
 import { describe, test } from 'vitest'
 
-import * as subject from '../index.js'
+import * as subject from '../src/index.js'
 import Component from './fixtures/Comp.svelte'
 
 describe('render query and utility types', () => {
