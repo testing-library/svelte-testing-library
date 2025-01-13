@@ -59,3 +59,8 @@ export type Exports<C> = C extends LegacyComponent
 export type MountOptions<C extends Component> = C extends LegacyComponent
   ? LegacyConstructorOptions<Props<C>>
   : Parameters<typeof mount<Props<C>, Exports<C>>>[1]
+
+/** Component props or partial mount options. */
+export type PropsOrMountOptions<C extends Component> =
+  | Props<C>
+  | Partial<MountOptions<C>>
