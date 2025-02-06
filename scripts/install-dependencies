@@ -1,22 +1,28 @@
 #!/usr/bin/env bash
 # Install dependencies for a given version of Svelte
-set -euo pipefail
+set -euxo pipefail
 
 svelte_version=${1}
+node_version=$(node --version)
 
 rm -rf node_modules
 npm install --no-package-lock
 
-if [[ "${svelte_version}" == "4" ]]; then
+if [[ "${svelte_version}" == "3" ]]; then
+  npm uninstall --no-save vite vitest @vitest/coverage-v8 @sveltejs/vite-plugin-svelte svelte-check svelte
+  npm install --no-save vite@4 vitest@0.x.x @vitest/coverage-v8@0.x.x @sveltejs/vite-plugin-svelte@2 svelte-check@3 svelte@3
+elif [[ "${svelte_version}" == "4" ]]; then
   npm uninstall --no-save @sveltejs/vite-plugin-svelte svelte
   npm install --no-save @sveltejs/vite-plugin-svelte@3 svelte@4
-elif [[ "${svelte_version}" == "3" ]]; then
-  npm uninstall --no-save vite vitest @vitest/coverage-v8 @sveltejs/vite-plugin-svelte svelte-check svelte
-  npm install --no-save vite@4 vitest@1 @vitest/coverage-v8@1 @sveltejs/vite-plugin-svelte@2 svelte-check@3 svelte@3
+fi
+
+if [[ "${node_version}" =~ "v16" ]]; then
+  npm uninstall --no-save vite vitest @vitest/coverage-v8 @sveltejs/vite-plugin-svelte
+  npm install --no-save vite@4 vitest@0.x.x @vitest/coverage-v8@0.x.x @sveltejs/vite-plugin-svelte@2
 fi
 
 npm dedupe
-installed_version=$(npm ls --depth=0 --parseable  svelte@${svelte_version})
+installed_version=$(npm ls --depth=0 --parseable svelte@${svelte_version})
 
 if [[ -z "${installed_version}" ]]; then
   echo "Error: expected svelte@${svelte_version}"
