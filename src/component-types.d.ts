@@ -45,17 +45,17 @@ export type Props<C extends Component> = ComponentProps<C>
  * In Svelte 5, this is the set of variables marked as `export`'d.
  * In Svelte 4, this is simply the instance of the component class.
  */
-export type Exports<C> = C extends LegacyComponent
-  ? C
-  : C extends ModernComponent<any, infer E>
+export type Exports<C> = IS_MODERN_SVELTE extends true
+  ? C extends ModernComponent<any, infer E>
     ? E
-    : never
+    : C & { $set: never; $on: never; $destroy: never }
+  : C
 
 /**
  * Options that may be passed to `mount` when rendering the component.
  *
  * In Svelte 4, these are the options passed to the component constructor.
  */
-export type MountOptions<C extends Component> = C extends LegacyComponent
-  ? LegacyConstructorOptions<Props<C>>
-  : Parameters<typeof mount<Props<C>, Exports<C>>>[1]
+export type MountOptions<C extends Component> = IS_MODERN_SVELTE extends true
+  ? Parameters<typeof mount<Props<C>, Exports<C>>>[1]
+  : LegacyConstructorOptions<Props<C>>
