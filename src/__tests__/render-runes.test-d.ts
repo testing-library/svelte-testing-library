@@ -1,7 +1,8 @@
 import { expectTypeOf } from 'expect-type'
-import { describe, test } from 'vitest'
+import { describe, test, vi } from 'vitest'
 
 import * as subject from '../index.js'
+import LegacyComponent from './fixtures/Typed.svelte'
 import Component from './fixtures/TypedRunes.svelte'
 
 describe('types', () => {
@@ -35,5 +36,34 @@ describe('types', () => {
       rerender: (props: { name?: string; count?: number }) => Promise<void>
       unmount: () => void
     }>()
+  })
+})
+
+describe('legacy component types', () => {
+  test('render accepts events', () => {
+    const onGreeting = vi.fn()
+    subject.render(LegacyComponent, {
+      props: { name: 'Alice', count: 42 },
+      events: { greeting: onGreeting },
+    })
+  })
+
+  test('component $set and $on are not allowed', () => {
+    const onGreeting = vi.fn()
+    const { component } = subject.render(LegacyComponent, {
+      name: 'Alice',
+      count: 42,
+    })
+
+    expectTypeOf(component).toMatchTypeOf<{ hello: string }>()
+
+    // @ts-expect-error: Svelte 5 mount does not return `$set`
+    component.$on('greeting', onGreeting)
+
+    // @ts-expect-error: Svelte 5 mount does not return `$set`
+    component.$set({ name: 'Bob' })
+
+    // @ts-expect-error: Svelte 5 mount does not return `$destroy`
+    component.$destroy()
   })
 })
