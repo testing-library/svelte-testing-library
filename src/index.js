@@ -23,7 +23,7 @@ if (typeof process !== 'undefined' && !process.env.STL_SKIP_AUTO_CLEANUP) {
 export * from '@testing-library/dom'
 
 // export svelte-specific functions and custom `fireEvent`
-export { UnknownSvelteOptionsError } from './core/index.js'
-export * from './pure.js'
 // `fireEvent` must be named to take priority over wildcard from @testing-library/dom
+export { UnknownSvelteOptionsError } from './core/index.js'
 export { fireEvent } from './pure.js'
+export * from './pure.js'

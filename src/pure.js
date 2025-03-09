@@ -7,16 +7,13 @@ import {
 } from '@testing-library/dom'
 import * as Svelte from 'svelte'
 
-import { mount, unmount, updateProps, validateOptions } from './core/index.js'
-
-const targetCache = new Set()
-const componentCache = new Set()
+import { mount, prepare, cleanup as coreCleanup } from './core/index.js'
 
 /**
  * Customize how Svelte renders the component.
  *
  * @template {import('./core/types.js').Component} C
- * @typedef {import('./core/types.js').Props<C> | Partial<import('./core/types.js').MountOptions<C>>} SvelteComponentOptions
+ * @typedef {import('./core/types.js').PropsOrMountOptions<C>} SvelteComponentOptions
  */
 
 /**
@@ -54,39 +51,28 @@ const componentCache = new Set()
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
  * @param {import('./core/types.js').ComponentType<C>} Component - The component to render.
- * @param {SvelteComponentOptions<C>} options - Customize how Svelte renders the component.
+ * @param {SvelteComponentOptions<C>} propsOrOptions - Customize how Svelte renders the component.
  * @param {RenderOptions<Q>} renderOptions - Customize how Testing Library sets up the document and binds queries.
  * @returns {RenderResult<C, Q>} The rendered component and bound testing functions.
  */
-const render = (Component, options = {}, renderOptions = {}) => {
-  options = validateOptions(options)
-
-  const baseElement =
-    renderOptions.baseElement ?? options.target ?? document.body
-
-  const queries = getQueriesForElement(baseElement, renderOptions.queries)
-
-  const target =
-    // eslint-disable-next-line unicorn/prefer-dom-node-append
-    options.target ?? baseElement.appendChild(document.createElement('div'))
-
-  targetCache.add(target)
-
-  const component = mount(
-    Component.default ?? Component,
-    { ...options, target },
-    cleanupComponent
+const render = (Component, propsOrOptions = {}, renderOptions = {}) => {
+  const { baseElement, target, mountOptions } = prepare(
+    propsOrOptions,
+    renderOptions
   )
 
-  componentCache.add(component)
+  const { component, unmount, rerender } = mount(
+    Component.default ?? Component,
+    mountOptions
+  )
+
+  const queries = getQueriesForElement(baseElement, renderOptions.queries)
 
   return {
     baseElement,
     component,
     container: target,
-    debug: (el = baseElement) => {
-      console.log(prettyDOM(el))
-    },
+    debug: (el = baseElement) => console.log(prettyDOM(el)),
     rerender: async (props) => {
       if (props.props) {
         console.warn(
@@ -95,12 +81,9 @@ const render = (Component, options = {}, renderOptions = {}) => {
         props = props.props
       }
 
-      updateProps(component, props)
-      await Svelte.tick()
+      await rerender(props)
     },
-    unmount: () => {
-      cleanupComponent(component)
-    },
+    unmount,
     ...queries,
   }
 }
@@ -132,32 +115,9 @@ const cleanupDTL = () => {
   }
 }
 
-/** Remove a component from the component cache. */
-const cleanupComponent = (component) => {
-  const inCache = componentCache.delete(component)
-
-  if (inCache) {
-    unmount(component)
-  }
-}
-
-/** Remove a target element from the target cache. */
-const cleanupTarget = (target) => {
-  const inCache = targetCache.delete(target)
-
-  if (inCache && target.parentNode === document.body) {
-    target.remove()
-  }
-}
-
 /** Unmount components, remove elements added to `<body>`, and reset `@testing-library/dom`. */
 const cleanup = () => {
-  for (const component of componentCache) {
-    cleanupComponent(component)
-  }
-  for (const target of targetCache) {
-    cleanupTarget(target)
-  }
+  coreCleanup()
   cleanupDTL()
 }
 
