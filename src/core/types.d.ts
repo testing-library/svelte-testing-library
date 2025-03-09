@@ -59,3 +59,8 @@ export type Exports<C> = IS_MODERN_SVELTE extends true
 export type MountOptions<C extends Component> = IS_MODERN_SVELTE extends true
   ? Parameters<typeof mount<Props<C>, Exports<C>>>[1]
   : LegacyConstructorOptions<Props<C>>
+
+/** Component props or partial mount options. */
+export type PropsOrMountOptions<C extends Component> =
+  | Props<C>
+  | Partial<MountOptions<C>>
