@@ -31,6 +31,7 @@ describe('types', () => {
 
     expectTypeOf(result).toExtend<{
       container: HTMLElement
+      baseElement: HTMLElement
       component: { hello: string }
       debug: (el?: HTMLElement) => void
       rerender: (props: { name?: string; count?: number }) => Promise<void>

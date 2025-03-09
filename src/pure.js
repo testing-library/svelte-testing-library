@@ -15,8 +15,8 @@ const componentCache = new Set()
 /**
  * Customize how Svelte renders the component.
  *
- * @template {import('./component-types.js').Component} C
- * @typedef {import('./component-types.js').Props<C> | Partial<import('./component-types.js').MountOptions<C>>} SvelteComponentOptions
+ * @template {import('./core/types.js').Component} C
+ * @typedef {import('./core/types.js').Props<C> | Partial<import('./core/types.js').MountOptions<C>>} SvelteComponentOptions
  */
 
 /**
@@ -32,15 +32,15 @@ const componentCache = new Set()
 /**
  * The rendered component and bound testing functions.
  *
- * @template {import('./component-types.js').Component} C
+ * @template {import('./core/types.js').Component} C
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
  * @typedef {{
  *   container: HTMLElement
  *   baseElement: HTMLElement
- *   component: import('./component-types.js').Exports<C>
+ *   component: import('./core/types.js').Exports<C>
  *   debug: (el?: HTMLElement | DocumentFragment) => void
- *   rerender: (props: Partial<import('./component-types.js').Props<C>>) => Promise<void>
+ *   rerender: (props: Partial<import('./core/types.js').Props<C>>) => Promise<void>
  *   unmount: () => void
  * } & {
  *   [P in keyof Q]: import('@testing-library/dom').BoundFunction<Q[P]>
@@ -50,10 +50,10 @@ const componentCache = new Set()
 /**
  * Render a component into the document.
  *
- * @template {import('./component-types.js').Component} C
+ * @template {import('./core/types.js').Component} C
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
- * @param {import('./component-types.js').ComponentType<C>} Component - The component to render.
+ * @param {import('./core/types.js').ComponentType<C>} Component - The component to render.
  * @param {SvelteComponentOptions<C>} options - Customize how Svelte renders the component.
  * @param {RenderOptions<Q>} renderOptions - Customize how Testing Library sets up the document and binds queries.
  * @returns {RenderResult<C, Q>} The rendered component and bound testing functions.
