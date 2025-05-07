@@ -1,7 +1,7 @@
+import * as subject from '@testing-library/svelte'
 import { expectTypeOf } from 'expect-type'
 import { describe, test, vi } from 'vitest'
 
-import * as subject from '../index.js'
 import LegacyComponent from './fixtures/Typed.svelte'
 import Component from './fixtures/TypedRunes.svelte'
 

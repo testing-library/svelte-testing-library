@@ -4,23 +4,23 @@ const SVELTE_TRANSFORM_PATTERN =
   SVELTE_VERSION >= '5' ? '^.+\\.svelte(?:\\.js)?$' : '^.+\\.svelte$'
 
 export default {
-  testMatch: ['<rootDir>/src/__tests__/**/*.test.js'],
+  testMatch: ['<rootDir>/tests/**/*.test.js'],
   transform: {
     [SVELTE_TRANSFORM_PATTERN]: 'svelte-jester',
   },
   moduleFileExtensions: ['js', 'svelte'],
   extensionsToTreatAsEsm: ['.svelte'],
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/__tests__/_jest-setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/tests/_jest-setup.js'],
   injectGlobals: false,
   moduleNameMapper: {
-    '^vitest$': '<rootDir>/src/__tests__/_jest-vitest-alias.js',
+    '^vitest$': '<rootDir>/tests/_jest-vitest-alias.js',
+    '^@testing-library\\/svelte$': '<rootDir>/src/index.js',
   },
   resetMocks: true,
   restoreMocks: true,
   collectCoverageFrom: ['<rootDir>/src/**/*'],
   coveragePathIgnorePatterns: [
-    '/__tests__/',
     '<rootDir>/src/vite.js',
     '<rootDir>/src/vitest.js',
   ],

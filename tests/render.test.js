@@ -1,7 +1,7 @@
 import { render } from '@testing-library/svelte'
 import { beforeAll, describe, expect, test } from 'vitest'
 
-import { COMPONENT_FIXTURES } from './utils.js'
+import { COMPONENT_FIXTURES } from './_env.js'
 
 describe.each(COMPONENT_FIXTURES)('render ($mode)', ({ component }) => {
   const props = { name: 'World' }
