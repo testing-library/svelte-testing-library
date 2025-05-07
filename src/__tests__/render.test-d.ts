@@ -37,7 +37,7 @@ describe('types', () => {
   test('render result has container and component', () => {
     const result = subject.render(Component, { name: 'Alice', count: 42 })
 
-    expectTypeOf(result).toMatchTypeOf<{
+    expectTypeOf(result).toExtend<{
       container: HTMLElement
       component: { hello: string }
       debug: (el?: HTMLElement) => void

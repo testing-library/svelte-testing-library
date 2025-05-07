@@ -29,7 +29,7 @@ describe('types', () => {
   test('render result has container and component', () => {
     const result = subject.render(Component, { name: 'Alice', count: 42 })
 
-    expectTypeOf(result).toMatchTypeOf<{
+    expectTypeOf(result).toExtend<{
       container: HTMLElement
       component: { hello: string }
       debug: (el?: HTMLElement) => void
@@ -55,7 +55,7 @@ describe('legacy component types', () => {
       count: 42,
     })
 
-    expectTypeOf(component).toMatchTypeOf<{ hello: string }>()
+    expectTypeOf(component).toExtend<{ hello: string }>()
 
     // @ts-expect-error: Svelte 5 mount does not return `$set`
     component.$on('greeting', onGreeting)
