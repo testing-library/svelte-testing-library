@@ -6,7 +6,11 @@
     "skipLibCheck": true,
     "strict": true,
     "types": ["svelte", "vite/client", "vitest", "vitest/globals"],
+    "baseUrl": "./",
+    "paths": {
+      "@testing-library/svelte": ["./src"]
+    },
     "plugins": [{ "name": "typescript-svelte-plugin" }]
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

@@ -8,5 +8,5 @@
     "rootDir": "src",
     "outDir": "types"
   },
-  "exclude": ["src/**/__tests__/**"]
+  "include": ["src"]
 }

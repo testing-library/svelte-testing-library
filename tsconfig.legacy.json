@@ -1,8 +1,8 @@
 {
   "extends": ["./tsconfig.json"],
   "exclude": [
-    "src/__tests__/render-runes.test-d.ts",
-    "src/__tests__/fixtures/CompRunes.svelte",
-    "src/__tests__/fixtures/TypedRunes.svelte"
+    "tests/render-runes.test-d.ts",
+    "tests/fixtures/CompRunes.svelte",
+    "tests/fixtures/TypedRunes.svelte"
   ]
 }

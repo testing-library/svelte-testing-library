@@ -1,9 +1,8 @@
 import { createRequire } from 'node:module'
 
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { svelteTesting } from '@testing-library/svelte/vite'
 import { defineConfig } from 'vite'
-
-import { svelteTesting } from './src/vite.js'
 
 const require = createRequire(import.meta.url)
 
@@ -12,17 +11,17 @@ export default defineConfig({
   plugins: [svelte(), svelteTesting()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./src/__tests__/_vitest-setup.js'],
+    setupFiles: ['./tests/_vitest-setup.js'],
     mockReset: true,
     unstubGlobals: true,
     unstubEnvs: true,
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['**/__tests__/**', 'src/vite.js', 'src/vitest.js'],
     },
     alias: {
-      '@testing-library/svelte': require.resolve('.'),
+      '@testing-library/svelte/vite': require.resolve('./src/vite.js'),
+      '@testing-library/svelte': require.resolve('./src/index.js'),
     },
   },
 })

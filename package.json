@@ -49,8 +49,7 @@
   ],
   "files": [
     "src",
-    "types",
-    "!__tests__"
+    "types"
   ],
   "scripts": {
     "all": "npm-run-all contributors:generate toc format types build test:vitest:* test:jest",
