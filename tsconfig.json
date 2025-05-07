@@ -5,7 +5,8 @@
     "noEmit": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": ["svelte", "vite/client", "vitest", "vitest/globals"]
+    "types": ["svelte", "vite/client", "vitest", "vitest/globals"],
+    "plugins": [{ "name": "typescript-svelte-plugin" }]
   },
   "include": ["src"]
 }

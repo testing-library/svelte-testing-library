@@ -127,6 +127,7 @@
     "svelte-check": "^3.0.0 || ^4.0.4",
     "svelte-jester": "^5.0.0",
     "typescript": "^5.5.3",
+    "typescript-svelte-plugin": "^0.3.46",
     "vite": "^4.0.0 || ^5.3.3",
     "vitest": "0.x.x || ^1.0.0 || ^2.0.2"
   }
