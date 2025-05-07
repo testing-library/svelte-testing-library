@@ -17,7 +17,7 @@ jobs:
   main:
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
-    name: Node ${{ matrix.node }}, Svelte ${{ matrix.svelte }}, ${{ matrix.check }}
+    name: Svelte ${{ matrix.svelte }}, Node ${{ matrix.node }}, ${{ matrix.check }}
     runs-on: ubuntu-latest
 
     # enable OIDC for codecov uploads
@@ -27,20 +27,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['16', '18', '20']
-        svelte: ['3', '4']
+        node: ['16', '18', '20', '22']
+        svelte: ['3', '4', '5']
         check: ['test:vitest:jsdom', 'test:vitest:happy-dom', 'test:jest']
+        exclude:
+          # Don't run Svelte 3 on Node versions greater than 20
+          - { svelte: '3', node: '22' }
+          # Only run Svelte 5 on Node versions greater than or equal to 20
+          - { svelte: '5', node: '16' }
+          - { svelte: '5', node: '18' }
         include:
           # We only need to lint once, so do it on latest Node and Svelte
-          - { node: '20', svelte: '4', check: 'lint' }
-          # Run type checks in latest node
-          - { node: '20', svelte: '3', check: 'types:legacy' }
-          - { node: '20', svelte: '4', check: 'types:legacy' }
-          - { node: '20', svelte: '5', check: 'types' }
-          # Only run Svelte 5 checks on latest Node
-          - { node: '20', svelte: '5', check: 'test:vitest:jsdom' }
-          - { node: '20', svelte: '5', check: 'test:vitest:happy-dom' }
-          - { node: '20', svelte: '5', check: 'test:jest' }
+          - { svelte: '5', node: '22', check: 'lint' }
+          # Run type checks in latest applicable Node
+          - { svelte: '3', node: '20', check: 'types:legacy' }
+          - { svelte: '4', node: '22', check: 'types:legacy' }
+          - { svelte: '5', node: '22', check: 'types' }
 
     steps:
       - name: ⬇️ Checkout repo
