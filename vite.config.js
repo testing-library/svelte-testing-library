@@ -6,9 +6,8 @@ import { defineConfig } from 'vite'
 
 const require = createRequire(import.meta.url)
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), svelteTesting()],
+  plugins: [svelte({ hot: false }), svelteTesting()],
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/_vitest-setup.js'],

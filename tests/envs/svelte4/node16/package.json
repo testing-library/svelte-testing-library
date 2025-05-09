@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "engines": {
+    "node": "16.x.x"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "2.x.x",
+    "@testing-library/dom": "9.x.x",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitest/coverage-v8": "0.x.x",
+    "expect-type": "^1.2.1",
+    "happy-dom": "14.x.x",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "22.x.x",
+    "npm-run-all": "^4.1.5",
+    "svelte": "4.x.x",
+    "svelte-check": "3.x.x",
+    "svelte-jester": "3.x.x",
+    "vite": "4.x.x",
+    "vitest": "0.x.x"
+  }
+}

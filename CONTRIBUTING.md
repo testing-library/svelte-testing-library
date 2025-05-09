@@ -28,11 +28,10 @@ npm run preview-release
 
 ## Development setup
 
-After cloning the repository, install the project's dependencies and run the `validate` script to run all checks and tests to verify your setup.
+After cloning the repository, use the `setup` script to install dependencies and run all checks:
 
 ```shell
-npm install # or `pnpm install`, or `yarn install`, etc.
-npm run validate
+npm run setup
 ```
 
 ### Lint and format
@@ -40,13 +39,13 @@ npm run validate
 Run auto-formatting to ensure any changes adhere to the code style of the repository:
 
 ```shell
-npm run format:delta
+npm run format
 ```
 
 To run lint and format checks without making any changes:
 
 ```shell
-npm run lint:delta
+npm run lint
 ```
 
 ### Test
@@ -63,17 +62,18 @@ npm run test:watch
 Use the provided script to set up your environment for different versions of Svelte:
 
 ```shell
-# install Svelte 5
+# Svelte 5
 npm run install:5
+npm run all
 
-# install Svelte 4
+# Svelte 4
 npm run install:4
+npm run all:legacy
 
-# install Svelte 3
+# Svelte 3
 npm run install:3
+npm run all:legacy
 ```
-
-Not all checks will pass on `svelte<5`. Reference the CI workflows to see which checks are expected to pass on older versions.
 
 ### Docs
 
