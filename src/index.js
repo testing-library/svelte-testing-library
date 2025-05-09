@@ -1,4 +1,3 @@
-/* eslint-disable import/export */
 import { act, cleanup } from './pure.js'
 
 // If we're running in a test runner that supports afterEach

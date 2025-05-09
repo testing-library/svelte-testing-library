@@ -1,12 +1,12 @@
-import { fireEvent, render } from '@testing-library/svelte'
+import { fireEvent, render, screen } from '@testing-library/svelte'
 import { describe, expect, test } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
 
 describe('events', () => {
   test('state changes are flushed after firing an event', async () => {
-    const { getByText } = render(Comp, { props: { name: 'World' } })
-    const button = getByText('Button')
+    render(Comp, { props: { name: 'World' } })
+    const button = screen.getByText('Button')
 
     const result = fireEvent.click(button)
 
@@ -15,8 +15,8 @@ describe('events', () => {
   })
 
   test('calling `fireEvent` directly works too', async () => {
-    const { getByText } = render(Comp, { props: { name: 'World' } })
-    const button = getByText('Button')
+    render(Comp, { props: { name: 'World' } })
+    const button = screen.getByText('Button')
 
     const result = fireEvent(
       button,

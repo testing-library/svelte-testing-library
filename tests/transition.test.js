@@ -6,12 +6,13 @@ import { IS_JSDOM, IS_SVELTE_5 } from './_env.js'
 import Transitioner from './fixtures/Transitioner.svelte'
 
 describe.skipIf(IS_SVELTE_5)('transitions', () => {
-  beforeEach(() => {
-    if (!IS_JSDOM) return
-
-    const raf = (fn) => setTimeout(() => fn(new Date()), 16)
-    vi.stubGlobal('requestAnimationFrame', raf)
-  })
+  if (IS_JSDOM) {
+    beforeEach(() => {
+      vi.stubGlobal('requestAnimationFrame', (fn) =>
+        setTimeout(() => fn(new Date()), 16)
+      )
+    })
+  }
 
   test('on:introend', async () => {
     const user = userEvent.setup()
