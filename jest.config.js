@@ -1,7 +1,9 @@
 import { VERSION as SVELTE_VERSION } from 'svelte/compiler'
 
 const SVELTE_TRANSFORM_PATTERN =
-  SVELTE_VERSION >= '5' ? '^.+\\.svelte(?:\\.js)?$' : '^.+\\.svelte$'
+  SVELTE_VERSION >= '5'
+    ? String.raw`^.+\.svelte(?:\.js)?$`
+    : String.raw`^.+\.svelte$`
 
 export default {
   testMatch: ['<rootDir>/tests/**/*.test.js'],
@@ -15,7 +17,7 @@ export default {
   injectGlobals: false,
   moduleNameMapper: {
     '^vitest$': '<rootDir>/tests/_jest-vitest-alias.js',
-    '^@testing-library\\/svelte$': '<rootDir>/src/index.js',
+    [String.raw`^@testing-library\/svelte$`]: '<rootDir>/src/index.js',
   },
   resetMocks: true,
   restoreMocks: true,

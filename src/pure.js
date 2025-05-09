@@ -65,6 +65,7 @@ const render = (Component, options = {}, renderOptions = {}) => {
   const queries = getQueriesForElement(baseElement, renderOptions.queries)
 
   const target =
+    // eslint-disable-next-line unicorn/prefer-dom-node-append
     options.target ?? baseElement.appendChild(document.createElement('div'))
 
   targetCache.add(target)
@@ -116,14 +117,18 @@ const cleanupTarget = (target) => {
   const inCache = targetCache.delete(target)
 
   if (inCache && target.parentNode === document.body) {
-    document.body.removeChild(target)
+    target.remove()
   }
 }
 
 /** Unmount all components and remove elements added to `<body>`. */
 const cleanup = () => {
-  componentCache.forEach(cleanupComponent)
-  targetCache.forEach(cleanupTarget)
+  for (const component of componentCache) {
+    cleanupComponent(component)
+  }
+  for (const target of targetCache) {
+    cleanupTarget(target)
+  }
 }
 
 /**
@@ -163,12 +168,12 @@ const fireEvent = async (...args) => {
   return event
 }
 
-Object.keys(baseFireEvent).forEach((key) => {
+for (const [key, baseEvent] of Object.entries(baseFireEvent)) {
   fireEvent[key] = async (...args) => {
-    const event = baseFireEvent[key](...args)
+    const event = baseEvent(...args)
     await tick()
     return event
   }
-})
+}
 
 export { act, cleanup, fireEvent, render }

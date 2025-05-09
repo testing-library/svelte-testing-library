@@ -1,14 +1,14 @@
 import { setTimeout } from 'node:timers/promises'
 
-import { act, render } from '@testing-library/svelte'
+import { act, render, screen } from '@testing-library/svelte'
 import { describe, expect, test } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
 
 describe('act', () => {
   test('state updates are flushed', async () => {
-    const { getByText } = render(Comp)
-    const button = getByText('Button')
+    render(Comp)
+    const button = screen.getByText('Button')
 
     expect(button).toHaveTextContent('Button')
 
@@ -20,8 +20,8 @@ describe('act', () => {
   })
 
   test('accepts async functions', async () => {
-    const { getByText } = render(Comp)
-    const button = getByText('Button')
+    render(Comp)
+    const button = screen.getByText('Button')
 
     await act(async () => {
       await setTimeout(100)

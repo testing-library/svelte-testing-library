@@ -1,5 +1,5 @@
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import path from 'node:path'
+import url from 'node:url'
 
 /**
  * Vite plugin to configure @testing-library/svelte.
@@ -50,8 +50,8 @@ const addBrowserCondition = (config) => {
   const browserConditionIndex = conditions.indexOf('browser')
 
   if (
-    nodeConditionIndex >= 0 &&
-    (nodeConditionIndex < browserConditionIndex || browserConditionIndex < 0)
+    nodeConditionIndex !== -1 &&
+    (nodeConditionIndex < browserConditionIndex || browserConditionIndex === -1)
   ) {
     conditions.splice(nodeConditionIndex, 0, 'browser')
   }
@@ -77,7 +77,9 @@ const addAutoCleanup = (config) => {
     setupFiles = [setupFiles]
   }
 
-  setupFiles.push(join(dirname(fileURLToPath(import.meta.url)), './vitest.js'))
+  setupFiles.push(
+    path.join(path.dirname(url.fileURLToPath(import.meta.url)), './vitest.js')
+  )
 
   test.setupFiles = setupFiles
   config.test = test

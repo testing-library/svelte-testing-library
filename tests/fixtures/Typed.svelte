@@ -4,7 +4,7 @@
   export let name: string
   export let count: number
 
-  export const hello: string = 'hello'
+  export const hello = 'hello'
 
   const dispatch = createEventDispatcher<{ greeting: string }>()
 </script>

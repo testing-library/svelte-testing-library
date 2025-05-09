@@ -39,8 +39,8 @@ describe.each(COMPONENT_FIXTURES)('rerender ($mode)', ({ mode, component }) => {
       ? { name: 'World' }
       : { accessors: true, props: { name: 'World' } }
 
-    const { component, getByText } = render(Comp, componentOptions)
-    const element = getByText('Hello World!')
+    const { component } = render(Comp, componentOptions)
+    const element = screen.getByText('Hello World!')
 
     expect(element).toBeInTheDocument()
     expect(component.name).toBe('World')

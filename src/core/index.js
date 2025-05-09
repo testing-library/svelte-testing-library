@@ -7,10 +7,7 @@
  */
 import * as LegacyCore from './legacy.js'
 import * as ModernCore from './modern.svelte.js'
-import {
-  createValidateOptions,
-  UnknownSvelteOptionsError,
-} from './validate-options.js'
+import { createValidateOptions } from './validate-options.js'
 
 const { mount, unmount, updateProps, allowedOptions } =
   ModernCore.IS_MODERN_SVELTE ? ModernCore : LegacyCore
@@ -18,10 +15,5 @@ const { mount, unmount, updateProps, allowedOptions } =
 /** Validate component options. */
 const validateOptions = createValidateOptions(allowedOptions)
 
-export {
-  mount,
-  UnknownSvelteOptionsError,
-  unmount,
-  updateProps,
-  validateOptions,
-}
+export { mount, unmount, updateProps, validateOptions }
+export { UnknownSvelteOptionsError } from './validate-options.js'

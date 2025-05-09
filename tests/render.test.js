@@ -1,4 +1,4 @@
-import { render } from '@testing-library/svelte'
+import { render, screen } from '@testing-library/svelte'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import { COMPONENT_FIXTURES } from './_env.js'
@@ -12,14 +12,14 @@ describe.each(COMPONENT_FIXTURES)('render ($mode)', ({ component }) => {
   })
 
   test('renders component into the document', () => {
-    const { getByText } = render(Comp, { props })
+    render(Comp, { props })
 
-    expect(getByText('Hello World!')).toBeInTheDocument()
+    expect(screen.getByText('Hello World!')).toBeInTheDocument()
   })
 
   test('accepts props directly', () => {
-    const { getByText } = render(Comp, props)
-    expect(getByText('Hello World!')).toBeInTheDocument()
+    render(Comp, props)
+    expect(screen.getByText('Hello World!')).toBeInTheDocument()
   })
 
   test('throws error when mixing svelte component options and props', () => {
@@ -35,8 +35,8 @@ describe.each(COMPONENT_FIXTURES)('render ($mode)', ({ component }) => {
   })
 
   test('should return a container object wrapping the DOM of the rendered component', () => {
-    const { container, getByTestId } = render(Comp, props)
-    const firstElement = getByTestId('test')
+    const { container } = render(Comp, props)
+    const firstElement = screen.getByTestId('test')
 
     expect(container.firstChild).toBe(firstElement)
   })
@@ -73,17 +73,14 @@ describe.each(COMPONENT_FIXTURES)('render ($mode)', ({ component }) => {
     const baseElement = document.body
     const target = document.createElement('section')
     const anchor = document.createElement('div')
-    baseElement.appendChild(target)
-    target.appendChild(anchor)
+    baseElement.append(target)
+    target.append(anchor)
 
-    const { getByTestId } = render(
-      Comp,
-      { props, target, anchor },
-      { baseElement }
-    )
-    const firstElement = getByTestId('test')
+    render(Comp, { props, target, anchor }, { baseElement })
+    const firstElement = screen.getByTestId('test')
 
     expect(target.firstChild).toBe(firstElement)
+    // eslint-disable-next-line testing-library/no-node-access
     expect(target.lastChild).toBe(anchor)
   })
 })
