@@ -75,10 +75,10 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: 📥 Download deps
-        run: npm install --no-package-lock
+        run: npm install
 
       - name: 🏗️ Build types
         run: npm run build
@@ -102,7 +102,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: 📥 Downloads types build
         uses: actions/download-artifact@v4
