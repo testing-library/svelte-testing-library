@@ -11,9 +11,10 @@ export {
   jest as vi,
 } from '@jest/globals'
 
-// Add support for describe.skipIf and test.skipIf
+// Add support for describe.skipIf, test.skipIf, and test.runIf
 describe.skipIf = (condition) => (condition ? describe.skip : describe)
 test.skipIf = (condition) => (condition ? test.skip : test)
+test.runIf = (condition) => (condition ? test : test.skip)
 
 // Add support for `stubGlobal`
 jest.stubGlobal = (property, stub) => {

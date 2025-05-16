@@ -1,6 +1,7 @@
 import { setTimeout } from 'node:timers/promises'
 
 import { act, render, screen } from '@testing-library/svelte'
+import { userEvent } from '@testing-library/user-event'
 import { describe, expect, test } from 'vitest'
 
 import Comp from './fixtures/Comp.svelte'
@@ -24,9 +25,19 @@ describe('act', () => {
     const button = screen.getByText('Button')
 
     await act(async () => {
-      await setTimeout(100)
+      await setTimeout(10)
       button.click()
     })
+
+    expect(button).toHaveTextContent('Button Clicked')
+  })
+
+  test('wires act into user-event', async () => {
+    const user = userEvent.setup()
+    render(Comp)
+    const button = screen.getByText('Button')
+
+    await user.click(button)
 
     expect(button).toHaveTextContent('Button Clicked')
   })

@@ -1,9 +1,11 @@
 import {
+  configure as configureDTL,
   fireEvent as baseFireEvent,
+  getConfig as getDTLConfig,
   getQueriesForElement,
   prettyDOM,
 } from '@testing-library/dom'
-import { tick } from 'svelte'
+import * as Svelte from 'svelte'
 
 import { mount, unmount, updateProps, validateOptions } from './core/index.js'
 
@@ -94,12 +96,39 @@ const render = (Component, options = {}, renderOptions = {}) => {
       }
 
       updateProps(component, props)
-      await tick()
+      await Svelte.tick()
     },
     unmount: () => {
       cleanupComponent(component)
     },
     ...queries,
+  }
+}
+
+/** @type {import('@testing-library/dom'.Config | undefined} */
+let originalDTLConfig
+
+/**
+ * Configure `@testing-library/dom` for usage with Svelte.
+ *
+ * Ensures events fired from `@testing-library/dom`
+ * and `@testing-library/user-event` wait for Svelte
+ * to flush changes to the DOM before proceeding.
+ */
+const setup = () => {
+  originalDTLConfig = getDTLConfig()
+
+  configureDTL({
+    asyncWrapper: act,
+    eventWrapper: Svelte.flushSync ?? ((cb) => cb()),
+  })
+}
+
+/** Reset dom-testing-library config. */
+const cleanupDTL = () => {
+  if (originalDTLConfig) {
+    configureDTL(originalDTLConfig)
+    originalDTLConfig = undefined
   }
 }
 
@@ -121,7 +150,7 @@ const cleanupTarget = (target) => {
   }
 }
 
-/** Unmount all components and remove elements added to `<body>`. */
+/** Unmount components, remove elements added to `<body>`, and reset `@testing-library/dom`. */
 const cleanup = () => {
   for (const component of componentCache) {
     cleanupComponent(component)
@@ -129,19 +158,23 @@ const cleanup = () => {
   for (const target of targetCache) {
     cleanupTarget(target)
   }
+  cleanupDTL()
 }
 
 /**
  * Call a function and wait for Svelte to flush pending changes.
  *
- * @param {() => unknown} [fn] - A function, which may be `async`, to call before flushing updates.
- * @returns {Promise<void>}
+ * @template T
+ * @param {(() => Promise<T>) | () => T} [fn] - A function, which may be `async`, to call before flushing updates.
+ * @returns {Promise<T>}
  */
 const act = async (fn) => {
+  let result
   if (fn) {
-    await fn()
+    result = await fn()
   }
-  return tick()
+  await Svelte.tick()
+  return result
 }
 
 /**
@@ -162,18 +195,10 @@ const act = async (fn) => {
  *
  * @type {FireFunction & FireObject}
  */
-const fireEvent = async (...args) => {
-  const event = baseFireEvent(...args)
-  await tick()
-  return event
-}
+const fireEvent = async (...args) => act(() => baseFireEvent(...args))
 
 for (const [key, baseEvent] of Object.entries(baseFireEvent)) {
-  fireEvent[key] = async (...args) => {
-    const event = baseEvent(...args)
-    await tick()
-    return event
-  }
+  fireEvent[key] = async (...args) => act(() => baseEvent(...args))
 }
 
-export { act, cleanup, fireEvent, render }
+export { act, cleanup, fireEvent, render, setup }
