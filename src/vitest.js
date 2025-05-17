@@ -1,7 +1,11 @@
-import { act, cleanup } from '@testing-library/svelte'
-import { afterEach } from 'vitest'
+import { act, cleanup, setup } from '@testing-library/svelte'
+import { beforeEach } from 'vitest'
 
-afterEach(async () => {
-  await act()
-  cleanup()
+beforeEach(() => {
+  setup()
+
+  return async () => {
+    await act()
+    cleanup()
+  }
 })

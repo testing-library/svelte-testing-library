@@ -14,7 +14,7 @@ export default {
   extensionsToTreatAsEsm: ['.svelte'],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/tests/_jest-setup.js'],
-  injectGlobals: false,
+  injectGlobals: true,
   moduleNameMapper: {
     '^vitest$': '<rootDir>/tests/_jest-vitest-alias.js',
     [String.raw`^@testing-library\/svelte$`]: '<rootDir>/src/index.js',
