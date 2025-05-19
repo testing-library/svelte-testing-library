@@ -70,6 +70,7 @@
 - [This Solution](#this-solution)
 - [Installation](#installation)
 - [Setup](#setup)
+  - [Auto-cleanup](#auto-cleanup)
 - [Docs](#docs)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
@@ -139,6 +140,39 @@ test runners like Jest.
 
 [vitest]: https://vitest.dev/
 [setup docs]: https://testing-library.com/docs/svelte-testing-library/setup
+
+### Auto-cleanup
+
+In Vitest (via the `svelteTesting` plugin) and Jest (via the `beforeEach` and `afterEach` globals),
+this library will automatically setup and cleanup the test environment before and after each test.
+
+To do your own cleanup, or if you're using another framework, call the `setup` and `cleanup` functions yourself:
+
+```js
+import { cleanup, render, setup } from '@testing-library/svelte'
+
+// before
+setup()
+
+// test
+render(/* ... */)
+
+// after
+cleanup()
+```
+
+To disable auto-cleanup in Vitest, set the `autoCleanup` option of the plugin to false:
+
+```js
+svelteTesting({ autoCleanup: false })
+```
+
+To disable auto-cleanup in Jest and other frameworks with global test hooks,
+set the `STL_SKIP_AUTO_CLEANUP` environment variable:
+
+```shell
+STL_SKIP_AUTO_CLEANUP=1 jest
+```
 
 ## Docs
 

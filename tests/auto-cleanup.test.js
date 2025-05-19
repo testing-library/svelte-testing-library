@@ -6,15 +6,18 @@ import { IS_JEST } from './_env.js'
 // in Jest breaks Svelte's environment checking heuristics.
 // Re-implement this test in a more accurate environment, without mocks.
 describe.skipIf(IS_JEST)('auto-cleanup', () => {
+  const globalBeforeEach = vi.fn()
   const globalAfterEach = vi.fn()
 
   beforeEach(() => {
     vi.resetModules()
+    globalThis.beforeEach = globalBeforeEach
     globalThis.afterEach = globalAfterEach
   })
 
   afterEach(() => {
     delete process.env.STL_SKIP_AUTO_CLEANUP
+    delete globalThis.beforeEach
     delete globalThis.afterEach
   })
 
@@ -37,6 +40,7 @@ describe.skipIf(IS_JEST)('auto-cleanup', () => {
 
     await import('@testing-library/svelte')
 
+    expect(globalBeforeEach).toHaveBeenCalledTimes(0)
     expect(globalAfterEach).toHaveBeenCalledTimes(0)
   })
 })
