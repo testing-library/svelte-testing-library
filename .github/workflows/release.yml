@@ -37,8 +37,9 @@ jobs:
           - { svelte: '5', node: '16' }
           - { svelte: '5', node: '18' }
         include:
-          # We only need to lint once, so do it on latest Node and Svelte
+          # Only lint and test examples on latest Node and Svelte
           - { svelte: '5', node: '22', check: 'lint' }
+          - { svelte: '5', node: '22', check: 'test:examples' }
           # Run type checks in latest applicable Node
           - { svelte: '3', node: '20', check: 'types:legacy' }
           - { svelte: '4', node: '22', check: 'types:legacy' }

@@ -22,10 +22,7 @@ describe('events', () => {
 
     const result = fireEvent(
       button,
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      })
+      new MouseEvent('click', { bubbles: true, cancelable: true })
     )
 
     await expect(result).resolves.toBe(true)
@@ -36,7 +33,10 @@ describe('events', () => {
     render(Comp, { props: { name: 'World' } })
     const button = screen.getByText('Button')
 
-    const result = fireEventDTL.click(button)
+    const result = fireEventDTL(
+      button,
+      new MouseEvent('click', { bubbles: true, cancelable: true })
+    )
 
     expect(result).toBe(true)
     expect(button).toHaveTextContent('Button Clicked')
