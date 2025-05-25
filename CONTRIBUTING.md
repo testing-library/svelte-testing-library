@@ -77,10 +77,10 @@ npm run all:legacy
 
 ### Docs
 
-Use the `toc` script to ensure the README's table of contents is up to date:
+Use the `docs` script to ensure the README's table of contents is up to date:
 
 ```shell
-npm run toc
+npm run docs
 ```
 
 Use `contributors:add` to add a contributor to the README:

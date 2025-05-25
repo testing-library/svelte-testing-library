@@ -12,9 +12,10 @@
 
 <p>Simple and complete Svelte testing utilities that encourage good testing practices.</p>
 
-[**Read The Docs**][stl-docs] | [Edit the docs][stl-docs-repo]
+[**Read The Docs**][stl-docs] | [Edit the docs][stl-docs-repo] | [Examples](./examples)
 
 <!-- prettier-ignore-start -->
+
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
@@ -29,7 +30,9 @@
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+
 <!-- prettier-ignore-end -->
+
 </div>
 
 <hr />
@@ -63,9 +66,6 @@
 
 ## Table of Contents
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 - [The Problem](#the-problem)
 - [This Solution](#this-solution)
 - [Installation](#installation)
@@ -77,8 +77,6 @@
   - [💡 Feature Requests](#-feature-requests)
   - [❓ Questions](#-questions)
 - [Contributors](#contributors)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## The Problem
 
@@ -217,8 +215,11 @@ instead of filing an issue on GitHub.
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tbody>
     <tr>
@@ -240,12 +241,13 @@ Thanks goes to these people ([emoji key][emojis]):
       <td align="center" valign="top" width="14.28%"><a href="https://techblog.babyl.ca/"><img src="https://avatars.githubusercontent.com/u/19954?v=4?s=100" width="100px;" alt="Yanick Champoux"/><br /><sub><b>Yanick Champoux</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=yanick" title="Code">💻</a></td>
     </tr>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://michael.cousins.io/"><img src="https://avatars.githubusercontent.com/u/2963448?v=4?s=100" width="100px;" alt="Michael Cousins"/><br /><sub><b>Michael Cousins</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=mcous" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://michael.cousins.io/"><img src="https://avatars.githubusercontent.com/u/2963448?v=4?s=100" width="100px;" alt="Michael Cousins"/><br /><sub><b>Michael Cousins</b></sub></a><br /><a href="https://github.com/testing-library/svelte-testing-library/commits?author=mcous" title="Code">💻</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mcous" title="Documentation">📖</a> <a href="#ideas-mcous" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-mcous" title="Maintenance">🚧</a> <a href="https://github.com/testing-library/svelte-testing-library/commits?author=mcous" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
