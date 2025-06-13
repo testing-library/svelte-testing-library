@@ -75,7 +75,10 @@ export default tseslint.config(
     files: ['**/*.svelte'],
     rules: {
       'svelte/no-unused-svelte-ignore': 'off',
-      'unicorn/filename-case': ['error', { case: 'pascalCase' }],
+      'unicorn/filename-case': [
+        'error',
+        { cases: { kebabCase: true, pascalCase: true } },
+      ],
       'unicorn/no-useless-undefined': 'off',
     },
   },

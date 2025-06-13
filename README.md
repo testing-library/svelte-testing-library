@@ -12,9 +12,10 @@
 
 <p>Simple and complete Svelte testing utilities that encourage good testing practices.</p>
 
-[**Read The Docs**][stl-docs] | [Edit the docs][stl-docs-repo]
+[**Read The Docs**][stl-docs] | [Edit the docs][stl-docs-repo] | [Examples](./examples)
 
 <!-- prettier-ignore-start -->
+
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
@@ -29,7 +30,9 @@
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+
 <!-- prettier-ignore-end -->
+
 </div>
 
 <hr />
@@ -63,9 +66,6 @@
 
 ## Table of Contents
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 - [The Problem](#the-problem)
 - [This Solution](#this-solution)
 - [Installation](#installation)
@@ -77,8 +77,6 @@
   - [💡 Feature Requests](#-feature-requests)
   - [❓ Questions](#-questions)
 - [Contributors](#contributors)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## The Problem
 
@@ -217,8 +215,11 @@ instead of filing an issue on GitHub.
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tbody>
     <tr>
@@ -246,6 +247,7 @@ Thanks goes to these people ([emoji key][emojis]):
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
