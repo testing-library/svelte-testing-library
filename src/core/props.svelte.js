@@ -29,7 +29,7 @@ const createProps = (initialProps) => {
   })
 
   const update = (nextProps) => {
-    currentProps = { ...Object.assign(targetProps, nextProps) }
+    currentProps = { ...currentProps, ...nextProps }
   }
 
   return [props, update]

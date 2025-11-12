@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/svelte'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 
-import { COMPONENT_FIXTURES, IS_SVELTE_5, MODE_RUNES } from './_env.js'
+import { COMPONENT_FIXTURES, IS_JEST, IS_SVELTE_5, MODE_RUNES } from './_env.js'
 
 describe.each(COMPONENT_FIXTURES)('rerender ($mode)', ({ mode, component }) => {
   let Comp
@@ -53,7 +53,9 @@ describe.each(COMPONENT_FIXTURES)('rerender ($mode)', ({ mode, component }) => {
   })
 })
 
-describe.runIf(IS_SVELTE_5)('reactive prop handling', () => {
+// NOTE: Jest does not support `structuredClone`, used in this test
+// to check that `input` isn't turned into a Proxy
+describe.runIf(IS_SVELTE_5 && !IS_JEST)('reactive prop handling', () => {
   let Comp
 
   beforeAll(async () => {
