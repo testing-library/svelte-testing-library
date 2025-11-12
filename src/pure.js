@@ -7,10 +7,7 @@ import {
 } from '@testing-library/dom'
 import * as Svelte from 'svelte'
 
-import { mount, unmount, updateProps, validateOptions } from './core/index.js'
-
-const targetCache = new Set()
-const componentCache = new Set()
+import { addCleanupTask, mount, validateOptions } from './core/index.js'
 
 /**
  * Customize how Svelte renders the component.
@@ -70,15 +67,16 @@ const render = (Component, options = {}, renderOptions = {}) => {
     // eslint-disable-next-line unicorn/prefer-dom-node-append
     options.target ?? baseElement.appendChild(document.createElement('div'))
 
-  targetCache.add(target)
+  addCleanupTask(() => {
+    if (target.parentNode === document.body) {
+      target.remove()
+    }
+  })
 
-  const component = mount(
+  const { component, unmount, rerender } = mount(
     Component.default ?? Component,
-    { ...options, target },
-    cleanupComponent
+    { ...options, target }
   )
-
-  componentCache.add(component)
 
   return {
     baseElement,
@@ -95,18 +93,12 @@ const render = (Component, options = {}, renderOptions = {}) => {
         props = props.props
       }
 
-      updateProps(component, props)
-      await Svelte.tick()
+      await rerender(props)
     },
-    unmount: () => {
-      cleanupComponent(component)
-    },
+    unmount,
     ...queries,
   }
 }
-
-/** @type {import('@testing-library/dom'.Config | undefined} */
-let originalDTLConfig
 
 /**
  * Configure `@testing-library/dom` for usage with Svelte.
@@ -116,49 +108,16 @@ let originalDTLConfig
  * to flush changes to the DOM before proceeding.
  */
 const setup = () => {
-  originalDTLConfig = getDTLConfig()
+  const originalDTLConfig = getDTLConfig()
 
   configureDTL({
     asyncWrapper: act,
     eventWrapper: Svelte.flushSync ?? ((cb) => cb()),
   })
-}
 
-/** Reset dom-testing-library config. */
-const cleanupDTL = () => {
-  if (originalDTLConfig) {
+  addCleanupTask(() => {
     configureDTL(originalDTLConfig)
-    originalDTLConfig = undefined
-  }
-}
-
-/** Remove a component from the component cache. */
-const cleanupComponent = (component) => {
-  const inCache = componentCache.delete(component)
-
-  if (inCache) {
-    unmount(component)
-  }
-}
-
-/** Remove a target element from the target cache. */
-const cleanupTarget = (target) => {
-  const inCache = targetCache.delete(target)
-
-  if (inCache && target.parentNode === document.body) {
-    target.remove()
-  }
-}
-
-/** Unmount components, remove elements added to `<body>`, and reset `@testing-library/dom`. */
-const cleanup = () => {
-  for (const component of componentCache) {
-    cleanupComponent(component)
-  }
-  for (const target of targetCache) {
-    cleanupTarget(target)
-  }
-  cleanupDTL()
+  })
 }
 
 /**
@@ -201,4 +160,5 @@ for (const [key, baseEvent] of Object.entries(baseFireEvent)) {
   fireEvent[key] = async (...args) => act(() => baseEvent(...args))
 }
 
-export { act, cleanup, fireEvent, render, setup }
+export { cleanup } from './core/index.js'
+export { act, fireEvent, render, setup }

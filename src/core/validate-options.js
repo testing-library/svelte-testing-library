@@ -1,3 +1,5 @@
+import { ALLOWED_MOUNT_OPTIONS } from './mount.js'
+
 class UnknownSvelteOptionsError extends TypeError {
   constructor(unknownOptions, allowedOptions) {
     super(`Unknown options.
@@ -15,9 +17,9 @@ class UnknownSvelteOptionsError extends TypeError {
   }
 }
 
-const createValidateOptions = (allowedOptions) => (options) => {
+const validateOptions = (options) => {
   const isProps = !Object.keys(options).some((option) =>
-    allowedOptions.includes(option)
+    ALLOWED_MOUNT_OPTIONS.includes(option)
   )
 
   if (isProps) {
@@ -26,14 +28,14 @@ const createValidateOptions = (allowedOptions) => (options) => {
 
   // Check if any props and Svelte options were accidentally mixed.
   const unknownOptions = Object.keys(options).filter(
-    (option) => !allowedOptions.includes(option)
+    (option) => !ALLOWED_MOUNT_OPTIONS.includes(option)
   )
 
   if (unknownOptions.length > 0) {
-    throw new UnknownSvelteOptionsError(unknownOptions, allowedOptions)
+    throw new UnknownSvelteOptionsError(unknownOptions, ALLOWED_MOUNT_OPTIONS)
   }
 
   return options
 }
 
-export { createValidateOptions, UnknownSvelteOptionsError }
+export { UnknownSvelteOptionsError, validateOptions }

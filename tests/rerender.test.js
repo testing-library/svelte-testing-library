@@ -52,3 +52,18 @@ describe.each(COMPONENT_FIXTURES)('rerender ($mode)', ({ mode, component }) => {
     expect(element).toHaveTextContent('Hello Planet!')
   })
 })
+
+describe.runIf(IS_SVELTE_5)('reactive prop handling', () => {
+  let Comp
+
+  beforeAll(async () => {
+    Comp = await import('./fixtures/PropCloner.svelte')
+  })
+
+  test('does not interfere with props values', () => {
+    const { component } = render(Comp, { input: { hello: 'world' } })
+    const result = component.cloneInput()
+
+    expect(result).toEqual({ hello: 'world' })
+  })
+})

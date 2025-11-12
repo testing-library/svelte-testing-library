@@ -5,15 +5,9 @@
  * Will switch to legacy, class-based mounting logic
  * if it looks like we're in a Svelte <= 4 environment.
  */
-import * as LegacyCore from './legacy.js'
-import * as ModernCore from './modern.svelte.js'
-import { createValidateOptions } from './validate-options.js'
-
-const { mount, unmount, updateProps, allowedOptions } =
-  ModernCore.IS_MODERN_SVELTE ? ModernCore : LegacyCore
-
-/** Validate component options. */
-const validateOptions = createValidateOptions(allowedOptions)
-
-export { mount, unmount, updateProps, validateOptions }
-export { UnknownSvelteOptionsError } from './validate-options.js'
+export { addCleanupTask, cleanup } from './cleanup.js'
+export { mount } from './mount.js'
+export {
+  UnknownSvelteOptionsError,
+  validateOptions,
+} from './validate-options.js'

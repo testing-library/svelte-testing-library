@@ -14,7 +14,6 @@ describe('act', () => {
     expect(button).toHaveTextContent('Button')
 
     await act(() => {
-      // eslint-disable-next-line testing-library/no-node-access
       button.click()
     })
 
@@ -27,7 +26,7 @@ describe('act', () => {
 
     await act(async () => {
       await setTimeout(10)
-      // eslint-disable-next-line testing-library/no-node-access
+
       button.click()
     })
 
