@@ -13,6 +13,7 @@ export {
 
 // Add support for describe.skipIf, test.skipIf, and test.runIf
 describe.skipIf = (condition) => (condition ? describe.skip : describe)
+describe.runIf = (condition) => (condition ? describe : describe.skip)
 test.skipIf = (condition) => (condition ? test.skip : test)
 test.runIf = (condition) => (condition ? test : test.skip)
 

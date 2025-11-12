@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-deprecated */
 import type {
   Component as ModernComponent,
   ComponentConstructorOptions as LegacyConstructorOptions,
