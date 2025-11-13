@@ -5,24 +5,24 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
+      "types": "./dist/index.d.ts",
       "default": "./src/index.js"
     },
     "./svelte5": {
-      "types": "./types/index.d.ts",
+      "types": "./dist/index.d.ts",
       "default": "./src/index.js"
     },
     "./vitest": {
-      "types": "./types/vitest.d.ts",
+      "types": "./dist/vitest.d.ts",
       "default": "./src/vitest.js"
     },
     "./vite": {
-      "types": "./types/vite.d.ts",
+      "types": "./dist/vite.d.ts",
       "default": "./src/vite.js"
     }
   },
   "type": "module",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
   "repository": {

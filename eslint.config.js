@@ -37,7 +37,7 @@ export default tseslint.config(
   },
   {
     name: 'ignores',
-    ignores: ['**/coverage/**', '**/types/**'],
+    ignores: ['**/coverage/**', '**/dist/**'],
   },
   {
     name: 'simple-import-sort',
@@ -68,6 +68,7 @@ export default tseslint.config(
     name: 'extras',
     rules: {
       'unicorn/prevent-abbreviations': 'off',
+      'unicorn/prefer-dom-node-append': 'off',
     },
   },
   {

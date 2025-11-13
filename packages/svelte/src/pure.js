@@ -7,13 +7,13 @@ import {
 } from '@testing-library/dom'
 import * as Svelte from 'svelte'
 
-import { addCleanupTask, mount, validateOptions } from './core/index.js'
+import * as Core from './core/index.js'
 
 /**
  * Customize how Svelte renders the component.
  *
- * @template {import('./component-types.js').Component} C
- * @typedef {import('./component-types.js').Props<C> | Partial<import('./component-types.js').MountOptions<C>>} SvelteComponentOptions
+ * @template {import('./core/types.js').Component} C
+ * @typedef {import('./core/types.js').ComponentOptions<C>} SvelteComponentOptions
  */
 
 /**
@@ -29,15 +29,15 @@ import { addCleanupTask, mount, validateOptions } from './core/index.js'
 /**
  * The rendered component and bound testing functions.
  *
- * @template {import('./component-types.js').Component} C
+ * @template {import('./core/types.js').Component} C
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
  * @typedef {{
  *   container: HTMLElement
  *   baseElement: HTMLElement
- *   component: import('./component-types.js').Exports<C>
+ *   component: import('./core/types.js').Exports<C>
  *   debug: (el?: HTMLElement | DocumentFragment) => void
- *   rerender: (props: Partial<import('./component-types.js').Props<C>>) => Promise<void>
+ *   rerender: (props: Partial<import('./core/types.js').Props<C>>) => Promise<void>
  *   unmount: () => void
  * } & {
  *   [P in keyof Q]: import('@testing-library/dom').BoundFunction<Q[P]>
@@ -47,35 +47,25 @@ import { addCleanupTask, mount, validateOptions } from './core/index.js'
 /**
  * Render a component into the document.
  *
- * @template {import('./component-types.js').Component} C
+ * @template {import('./core/types.js').Component} C
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
- * @param {import('./component-types.js').ComponentType<C>} Component - The component to render.
+ * @param {import('./core/types.js').ComponentType<C>} Component - The component to render.
  * @param {SvelteComponentOptions<C>} options - Customize how Svelte renders the component.
  * @param {RenderOptions<Q>} renderOptions - Customize how Testing Library sets up the document and binds queries.
  * @returns {RenderResult<C, Q>} The rendered component and bound testing functions.
  */
 const render = (Component, options = {}, renderOptions = {}) => {
-  options = validateOptions(options)
-
-  const baseElement =
-    renderOptions.baseElement ?? options.target ?? document.body
+  const { baseElement, target, mountOptions } = Core.setup(
+    options,
+    renderOptions
+  )
 
   const queries = getQueriesForElement(baseElement, renderOptions.queries)
 
-  const target =
-    // eslint-disable-next-line unicorn/prefer-dom-node-append
-    options.target ?? baseElement.appendChild(document.createElement('div'))
-
-  addCleanupTask(() => {
-    if (target.parentNode === document.body) {
-      target.remove()
-    }
-  })
-
-  const { component, unmount, rerender } = mount(
+  const { component, unmount, rerender } = Core.mount(
     Component.default ?? Component,
-    { ...options, target }
+    mountOptions
   )
 
   return {
@@ -115,9 +105,14 @@ const setup = () => {
     eventWrapper: Svelte.flushSync ?? ((cb) => cb()),
   })
 
-  addCleanupTask(() => {
+  Core.addCleanupTask(() => {
     configureDTL(originalDTLConfig)
   })
+}
+
+/** Unmount components, remove elements added to `<body>`, and reset `@testing-library/dom`. */
+const cleanup = () => {
+  Core.cleanup()
 }
 
 /**
@@ -160,5 +155,5 @@ for (const [key, baseEvent] of Object.entries(baseFireEvent)) {
   fireEvent[key] = async (...args) => act(() => baseEvent(...args))
 }
 
-export { cleanup } from './core/index.js'
-export { act, fireEvent, render, setup }
+export { UnknownSvelteOptionsError } from './core/index.js'
+export { act, cleanup, fireEvent, render, setup }

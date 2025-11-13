@@ -6,7 +6,6 @@
   "scripts": {
     "all": "pnpm contributors:generate && pnpm build && pnpm format && pnpm test:all && pnpm typecheck",
     "all:legacy": "pnpm build:types && pnpm test:all:legacy && pnpm typecheck:legacy",
-    "docs": "",
     "lint": "prettier . --check && eslint .",
     "format": "prettier . --write && eslint . --fix",
     "setup": "pnpm install:5 && pnpm all",
@@ -21,7 +20,7 @@
     "test:all": "pnpm test:vitest:jsdom && pnpm test:vitest:happy-dom && pnpm test:jest && pnpm test:examples",
     "test:all:legacy": "pnpm test:vitest:jsdom && pnpm test:vitest:happy-dom && pnpm test:jest",
     "build": "pnpm build:types && pnpm build:docs",
-    "build:types": "tsc --build && cp packages/svelte/src/component-types.d.ts packages/svelte/types",
+    "build:types": "tsc --build && cp packages/svelte/src/core/types.d.ts packages/svelte/dist/core",
     "build:docs": "remark --output --use remark-toc --use remark-code-import --use unified-prettier README.md examples && cp -f README.md packages/svelte",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
