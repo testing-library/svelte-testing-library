@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-deprecated */
+/**
+ * Component and utility types.
+ *
+ * Supports components from Svelte 3, 4, and 5.
+ */
 import type {
   Component as ModernComponent,
   ComponentConstructorOptions as LegacyConstructorOptions,
@@ -59,3 +64,8 @@ export type Exports<C> = IS_MODERN_SVELTE extends true
 export type MountOptions<C extends Component> = IS_MODERN_SVELTE extends true
   ? Parameters<typeof mount<Props<C>, Exports<C>>>[1]
   : LegacyConstructorOptions<Props<C>>
+
+/** A component's props or some of its mount options. */
+export type ComponentOptions<C extends Component> =
+  | Props<C>
+  | Partial<MountOptions<C>>

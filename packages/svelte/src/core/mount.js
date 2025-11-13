@@ -5,14 +5,7 @@ import * as Svelte from 'svelte'
 
 import { addCleanupTask, removeCleanupTask } from './cleanup.js'
 import { createProps } from './props.svelte.js'
-
-/** Whether we're using Svelte >= 5. */
-const IS_MODERN_SVELTE = typeof Svelte.mount === 'function'
-
-/** Allowed options to the `mount` call or legacy component constructor. */
-const ALLOWED_MOUNT_OPTIONS = IS_MODERN_SVELTE
-  ? ['target', 'anchor', 'props', 'events', 'context', 'intro']
-  : ['target', 'accessors', 'anchor', 'props', 'hydrate', 'intro', 'context']
+import { IS_MODERN_SVELTE } from './svelte-version.js'
 
 /** Mount a modern Svelte 5 component into the DOM. */
 const mountModern = (Component, options) => {
@@ -78,7 +71,7 @@ const mountComponent = IS_MODERN_SVELTE ? mountModern : mountLegacy
  *   rerender: (props: Partial<import('./types.js').Props<C>>) => Promise<void>
  * }}
  */
-const mount = (Component, options = {}) => {
+const mount = (Component, options) => {
   const { component, unmount, rerender } = mountComponent(Component, options)
 
   return {
@@ -92,4 +85,4 @@ const mount = (Component, options = {}) => {
   }
 }
 
-export { ALLOWED_MOUNT_OPTIONS, mount }
+export { mount }

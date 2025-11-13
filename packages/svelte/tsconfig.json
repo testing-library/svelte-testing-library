@@ -4,13 +4,12 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": ["svelte"],
     "composite": true,
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "rootDir": "src",
-    "outDir": "types"
+    "outDir": "dist"
   },
   "include": ["src"]
 }

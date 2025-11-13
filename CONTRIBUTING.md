@@ -17,10 +17,18 @@ The module is released automatically from the `main` and `next` branches using [
 
 This repository uses `pnpm` as its package manager. See the `pnpm` [installation guide](https://pnpm.io/installation) to set it up through whatever method you prefer.
 
-After cloning the repository, use the `setup` script to install dependencies and run all checks:
+After cloning the repository, use the `setup` script to install dependencies, build, and run all checks:
 
 ```shell
 pnpm run setup
+```
+
+### Build
+
+To build types and docs:
+
+```shell
+pnpm run build
 ```
 
 ### Lint and format
@@ -64,13 +72,7 @@ pnpm run install:3
 pnpm run all:legacy
 ```
 
-### Docs
-
-Use the `docs` script to ensure the README's table of contents is up to date:
-
-```shell
-pnpm run docs
-```
+### Contributors
 
 Use `contributors:add` to add a contributor to the README:
 
