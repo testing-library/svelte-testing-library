@@ -1,99 +1,42 @@
 {
-  "name": "@testing-library/svelte",
-  "version": "0.0.0-semantically-released",
-  "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
-  "main": "src/index.js",
-  "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "default": "./src/index.js"
-    },
-    "./svelte5": {
-      "types": "./types/index.d.ts",
-      "default": "./src/index.js"
-    },
-    "./vitest": {
-      "types": "./types/vitest.d.ts",
-      "default": "./src/vitest.js"
-    },
-    "./vite": {
-      "types": "./types/vite.d.ts",
-      "default": "./src/vite.js"
-    }
-  },
+  "name": "@testing-library/svelte-repo",
+  "private": true,
   "type": "module",
-  "types": "types/index.d.ts",
   "license": "MIT",
-  "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/testing-library/svelte-testing-library.git"
-  },
-  "bugs": {
-    "url": "https://github.com/testing-library/svelte-testing-library/issues"
-  },
-  "engines": {
-    "node": ">= 10"
-  },
-  "keywords": [
-    "testing",
-    "svelte",
-    "ui",
-    "dom",
-    "jsdom",
-    "unit",
-    "integration",
-    "functional",
-    "end-to-end",
-    "e2e"
-  ],
-  "files": [
-    "src",
-    "types"
-  ],
   "scripts": {
-    "all": "npm-run-all contributors:generate docs format types build test:vitest:* test:jest test:examples",
-    "all:legacy": "npm-run-all types:legacy test:vitest:* test:jest",
-    "docs": "remark --output --use remark-toc --use remark-code-import --use unified-prettier README.md examples",
+    "all": "pnpm contributors:generate && pnpm build && pnpm format && pnpm test:all && pnpm typecheck",
+    "all:legacy": "pnpm build:types && pnpm test:all:legacy && pnpm typecheck:legacy",
+    "docs": "",
     "lint": "prettier . --check && eslint .",
     "format": "prettier . --write && eslint . --fix",
-    "setup": "npm run install:5 && npm run all",
+    "setup": "pnpm install:5 && pnpm all",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
     "test:vitest:jsdom": "vitest run tests --coverage --environment jsdom",
     "test:vitest:happy-dom": "vitest run tests --coverage --environment happy-dom",
-    "test:jest": "npx --node-options=\"--experimental-vm-modules --no-warnings\" jest --coverage",
+    "test:jest": "NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --coverage",
     "test:examples": "vitest run examples --coverage",
-    "types": "svelte-check",
-    "types:legacy": "svelte-check --tsconfig tsconfig.legacy.json",
-    "build": "tsc -p tsconfig.build.json && cp src/component-types.d.ts types",
+    "typecheck": "svelte-check --tsconfig=tests/tsconfig.json",
+    "typecheck:legacy": "svelte-check --tsconfig=tests/tsconfig.legacy.json",
+    "test:all": "pnpm test:vitest:jsdom && pnpm test:vitest:happy-dom && pnpm test:jest && pnpm test:examples",
+    "test:all:legacy": "pnpm test:vitest:jsdom && pnpm test:vitest:happy-dom && pnpm test:jest",
+    "build": "pnpm build:types && pnpm build:docs",
+    "build:types": "tsc --build && cp packages/svelte/src/component-types.d.ts packages/svelte/types",
+    "build:docs": "remark --output --use remark-toc --use remark-code-import --use unified-prettier README.md examples && cp -f README.md packages/svelte",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "preview-release": "./scripts/preview-release",
     "install:3": "./scripts/install-dependencies 3",
     "install:4": "./scripts/install-dependencies 4",
     "install:5": "./scripts/install-dependencies 5"
   },
-  "peerDependencies": {
-    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
-    "vite": "*",
-    "vitest": "*"
-  },
-  "peerDependenciesMeta": {
-    "vite": {
-      "optional": true
-    },
-    "vitest": {
-      "optional": true
-    }
-  },
   "dependencies": {
-    "@testing-library/dom": "9.x.x || 10.x.x"
+    "@testing-library/svelte": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@jest/globals": "^29.7.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
     "@vitest/coverage-v8": "^3.1.3",
@@ -113,7 +56,6 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^26.1.0",
-    "npm-run-all": "^4.1.5",
     "prettier": "^3.5.3",
     "prettier-plugin-svelte": "^3.3.3",
     "remark-cli": "^12.0.1",
@@ -128,5 +70,6 @@
     "unified-prettier": "^2.0.1",
     "vite": "^6.3.5",
     "vitest": "^3.1.3"
-  }
+  },
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
 }

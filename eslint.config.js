@@ -37,7 +37,7 @@ export default tseslint.config(
   },
   {
     name: 'ignores',
-    ignores: ['coverage', 'types'],
+    ignores: ['**/coverage/**', '**/types/**'],
   },
   {
     name: 'simple-import-sort',

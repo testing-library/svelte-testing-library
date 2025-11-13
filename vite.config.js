@@ -1,10 +1,6 @@
-import { createRequire } from 'node:module'
-
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { svelteTesting } from '@testing-library/svelte/vite'
 import { defineConfig } from 'vite'
-
-const require = createRequire(import.meta.url)
 
 export default defineConfig({
   plugins: [svelte({ hot: false }), svelteTesting()],
@@ -16,11 +12,7 @@ export default defineConfig({
     unstubEnvs: true,
     coverage: {
       provider: 'v8',
-      include: ['src/**/*'],
-    },
-    alias: {
-      '@testing-library/svelte/vite': require.resolve('./src/vite.js'),
-      '@testing-library/svelte': require.resolve('./src/index.js'),
+      include: ['packages/*/src/**/*'],
     },
   },
 })
