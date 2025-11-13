@@ -9,29 +9,18 @@
 
 ## Release
 
-The module is released automatically from the `main` and `next` branches using [semantic-release-action][]. Version bumps and change logs are generated from the commit messages.
+The module is released automatically from the `main` and `next` branches using [multi-semantic-release][]. Version bumps and change logs are generated from the commit messages.
 
-[semantic-release-action]: https://github.com/cycjimmy/semantic-release-action
-
-### Preview release
-
-If you would like to preview the release from a given branch, and...
-
-- You have push access to the repository
-- The branch exists in GitHub
-
-...you can preview the next release version and changelog using:
-
-```shell
-npm run preview-release
-```
+[multi-semantic-release]: https://github.com/anolilab/semantic-release/tree/main/packages/multi-semantic-release
 
 ## Development setup
+
+This repository uses `pnpm` as its package manager. See the `pnpm` [installation guide](https://pnpm.io/installation) to set it up through whatever method you prefer.
 
 After cloning the repository, use the `setup` script to install dependencies and run all checks:
 
 ```shell
-npm run setup
+pnpm run setup
 ```
 
 ### Lint and format
@@ -39,13 +28,13 @@ npm run setup
 Run auto-formatting to ensure any changes adhere to the code style of the repository:
 
 ```shell
-npm run format
+pnpm run format
 ```
 
 To run lint and format checks without making any changes:
 
 ```shell
-npm run lint
+pnpm run lint
 ```
 
 ### Test
@@ -53,8 +42,8 @@ npm run lint
 Run unit tests once or in watch mode:
 
 ```shell
-npm test
-npm run test:watch
+pnpm test
+pnpm run test:watch
 ```
 
 ### Using different versions of Svelte
@@ -63,16 +52,16 @@ Use the provided script to set up your environment for different versions of Sve
 
 ```shell
 # Svelte 5
-npm run install:5
-npm run all
+pnpm run install:5
+pnpm run all
 
 # Svelte 4
-npm run install:4
-npm run all:legacy
+pnpm run install:4
+pnpm run all:legacy
 
 # Svelte 3
-npm run install:3
-npm run all:legacy
+pnpm run install:3
+pnpm run all:legacy
 ```
 
 ### Docs
@@ -80,17 +69,17 @@ npm run all:legacy
 Use the `docs` script to ensure the README's table of contents is up to date:
 
 ```shell
-npm run docs
+pnpm run docs
 ```
 
 Use `contributors:add` to add a contributor to the README:
 
 ```shell
-npm run contributors:add
+pnpm run contributors:add
 ```
 
 Use `contributors:generate` to ensure the README's contributor list is up to date:
 
 ```shell
-npm run contributors:generate
+pnpm run contributors:generate
 ```

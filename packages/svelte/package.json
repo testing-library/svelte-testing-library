@@ -1,0 +1,71 @@
+{
+  "name": "@testing-library/svelte",
+  "version": "0.0.0-semantically-released",
+  "description": "Simple and complete Svelte testing utilities that encourage good testing practices.",
+  "main": "src/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./svelte5": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./vitest": {
+      "types": "./types/vitest.d.ts",
+      "default": "./src/vitest.js"
+    },
+    "./vite": {
+      "types": "./types/vite.d.ts",
+      "default": "./src/vite.js"
+    }
+  },
+  "type": "module",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/testing-library/svelte-testing-library.git",
+    "directory": "packages/svelte"
+  },
+  "bugs": {
+    "url": "https://github.com/testing-library/svelte-testing-library/issues"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "keywords": [
+    "testing",
+    "svelte",
+    "ui",
+    "dom",
+    "jsdom",
+    "unit",
+    "integration",
+    "functional",
+    "end-to-end",
+    "e2e"
+  ],
+  "files": [
+    "src",
+    "types"
+  ],
+  "peerDependencies": {
+    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0",
+    "vite": "*",
+    "vitest": "*"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
+    "vitest": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@testing-library/dom": "9.x.x || 10.x.x"
+  }
+}

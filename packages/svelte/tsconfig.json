@@ -1,10 +1,14 @@
 {
-  "extends": ["./tsconfig.json"],
   "compilerOptions": {
+    "module": "node16",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["svelte"],
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
-    "noEmit": false,
     "rootDir": "src",
     "outDir": "types"
   },

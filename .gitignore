@@ -13,3 +13,7 @@ yarn.lock
 
 # generated typing output
 types
+*.tsbuildinfo
+
+# copied documentation
+packages/svelte/README.md

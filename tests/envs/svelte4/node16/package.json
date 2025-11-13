@@ -3,6 +3,9 @@
   "engines": {
     "node": "16.x.x"
   },
+  "dependencies": {
+    "@testing-library/svelte": "workspace:*"
+  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "2.x.x",
     "@testing-library/dom": "9.x.x",
