@@ -8,11 +8,10 @@
  * @param {Props} initialProps
  * @returns {[Props, (nextProps: Partial<Props>) => void]}
  */
-const createProps = (initialProps) => {
-  const targetProps = initialProps ?? {}
-  let currentProps = $state.raw(targetProps)
+const createProps = (initialProps = {}) => {
+  let currentProps = $state.raw(initialProps)
 
-  const props = new Proxy(targetProps, {
+  const props = new Proxy(initialProps, {
     get(_, key) {
       return currentProps[key]
     },

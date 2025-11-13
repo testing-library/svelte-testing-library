@@ -147,19 +147,47 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
   test.each([
     {
       config: () => ({ ssr: { noExternal: [] } }),
-      expectedNoExternal: ['@testing-library/svelte'],
+      expectedNoExternal: [
+        '@testing-library/svelte',
+        '@testing-library/svelte-core',
+      ],
     },
     {
       config: () => ({}),
-      expectedNoExternal: ['@testing-library/svelte'],
+      expectedNoExternal: [
+        '@testing-library/svelte',
+        '@testing-library/svelte-core',
+      ],
     },
     {
       config: () => ({ ssr: { noExternal: 'other-file.js' } }),
-      expectedNoExternal: ['other-file.js', '@testing-library/svelte'],
+      expectedNoExternal: [
+        'other-file.js',
+        '@testing-library/svelte',
+        '@testing-library/svelte-core',
+      ],
     },
     {
       config: () => ({ ssr: { noExternal: /other/u } }),
-      expectedNoExternal: [/other/u, '@testing-library/svelte'],
+      expectedNoExternal: [
+        /other/u,
+        '@testing-library/svelte',
+        '@testing-library/svelte-core',
+      ],
+    },
+    {
+      config: () => ({ ssr: { noExternal: '@testing-library/svelte' } }),
+      expectedNoExternal: [
+        '@testing-library/svelte',
+        '@testing-library/svelte-core',
+      ],
+    },
+    {
+      config: () => ({ ssr: { noExternal: '@testing-library/svelte-core' } }),
+      expectedNoExternal: [
+        '@testing-library/svelte-core',
+        '@testing-library/svelte',
+      ],
     },
   ])('adds noExternal rule', ({ config, expectedNoExternal }) => {
     const subject = svelteTesting({
@@ -182,10 +210,6 @@ describe.skipIf(IS_JEST)('vite plugin', () => {
     {
       config: () => ({ ssr: { noExternal: true } }),
       expectedNoExternal: true,
-    },
-    {
-      config: () => ({ ssr: { noExternal: '@testing-library/svelte' } }),
-      expectedNoExternal: '@testing-library/svelte',
     },
     {
       config: () => ({ ssr: { noExternal: /svelte/u } }),
