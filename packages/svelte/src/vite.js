@@ -1,6 +1,8 @@
 import path from 'node:path'
 import url from 'node:url'
 
+const STL_PACKAGES = ['@testing-library/svelte', '@testing-library/svelte-core']
+
 /**
  * Vite plugin to configure @testing-library/svelte.
  *
@@ -107,17 +109,25 @@ const addNoExternal = (config) => {
     return
   }
 
-  for (const rule of noExternal) {
-    if (typeof rule === 'string' && rule === '@testing-library/svelte') {
-      return
-    }
+  const missingPackages = []
 
-    if (rule instanceof RegExp && rule.test('@testing-library/svelte')) {
-      return
+  for (const packageName of STL_PACKAGES) {
+    const isIncluded = noExternal.some(
+      (rule) =>
+        (typeof rule === 'string' && rule === packageName) ||
+        (rule instanceof RegExp && rule.test(packageName))
+    )
+
+    if (!isIncluded) {
+      missingPackages.push(packageName)
     }
   }
 
-  noExternal.push('@testing-library/svelte')
+  if (missingPackages.length === 0) {
+    return
+  }
+
+  noExternal.push(...missingPackages)
   ssr.noExternal = noExternal
   config.ssr = ssr
 }

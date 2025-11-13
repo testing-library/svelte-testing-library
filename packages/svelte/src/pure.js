@@ -5,15 +5,14 @@ import {
   getQueriesForElement,
   prettyDOM,
 } from '@testing-library/dom'
+import * as Core from '@testing-library/svelte-core'
 import * as Svelte from 'svelte'
-
-import * as Core from './core/index.js'
 
 /**
  * Customize how Svelte renders the component.
  *
- * @template {import('./core/types.js').Component} C
- * @typedef {import('./core/types.js').ComponentOptions<C>} SvelteComponentOptions
+ * @template {import('@testing-library/svelte-core/types').Component} C
+ * @typedef {import('@testing-library/svelte-core/types').ComponentOptions<C>} SvelteComponentOptions
  */
 
 /**
@@ -29,15 +28,15 @@ import * as Core from './core/index.js'
 /**
  * The rendered component and bound testing functions.
  *
- * @template {import('./core/types.js').Component} C
+ * @template {import('@testing-library/svelte-core/types').Component} C
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
  * @typedef {{
  *   container: HTMLElement
  *   baseElement: HTMLElement
- *   component: import('./core/types.js').Exports<C>
+ *   component: import('@testing-library/svelte-core/types').Exports<C>
  *   debug: (el?: HTMLElement | DocumentFragment) => void
- *   rerender: (props: Partial<import('./core/types.js').Props<C>>) => Promise<void>
+ *   rerender: (props: Partial<import('@testing-library/svelte-core/types').Props<C>>) => Promise<void>
  *   unmount: () => void
  * } & {
  *   [P in keyof Q]: import('@testing-library/dom').BoundFunction<Q[P]>
@@ -47,10 +46,10 @@ import * as Core from './core/index.js'
 /**
  * Render a component into the document.
  *
- * @template {import('./core/types.js').Component} C
+ * @template {import('@testing-library/svelte-core/types').Component} C
  * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
  *
- * @param {import('./core/types.js').ComponentType<C>} Component - The component to render.
+ * @param {import('@testing-library/svelte-core/types').ComponentType<C>} Component - The component to render.
  * @param {SvelteComponentOptions<C>} options - Customize how Svelte renders the component.
  * @param {RenderOptions<Q>} renderOptions - Customize how Testing Library sets up the document and binds queries.
  * @returns {RenderResult<C, Q>} The rendered component and bound testing functions.
@@ -155,5 +154,5 @@ for (const [key, baseEvent] of Object.entries(baseFireEvent)) {
   fireEvent[key] = async (...args) => act(() => baseEvent(...args))
 }
 
-export { UnknownSvelteOptionsError } from './core/index.js'
+export { UnknownSvelteOptionsError } from '@testing-library/svelte-core'
 export { act, cleanup, fireEvent, render, setup }

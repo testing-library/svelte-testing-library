@@ -1,5 +1,4 @@
 {
-  "references": [{ "path": "../svelte-core" }],
   "compilerOptions": {
     "module": "node16",
     "allowJs": true,
@@ -12,5 +11,5 @@
     "rootDir": "src",
     "outDir": "dist"
   },
-  "include": ["src"]
+  "include": ["src", "types.d.ts"]
 }
