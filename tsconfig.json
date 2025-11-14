@@ -1,4 +1,7 @@
 {
-  "references": [{ "path": "packages/svelte" }],
+  "references": [
+    { "path": "packages/svelte" },
+    { "path": "packages/svelte-core" }
+  ],
   "files": []
 }

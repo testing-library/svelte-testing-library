@@ -27,9 +27,9 @@ class UnknownSvelteOptionsError extends TypeError {
 /**
  * Validate a component's mount options.
  *
- * @template {import('./types.js').Component} C
- * @param {import('./types.js').ComponentOptions<C>} options - props or mount options
- * @returns {Partial<import('./types.js').MountOptions<C>>}
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentOptions<C>} options - props or mount options
+ * @returns {Partial<import('../types.js').MountOptions<C>>}
  */
 const validateOptions = (options) => {
   const isProps = !Object.keys(options).some((option) =>
@@ -55,16 +55,16 @@ const validateOptions = (options) => {
 /**
  * Set up the document to render a component.
  *
- * @template {import('./types.js').Component} C
- * @param {import('./types.js').ComponentOptions<C>} componentOptions - props or mount options
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentOptions<C>} componentOptions - props or mount options
  * @param {{ baseElement?: HTMLElement | undefined }} setupOptions - base element of the document to bind any queries
  * @returns {{
  *   baseElement: HTMLElement,
  *   target: HTMLElement,
- *   mountOptions: import('./types.js).MountOptions<C>
+ *   mountOptions: import('../types.js').MountOptions<C>
  * }}
  */
-const setup = (componentOptions, setupOptions) => {
+const setup = (componentOptions, setupOptions = {}) => {
   const mountOptions = validateOptions(componentOptions)
 
   const baseElement =

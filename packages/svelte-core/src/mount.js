@@ -62,13 +62,13 @@ const mountComponent = IS_MODERN_SVELTE ? mountModern : mountLegacy
 /**
  * Render a Svelte component into the document.
  *
- * @template {import('./types.js').Component} C
- * @param {import('./types.js').ComponentType<C>} Component
- * @param {import('./types.js').MountOptions<C>} options
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentType<C>} Component
+ * @param {import('../types.js').MountOptions<C>} options
  * @returns {{
  *   component: C
  *   unmount: () => void
- *   rerender: (props: Partial<import('./types.js').Props<C>>) => Promise<void>
+ *   rerender: (props: Partial<import('../types.js').Props<C>>) => Promise<void>
  * }}
  */
 const mount = (Component, options) => {
