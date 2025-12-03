@@ -75,7 +75,7 @@ const { baseElement, container, component, unmount, rerender } = render(
 | `unmount`     | `() => void`                               | Unmount the component from the document  | N/A                                 |
 
 > \[!TIP]
-> Calling `render` is equivalent to calling `setup` followed by `mount`
+> Calling `render` is equivalent to calling [`setup`](#setup) followed by [`mount`](#mount)
 >
 > ```ts
 > const { baseElement, container, mountOptions } = setup(
