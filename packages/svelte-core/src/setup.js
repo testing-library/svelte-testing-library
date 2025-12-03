@@ -27,9 +27,9 @@ class UnknownSvelteOptionsError extends TypeError {
 /**
  * Validate a component's mount options.
  *
- * @template {import('./types.js').Component} C
- * @param {import('./types.js').ComponentOptions<C>} options - props or mount options
- * @returns {Partial<import('./types.js').MountOptions<C>>}
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentOptions<C>} options - props or mount options
+ * @returns {Partial<import('../types.js').MountOptions<C>>}
  */
 const validateOptions = (options) => {
   const isProps = !Object.keys(options).some((option) =>
@@ -55,32 +55,32 @@ const validateOptions = (options) => {
 /**
  * Set up the document to render a component.
  *
- * @template {import('./types.js').Component} C
- * @param {import('./types.js').ComponentOptions<C>} componentOptions - props or mount options
- * @param {{ baseElement?: HTMLElement | undefined }} setupOptions - base element of the document to bind any queries
- * @returns {{
- *   baseElement: HTMLElement,
- *   target: HTMLElement,
- *   mountOptions: import('./types.js).MountOptions<C>
- * }}
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentOptions<C>} componentOptions - props or mount options
+ * @param {import('../types.js').SetupOptions<C>} setupOptions - base element of the document to bind any queries
+ * @returns {import('../types.js').SetupResult<C>}
  */
-const setup = (componentOptions, setupOptions) => {
+const setup = (componentOptions, setupOptions = {}) => {
   const mountOptions = validateOptions(componentOptions)
 
   const baseElement =
     setupOptions.baseElement ?? mountOptions.target ?? document.body
 
-  const target =
+  const container =
     mountOptions.target ??
     baseElement.appendChild(document.createElement('div'))
 
   addCleanupTask(() => {
-    if (target.parentNode === document.body) {
-      target.remove()
+    if (container.parentNode === document.body) {
+      container.remove()
     }
   })
 
-  return { baseElement, target, mountOptions: { ...mountOptions, target } }
+  return {
+    baseElement,
+    container,
+    mountOptions: { ...mountOptions, target: container },
+  }
 }
 
 export { setup, UnknownSvelteOptionsError }

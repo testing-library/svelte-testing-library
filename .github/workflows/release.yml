@@ -138,8 +138,8 @@ jobs:
       - name: 🚀 Release
         run: |
           pnpm \
-            --package="@anolilab/multi-semantic-release@2" \
-            --package="@anolilab/semantic-release-pnpm@2" \
+            --package="@anolilab/multi-semantic-release@3" \
+            --package="@anolilab/semantic-release-pnpm@3" \
             --package="semantic-release@25" \
             --package="conventional-changelog-conventionalcommits@9" \
             dlx \

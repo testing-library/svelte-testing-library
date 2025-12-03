@@ -13,7 +13,6 @@ export default {
     {
       files: 'examples/**/*.md',
       options: {
-        printWidth: 80,
         proseWrap: 'always',
       },
     },
