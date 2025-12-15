@@ -3,7 +3,7 @@
 Do you want to build your own Svelte testing library? You may want to use our
 rendering core, which abstracts away differences in Svelte versions to provide a
 simple API to render Svelte components into the document and clean them up
-afterwards
+afterwards.
 
 ## Table of Contents
 
