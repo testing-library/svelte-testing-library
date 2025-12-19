@@ -91,6 +91,8 @@ jobs:
           path: types
 
   release:
+    permissions:
+      id-token: write
     needs: [main, build]
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'testing-library/svelte-testing-library' &&
@@ -119,4 +121,3 @@ jobs:
             conventional-changelog-conventionalcommits@8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
