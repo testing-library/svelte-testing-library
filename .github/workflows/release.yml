@@ -92,7 +92,10 @@ jobs:
 
   release:
     permissions:
-      id-token: write
+      contents: write # GitHub release publish
+      issues: write # released issues comments
+      pull-requests: write # released pull requests comments
+      id-token: write # trusted publishing and npm provenance
     needs: [main, build]
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'testing-library/svelte-testing-library' &&
@@ -105,7 +108,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: 📥 Downloads types build
         uses: actions/download-artifact@v4
@@ -114,10 +117,10 @@ jobs:
           path: types
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@b12c8f6015dc215fe37bc154d4ad456dd3833c90 #v6.0.0
         with:
-          semantic_version: 24
+          semantic_version: 25
           extra_plugins: |
-            conventional-changelog-conventionalcommits@8
+            conventional-changelog-conventionalcommits@9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
