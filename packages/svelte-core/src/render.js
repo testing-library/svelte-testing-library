@@ -8,7 +8,7 @@ import { setup } from './setup.js'
  *
  * @param {import('../types.js').ComponentImport<C>} Component - The component to render.
  * @param {import('../types.js').ComponentOptions<C>} componentOptions - Customize how Svelte renders the component.
- * @param {import('../types.js').SetupOptions<C>} setupOptions - Customize how the document is set up.
+ * @param {import('../types.js').SetupOptions} setupOptions - Customize how the document is set up.
  * @returns {import('../types.js').RenderResult<C>} The rendered component.
  */
 const render = (Component, componentOptions, setupOptions = {}) => {
