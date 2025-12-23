@@ -19,15 +19,4 @@ if (typeof process !== 'undefined' && !process.env.STL_SKIP_AUTO_CLEANUP) {
   }
 }
 
-// export all base queries, screen, etc.
-export * from '@testing-library/dom'
-
-// export svelte-specific functions and custom `fireEvent`
-export {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  setup,
-  UnknownSvelteOptionsError,
-} from './pure.js'
+export * from './pure.js'
