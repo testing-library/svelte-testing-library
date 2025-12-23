@@ -12,4 +12,8 @@ package-lock.json
 yarn.lock
 
 # generated typing output
-types
+dist
+*.tsbuildinfo
+
+# copied documentation
+packages/svelte/README.md

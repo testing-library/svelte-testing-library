@@ -17,13 +17,12 @@ export default {
   injectGlobals: true,
   moduleNameMapper: {
     '^vitest$': '<rootDir>/tests/_jest-vitest-alias.js',
-    [String.raw`^@testing-library\/svelte$`]: '<rootDir>/src/index.js',
   },
   resetMocks: true,
   restoreMocks: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*'],
+  collectCoverageFrom: ['<rootDir>/packages/*/src/**/*'],
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/vite.js',
-    '<rootDir>/src/vitest.js',
+    '<rootDir>/packages/svelte/src/vite.js',
+    '<rootDir>/packages/svelte/src/vitest.js',
   ],
 }

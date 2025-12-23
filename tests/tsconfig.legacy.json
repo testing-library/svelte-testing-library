@@ -1,0 +1,9 @@
+{
+  "extends": ["./tsconfig.json"],
+  "exclude": [
+    "render-runes.test-d.ts",
+    "fixtures/CompRunes.svelte",
+    "fixtures/PropCloner.svelte",
+    "fixtures/TypedRunes.svelte"
+  ]
+}

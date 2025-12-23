@@ -1,0 +1,48 @@
+{
+  "name": "@testing-library/svelte-core",
+  "version": "0.0.0-semantically-released",
+  "description": "Core rendering and cleanup logic for Svelte testing utilities.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./types": {
+      "types": "./types.d.ts"
+    }
+  },
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/testing-library/svelte-testing-library#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/testing-library/svelte-testing-library.git",
+    "directory": "packages/svelte-core"
+  },
+  "bugs": {
+    "url": "https://github.com/testing-library/svelte-testing-library/issues"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "tdd",
+    "svelte",
+    "ui",
+    "unit",
+    "component",
+    "functional"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "types.d.ts"
+  ],
+  "peerDependencies": {
+    "svelte": "^3 || ^4 || ^5 || ^5.0.0-next.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

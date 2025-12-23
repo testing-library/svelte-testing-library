@@ -5,16 +5,16 @@ import * as Svelte from 'svelte'
 
 import { addCleanupTask, removeCleanupTask } from './cleanup.js'
 import { createProps } from './props.svelte.js'
+import { IS_MODERN_SVELTE } from './svelte-version.js'
 
-/** Whether we're using Svelte >= 5. */
-const IS_MODERN_SVELTE = typeof Svelte.mount === 'function'
-
-/** Allowed options to the `mount` call or legacy component constructor. */
-const ALLOWED_MOUNT_OPTIONS = IS_MODERN_SVELTE
-  ? ['target', 'anchor', 'props', 'events', 'context', 'intro']
-  : ['target', 'accessors', 'anchor', 'props', 'hydrate', 'intro', 'context']
-
-/** Mount a modern Svelte 5 component into the DOM. */
+/**
+ * Mount a modern Svelte 5 component into the DOM.
+ *
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentType<C>} Component
+ * @param {import('../types.js').MountOptions<C>} options
+ * @returns {import('../types.js').MountResult<C>}
+ */
 const mountModern = (Component, options) => {
   const [props, updateProps] = createProps(options.props)
   const component = Svelte.mount(Component, { ...options, props })
@@ -36,7 +36,14 @@ const mountModern = (Component, options) => {
   return { component, unmount, rerender }
 }
 
-/** Mount a legacy Svelte 3 or 4 component into the DOM. */
+/**
+ * Mount a legacy Svelte 3 or 4 component into the DOM.
+ *
+ * @template {import('../types.js').LegacyComponent} C
+ * @param {import('../types.js').ComponentType<C>} Component
+ * @param {import('../types.js').MountOptions<C>} options
+ * @returns {import('../types.js').MountResult<C>}
+ */
 const mountLegacy = (Component, options) => {
   const component = new Component(options)
 
@@ -69,27 +76,33 @@ const mountComponent = IS_MODERN_SVELTE ? mountModern : mountLegacy
 /**
  * Render a Svelte component into the document.
  *
- * @template {import('./types.js').Component} C
- * @param {import('./types.js').ComponentType<C>} Component
- * @param {import('./types.js').MountOptions<C>} options
- * @returns {{
- *   component: C
- *   unmount: () => void
- *   rerender: (props: Partial<import('./types.js').Props<C>>) => Promise<void>
- * }}
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentImport<C>} Component
+ * @param {import('../types.js').MountOptions<C>} options
+ * @returns {import('../types.js').MountResult<C>}
  */
-const mount = (Component, options = {}) => {
-  const { component, unmount, rerender } = mountComponent(Component, options)
+const mount = (Component, options) => {
+  const { component, unmount, rerender } = mountComponent(
+    'default' in Component ? Component.default : Component,
+    options
+  )
 
   return {
     component,
     unmount,
     rerender: async (props) => {
+      if ('props' in props) {
+        console.warn(
+          'rerender({ props: { ... } }) deprecated, use rerender({ ... }) instead'
+        )
+        props = props.props
+      }
+
       rerender(props)
-      // Await the next tick for Svelte 4, which cannot flush changes synchronously
+      // Await the next tick for Svelte 3/4, which cannot flush changes synchronously
       await Svelte.tick()
     },
   }
 }
 
-export { ALLOWED_MOUNT_OPTIONS, mount }
+export { mount }

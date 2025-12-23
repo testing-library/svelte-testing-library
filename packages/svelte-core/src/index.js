@@ -5,9 +5,7 @@
  * Will switch to legacy, class-based mounting logic
  * if it looks like we're in a Svelte <= 4 environment.
  */
-export { addCleanupTask, cleanup } from './cleanup.js'
-export { mount } from './mount.js'
-export {
-  UnknownSvelteOptionsError,
-  validateOptions,
-} from './validate-options.js'
+export * from './cleanup.js'
+export * from './mount.js'
+export * from './render.js'
+export * from './setup.js'

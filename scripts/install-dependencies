@@ -11,9 +11,21 @@ if [[ -d $env_dir_by_node ]]; then
   env_dir="$env_dir_by_node"
 fi
 
+clean_node_modules () {
+  find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
+}
+
+reset_package_json () {
+  if [[ -f package.json.original ]]; then
+    mv -f package.json.original package.json
+  fi
+}
+
+trap "reset_package_json" EXIT
+
 if [[ "$svelte_version" == "5" ]]; then
-  rm -rf coverage node_modules
-  npm install
+  clean_node_modules
+  pnpm install
   exit 0
 fi
 
@@ -27,9 +39,8 @@ if [[ ! -d "$env_dir" ]]; then
   exit 2
 fi
 
-rm -rf coverage node_modules "$env_dir/node_modules"
-pushd "$env_dir"
-npm install --no-package-lock --engine-strict
-npm ls "$env_dir" svelte
-popd
-mv "$env_dir/node_modules" .
+clean_node_modules
+mv package.json package.json.original
+cp "$env_dir/package.json" package.json
+pnpm install --no-lockfile
+reset_package_json

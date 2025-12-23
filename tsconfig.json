@@ -1,16 +1,7 @@
 {
-  "compilerOptions": {
-    "module": "node16",
-    "allowJs": true,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "types": ["svelte", "vite/client", "vitest", "vitest/globals"],
-    "baseUrl": "./",
-    "paths": {
-      "@testing-library/svelte": ["./src"]
-    },
-    "plugins": [{ "name": "typescript-svelte-plugin" }]
-  },
-  "include": ["src", "tests"]
+  "references": [
+    { "path": "packages/svelte" },
+    { "path": "packages/svelte-core" }
+  ],
+  "files": []
 }

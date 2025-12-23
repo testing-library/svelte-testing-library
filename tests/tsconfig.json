@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "node16",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["svelte", "vite/client", "vitest", "vitest/globals"],
+    "noEmit": true,
+    "plugins": [{ "name": "typescript-svelte-plugin" }]
+  }
+}
