@@ -45,10 +45,9 @@ export const render = <C extends SvelteCore.Component>(
   Component: SvelteCore.ComponentImport<C>,
   options: SvelteCore.ComponentOptions<C>
 ): RenderResult<C> => {
-  const { component, container, rerender, unmount } = SvelteCore.render(
-    Component,
-    options
-  )
+  const { baseElement, component, container, rerender, unmount } =
+    SvelteCore.render(Component, options)
+
   const queries = bindQueries(baseElement)
 
   return { component, container, rerender, unmount, ...queries }
