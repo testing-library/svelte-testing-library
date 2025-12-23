@@ -22,27 +22,36 @@ afterwards.
 ```ts
 import { beforeEach } from 'vitest'
 import * as SvelteCore from '@testing-library/svelte-core'
+import type {
+  Component,
+  Exports,
+  Rerender,
+} from '@testing-library/svelte-core/types'
 
-import { bindQueries, type Screen } from './bring-your-own-queries.js'
+import { bindQueries, type Queries } from './bring-your-own-queries.js'
 
 beforeEach(() => {
   SvelteCore.cleanup()
 })
 
-export interface RenderResult<
-  C extends SvelteCore.Component,
-> extends SvelteCore.RenderResult<C> {
-  screen: Screen
+export interface RenderResult<C extends Component> extends Queries {
+  container: HTMLElement
+  component: Exports<C>
+  rerender: Rerender<C>
+  unmount: () => void
 }
 
 export const render = <C extends SvelteCore.Component>(
   Component: SvelteCore.ComponentImport<C>,
   options: SvelteCore.ComponentOptions<C>
 ): RenderResult<C> => {
-  const renderResult = SvelteCore.render(Component, options)
-  const screen = bindQueries(baseElement)
+  const { component, container, rerender, unmount } = SvelteCore.render(
+    Component,
+    options
+  )
+  const queries = bindQueries(baseElement)
 
-  return { screen, ...renderResult }
+  return { component, container, rerender, unmount, ...queries }
 }
 ```
 
@@ -53,7 +62,7 @@ export const render = <C extends SvelteCore.Component>(
 Set up the document and mount a component into that document.
 
 ```ts
-const { baseElement, container, component, unmount, rerender } = render(
+const { baseElement, container, component, rerender, unmount } = render(
   Component,
   componentOptions,
   setupOptions
