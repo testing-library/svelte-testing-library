@@ -101,7 +101,7 @@ const { baseElement, container, component, rerender, unmount } = render(
 Validate options and prepare document elements for rendering.
 
 ```ts
-const { baseElement, target, mountOptions } = setup(options, renderOptions)
+const { baseElement, container, mountOptions } = setup(options, renderOptions)
 ```
 
 | Argument           | Type                                                    | Description                                   |
