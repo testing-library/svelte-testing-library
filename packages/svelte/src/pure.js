@@ -1,16 +1,11 @@
-import {
-  configure as configureDTL,
-  fireEvent as baseFireEvent,
-  getConfig as getDTLConfig,
-  getQueriesForElement,
-  prettyDOM,
-} from '@testing-library/dom'
+import * as DomTestingLibrary from '@testing-library/dom'
 import * as Core from '@testing-library/svelte-core'
 import * as Svelte from 'svelte'
 
 /**
  * Customize how Svelte renders the component.
  *
+ * @deprecated Use `import('@testing-library/svelte-core/types').ComponentOptions` instead
  * @template {import('@testing-library/svelte-core/types').Component} C
  * @typedef {import('@testing-library/svelte-core/types').ComponentOptions<C>} SvelteComponentOptions
  */
@@ -18,18 +13,15 @@ import * as Svelte from 'svelte'
 /**
  * Customize how Testing Library sets up the document and binds queries.
  *
- * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
- * @typedef {{
- *   baseElement?: HTMLElement
- *   queries?: Q
- * }} RenderOptions
+ * @template {DomTestingLibrary.Queries} [Q=typeof DomTestingLibrary.queries]
+ * @typedef {import('@testing-library/svelte-core/types').SetupOptions & { queries?: Q }} RenderOptions
  */
 
 /**
  * The rendered component and bound testing functions.
  *
  * @template {import('@testing-library/svelte-core/types').Component} C
- * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
+ * @template {DomTestingLibrary.Queries} [Q=typeof DomTestingLibrary.queries]
  *
  * @typedef {{
  *   container: HTMLElement
@@ -39,7 +31,7 @@ import * as Svelte from 'svelte'
  *   rerender: import('@testing-library/svelte-core/types').Rerender<C>
  *   unmount: () => void
  * } & {
- *   [P in keyof Q]: import('@testing-library/dom').BoundFunction<Q[P]>
+ *   [P in keyof Q]: DomTestingLibrary.BoundFunction<Q[P]>
  * }} RenderResult
  */
 
@@ -47,10 +39,10 @@ import * as Svelte from 'svelte'
  * Render a component into the document.
  *
  * @template {import('@testing-library/svelte-core/types').Component} C
- * @template {import('@testing-library/dom').Queries} [Q=typeof import('@testing-library/dom').queries]
+ * @template {DomTestingLibrary.Queries} [Q=typeof DomTestingLibrary.queries]
  *
  * @param {import('@testing-library/svelte-core/types').ComponentImport<C>} Component - The component to render.
- * @param {SvelteComponentOptions<C>} options - Customize how Svelte renders the component.
+ * @param {import('@testing-library/svelte-core/types').ComponentOptions<C>} options - Customize how Svelte renders the component.
  * @param {RenderOptions<Q>} renderOptions - Customize how Testing Library sets up the document and binds queries.
  * @returns {RenderResult<C, Q>} The rendered component and bound testing functions.
  */
@@ -61,14 +53,19 @@ const render = (Component, options = {}, renderOptions = {}) => {
     renderOptions
   )
 
+  const queries = DomTestingLibrary.getQueriesForElement(
+    baseElement,
+    renderOptions.queries
+  )
+
   return {
     baseElement,
     container,
     component,
     rerender,
     unmount,
-    debug: (el = baseElement) => console.log(prettyDOM(el)),
-    ...getQueriesForElement(baseElement, renderOptions.queries),
+    debug: (el = baseElement) => console.log(DomTestingLibrary.prettyDOM(el)),
+    ...queries,
   }
 }
 
@@ -80,15 +77,15 @@ const render = (Component, options = {}, renderOptions = {}) => {
  * to flush changes to the DOM before proceeding.
  */
 const setup = () => {
-  const originalDTLConfig = getDTLConfig()
+  const originalConfig = DomTestingLibrary.getConfig()
 
-  configureDTL({
+  DomTestingLibrary.configure({
     asyncWrapper: act,
     eventWrapper: Svelte.flushSync ?? ((cb) => cb()),
   })
 
   Core.addCleanupTask(() => {
-    configureDTL(originalDTLConfig)
+    DomTestingLibrary.configure(originalConfig)
   })
 }
 
@@ -101,7 +98,7 @@ const cleanup = () => {
  * Call a function and wait for Svelte to flush pending changes.
  *
  * @template T
- * @param {(() => Promise<T>) | () => T} [fn] - A function, which may be `async`, to call before flushing updates.
+ * @param {() => Promise<T> | T} [fn] - A function, which may be `async`, to call before flushing updates.
  * @returns {Promise<T>}
  */
 const act = async (fn) => {
@@ -114,12 +111,12 @@ const act = async (fn) => {
 }
 
 /**
- * @typedef {(...args: Parameters<import('@testing-library/dom').FireFunction>) => Promise<ReturnType<import('@testing-library/dom').FireFunction>>} FireFunction
+ * @typedef {(...args: Parameters<DomTestingLibrary.FireFunction>) => Promise<ReturnType<DomTestingLibrary.FireFunction>>} FireFunction
  */
 
 /**
  * @typedef {{
- *   [K in import('@testing-library/dom').EventType]: (...args: Parameters<import('@testing-library/dom').FireObject[K]>) => Promise<ReturnType<import('@testing-library/dom').FireObject[K]>>
+ *   [K in DomTestingLibrary.EventType]: (...args: Parameters<DomTestingLibrary.FireObject[K]>) => Promise<ReturnType<DomTestingLibrary.FireObject[K]>>
  * }} FireObject
  */
 
@@ -131,11 +128,14 @@ const act = async (fn) => {
  *
  * @type {FireFunction & FireObject}
  */
-const fireEvent = async (...args) => act(() => baseFireEvent(...args))
+const fireEvent = async (...args) => {
+  return act(() => DomTestingLibrary.fireEvent(...args))
+}
 
-for (const [key, baseEvent] of Object.entries(baseFireEvent)) {
+for (const [key, baseEvent] of Object.entries(DomTestingLibrary.fireEvent)) {
   fireEvent[key] = async (...args) => act(() => baseEvent(...args))
 }
 
+export * from '@testing-library/dom'
 export { UnknownSvelteOptionsError } from '@testing-library/svelte-core'
 export { act, cleanup, fireEvent, render, setup }

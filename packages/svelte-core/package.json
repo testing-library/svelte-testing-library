@@ -5,7 +5,6 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./src/index.js",
       "default": "./src/index.js"
     },
     "./types": {
@@ -27,16 +26,12 @@
     "node": ">=16"
   },
   "keywords": [
-    "testing",
+    "tdd",
     "svelte",
     "ui",
-    "dom",
-    "jsdom",
     "unit",
-    "integration",
-    "functional",
-    "end-to-end",
-    "e2e"
+    "component",
+    "functional"
   ],
   "files": [
     "dist",
