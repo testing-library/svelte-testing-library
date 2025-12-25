@@ -5,7 +5,6 @@ import * as Svelte from 'svelte'
 /**
  * Customize how Svelte renders the component.
  *
- * @deprecated Use `import('@testing-library/svelte-core/types').ComponentOptions` instead
  * @template {import('@testing-library/svelte-core/types').Component} C
  * @typedef {import('@testing-library/svelte-core/types').ComponentOptions<C>} SvelteComponentOptions
  */
