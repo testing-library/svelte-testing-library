@@ -27,7 +27,7 @@ describe('cleanup', () => {
       throw new Error('oh no!')
     })
 
-    expect(renderSubject).toThrowError()
+    expect(renderSubject).toThrow()
     cleanup()
 
     expect(document.body).toBeEmptyDOMElement()
