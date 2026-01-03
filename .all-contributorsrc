@@ -102,14 +102,71 @@
       "name": "Yanick Champoux",
       "avatar_url": "https://avatars.githubusercontent.com/u/19954?v=4",
       "profile": "https://techblog.babyl.ca/",
-      "contributions": ["code"]
+      "contributions": ["code", "maintenance"]
     },
     {
       "login": "mcous",
       "name": "Michael Cousins",
       "avatar_url": "https://avatars.githubusercontent.com/u/2963448?v=4",
       "profile": "https://michael.cousins.io/",
-      "contributions": ["code"]
+      "contributions": [
+        "ideas",
+        "test",
+        "question",
+        "code",
+        "maintenance",
+        "doc",
+        "example"
+      ]
+    },
+    {
+      "login": "webJose",
+      "name": "José Pablo Ramírez Vargas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25540842?v=4",
+      "profile": "https://dotnet.social/@webJose",
+      "contributions": ["bug", "question"]
+    },
+    {
+      "login": "stefanhoelzl",
+      "name": "Stefan Hoelzl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1478183?v=4",
+      "profile": "https://github.com/stefanhoelzl",
+      "contributions": ["ideas"]
+    },
+    {
+      "login": "bradyisom",
+      "name": "Brady Isom",
+      "avatar_url": "https://avatars.githubusercontent.com/u/593515?v=4",
+      "profile": "https://github.com/bradyisom",
+      "contributions": ["bug", "example"]
+    },
+    {
+      "login": "KieranP",
+      "name": "Kieran Pilkington",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16620?v=4",
+      "profile": "http://k776.tumblr.com/",
+      "contributions": ["bug", "example"]
+    },
+    {
+      "login": "cezaryszymanski",
+      "name": "Cezary Szymański",
+      "avatar_url": "https://avatars.githubusercontent.com/u/104898426?v=4",
+      "profile": "https://github.com/cezaryszymanski",
+      "contributions": ["bug"]
+    },
+    {
+      "login": "neo-noire",
+      "name": "Mykola",
+      "avatar_url": "https://avatars.githubusercontent.com/u/111647919?v=4",
+      "profile": "https://github.com/neo-noire",
+      "contributions": ["example"]
+    },
+    {
+      "login": "axel7083",
+      "name": "axel7083",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42176370?v=4",
+      "profile": "https://github.com/axel7083",
+      "contributions": ["ideas"]
     }
   ],
   "contributorsPerLine": 7,
