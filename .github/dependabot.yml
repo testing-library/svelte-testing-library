@@ -3,6 +3,8 @@ updates:
   # Update npm dependencies
   - package-ecosystem: 'npm'
     directory: '/'
+    exclude-paths:
+      - tests/envs/**
     schedule:
       interval: 'monthly'
     groups:
