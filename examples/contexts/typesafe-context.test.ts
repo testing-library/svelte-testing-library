@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/svelte'
 import { expect, test } from 'vitest'
 
-import Subject from './context.svelte'
+import { type MessagesContext, setMessagesContext } from './typesafe-context.js'
+import Subject from './typesafe-context.svelte'
 
 test('notifications with messages from context', () => {
-  const messages = {
+  const messages: MessagesContext = {
     get current() {
       return [
         { id: 'abc', text: 'hello' },
@@ -13,10 +14,12 @@ test('notifications with messages from context', () => {
     },
   }
 
-  render(Subject, {
-    context: new Map([['messages', messages]]),
-    props: { label: 'Notifications' },
-  })
+  const Wrapper: typeof Subject = (...args) => {
+    setMessagesContext(messages)
+    return Subject(...args)
+  }
+
+  render(Wrapper, { label: 'Notifications' })
 
   const status = screen.getByRole('status', { name: 'Notifications' })
 
