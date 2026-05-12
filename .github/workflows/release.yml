@@ -49,32 +49,32 @@ jobs:
           - { svelte: '5', node: '22', check: 'typecheck' }
 
     steps:
-      - name: Checkout repo
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
-      - name: Setup pnpm
+      - name: 🧱 Setup pnpm
         uses: pnpm/action-setup@26f6d4f2c533a43e6b5da0b4a5dd983f98f7b49a # v6.0.4
         with:
           standalone: ${{ matrix.node == '16' }}
 
-      - name: Setup node
+      - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install dependencies
+      - name: 📥 Install dependencies
         run: pnpm run install:${{ matrix.svelte }}
 
-      - name: Download build
+      - name: 📥 Download build
         uses: actions/download-artifact@v8
         with:
           name: build
           path: packages
 
-      - name: Run ${{ matrix.check }}
+      - name: ▶️ Run ${{ matrix.check }}
         run: pnpm run ${{ matrix.check }}
 
-      - name: Upload coverage report
+      - name: ⬆️ Upload coverage report
         if: ${{ startsWith(matrix.check, 'test:') }}
         uses: codecov/codecov-action@v6
         with:
@@ -84,24 +84,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
-      - name: Setup pnpm
+      - name: 🧱 Setup pnpm
         uses: pnpm/action-setup@26f6d4f2c533a43e6b5da0b4a5dd983f98f7b49a # v6.0.4
 
-      - name: Setup node
+      - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: 📥 Install dependencies
         run: pnpm install
 
-      - name: Build types and documentation
+      - name: 🏗️ Build types and documentation
         run: pnpm run build
 
-      - name: Upload build
+      - name: ⬆️ Upload build
         uses: actions/upload-artifact@v7
         with:
           name: build
@@ -122,24 +122,24 @@ jobs:
       pull-requests: write # released pull requests comments
       id-token: write # trusted publishing and npm provenance
     steps:
-      - name: Checkout repo
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v6
 
-      - name: Setup pnpm
+      - name: 🧱 Setup pnpm
         uses: pnpm/action-setup@26f6d4f2c533a43e6b5da0b4a5dd983f98f7b49a # v6.0.4
 
-      - name: Setup node
+      - name: ⎔ Setup node
         uses: actions/setup-node@v6
         with:
           node-version: 24
 
-      - name: Download build
+      - name: 📥 Download build
         uses: actions/download-artifact@v8
         with:
           name: build
           path: packages
 
-      - name: Release
+      - name: 🚀 Release
         run: |
           pnpm \
             --package="@anolilab/multi-semantic-release@3" \
