@@ -9,6 +9,9 @@ on:
     # Tuesdays at 14:45 UTC (10:45 EST)
     - cron: 45 14 * * 1
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
