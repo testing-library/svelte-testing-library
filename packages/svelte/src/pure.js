@@ -13,7 +13,8 @@ import * as Svelte from 'svelte'
  * Customize how Testing Library sets up the document and binds queries.
  *
  * @template {DomTestingLibrary.Queries} [Q=typeof DomTestingLibrary.queries]
- * @typedef {import('@testing-library/svelte-core/types').SetupOptions & { queries?: Q }} RenderOptions
+ * @template {import('@testing-library/svelte-core/types').Component} [W=never]
+ * @typedef {import('@testing-library/svelte-core/types').SetupOptions<W> & { queries?: Q }} RenderOptions
  */
 
 /**
@@ -21,11 +22,13 @@ import * as Svelte from 'svelte'
  *
  * @template {import('@testing-library/svelte-core/types').Component} C
  * @template {DomTestingLibrary.Queries} [Q=typeof DomTestingLibrary.queries]
+ * @template {import('@testing-library/svelte-core/types').Component} [W=never]
  *
  * @typedef {{
  *   container: HTMLElement
  *   baseElement: HTMLElement
  *   component: import('@testing-library/svelte-core/types').Exports<C>
+ *   wrapper: import('@testing-library/svelte-core/types').Exports<W>
  *   debug: (el?: HTMLElement | DocumentFragment) => void
  *   rerender: import('@testing-library/svelte-core/types').Rerender<C>
  *   unmount: () => void
@@ -39,18 +42,16 @@ import * as Svelte from 'svelte'
  *
  * @template {import('@testing-library/svelte-core/types').Component} C
  * @template {DomTestingLibrary.Queries} [Q=typeof DomTestingLibrary.queries]
+ * @template {import('@testing-library/svelte-core/types').Component} [W=never]
  *
  * @param {import('@testing-library/svelte-core/types').ComponentImport<C>} Component - The component to render.
  * @param {import('@testing-library/svelte-core/types').ComponentOptions<C>} options - Customize how Svelte renders the component.
- * @param {RenderOptions<Q>} renderOptions - Customize how Testing Library sets up the document and binds queries.
- * @returns {RenderResult<C, Q>} The rendered component and bound testing functions.
+ * @param {RenderOptions<Q, W>} renderOptions - Customize how Testing Library sets up the document and binds queries.
+ * @returns {RenderResult<C, Q, W>} The rendered component and bound testing functions.
  */
 const render = (Component, options = {}, renderOptions = {}) => {
-  const { baseElement, container, component, unmount, rerender } = Core.render(
-    Component,
-    options,
-    renderOptions
-  )
+  const { baseElement, container, component, wrapper, unmount, rerender } =
+    Core.render(Component, options, renderOptions)
 
   const queries = DomTestingLibrary.getQueriesForElement(
     baseElement,
@@ -61,6 +62,7 @@ const render = (Component, options = {}, renderOptions = {}) => {
     baseElement,
     container,
     component,
+    wrapper,
     rerender,
     unmount,
     debug: (el = baseElement) => console.log(DomTestingLibrary.prettyDOM(el)),

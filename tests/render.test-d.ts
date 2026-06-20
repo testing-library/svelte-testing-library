@@ -3,6 +3,7 @@ import { expectTypeOf } from 'expect-type'
 import { ComponentProps } from 'svelte'
 import { describe, test } from 'vitest'
 
+import UntypedComponent from './fixtures/Comp.svelte'
 import Component from './fixtures/Typed.svelte'
 
 describe('types', () => {
@@ -40,6 +41,7 @@ describe('types', () => {
     expectTypeOf(result).toExtend<{
       container: HTMLElement
       component: { hello: string }
+      wrapper: never
       debug: (el?: HTMLElement) => void
       rerender: (props: { name?: string; count?: number }) => Promise<void>
       unmount: () => void
@@ -54,5 +56,24 @@ describe('types', () => {
     renderSubject({ name: 'Alice', count: 42 })
     // @ts-expect-error: name should be a string
     renderSubject(Component, { name: 42 })
+  })
+
+  test('render function accepts and returns wrapper', () => {
+    const result = subject.render(
+      UntypedComponent,
+      {},
+      { wrapper: Component, wrapperProps: { name: 'Alice', count: 42 } }
+    )
+
+    expectTypeOf(result).toExtend<{ wrapper: { hello: string } }>()
+  })
+
+  test('invalid wrapper props are rejected', () => {
+    subject.render(
+      Component,
+      { name: 'Alice', count: 42 },
+      // @ts-expect-error: count should be a number
+      { wrapper: Component, wrapperProps: { name: 'Alice', count: '42' } }
+    )
   })
 })

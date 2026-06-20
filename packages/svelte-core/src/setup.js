@@ -56,8 +56,9 @@ const validateOptions = (options) => {
  * Set up the document to render a component.
  *
  * @template {import('../types.js').Component} C
+ *
  * @param {import('../types.js').ComponentOptions<C>} componentOptions - props or mount options
- * @param {import('../types.js').SetupOptions} setupOptions - base element of the document to bind any queries
+ * @param {import('../types.js').SetupOptions<any>} setupOptions - base element of the document to bind any queries
  * @returns {import('../types.js').SetupResult<C>}
  */
 const setup = (componentOptions, setupOptions = {}) => {

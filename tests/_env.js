@@ -24,3 +24,7 @@ export const COMPONENT_FIXTURES = [
     isEnabled: IS_SVELTE_5,
   },
 ].filter(({ isEnabled }) => isEnabled)
+
+export const WRAPPER = IS_SVELTE_5
+  ? './fixtures/WrapperRunes.svelte'
+  : './fixtures/Wrapper.svelte'
