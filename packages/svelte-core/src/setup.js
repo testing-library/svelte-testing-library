@@ -56,11 +56,10 @@ const validateOptions = (options) => {
  * Set up the document to render a component.
  *
  * @template {import('../types.js').Component} C
- * @template {import('../types.js').Component} [W=never]
  *
  * @param {import('../types.js').ComponentOptions<C>} componentOptions - props or mount options
- * @param {import('../types.js').SetupOptions<W>} setupOptions - base element of the document to bind any queries
- * @returns {import('../types.js').SetupResult<C, W>}
+ * @param {import('../types.js').SetupOptions<any>} setupOptions - base element of the document to bind any queries
+ * @returns {import('../types.js').SetupResult<C>}
  */
 const setup = (componentOptions, setupOptions = {}) => {
   const mountOptions = validateOptions(componentOptions)

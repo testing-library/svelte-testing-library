@@ -68,7 +68,7 @@ describe('wrapper', () => {
     expect(component.wrappedContext.greeting).toBe('hello')
   })
 
-  test('returns wrapper component instance instance', () => {
+  test('returns wrapper component instance', () => {
     const { wrapper } = render(
       WrappedComp,
       { name: 'world' },

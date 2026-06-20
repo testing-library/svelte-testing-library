@@ -5,5 +5,5 @@
 - [Snippets](./snippets)
 - [Contexts](./contexts)
 - [Binds](./binds)
-- [Wrappers]('./wrappers)
+- [Wrappers](./wrappers)
 - [Deprecated Svelte 3 and 4 features](./deprecated)

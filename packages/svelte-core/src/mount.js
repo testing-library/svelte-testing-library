@@ -113,7 +113,7 @@ const setupComponent = (Component, mountOptions, setupOptions = {}) => {
         ...mountOptions,
         props: {
           wrapper: unwrapComponentImport(wrapper),
-          wrapperProps: wrapperProps,
+          wrapperProps,
           component: componentToMount,
           componentProps: mountOptions.props,
         },
