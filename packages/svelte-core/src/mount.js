@@ -6,6 +6,7 @@ import * as Svelte from 'svelte'
 import { addCleanupTask, removeCleanupTask } from './cleanup.js'
 import { createProps } from './props.svelte.js'
 import { IS_MODERN_SVELTE } from './svelte-version.js'
+import WrapperScaffold from './wrapper-scaffold.svelte'
 
 /**
  * Mount a modern Svelte 5 component into the DOM.
@@ -74,21 +75,81 @@ const mountLegacy = (Component, options) => {
 const mountComponent = IS_MODERN_SVELTE ? mountModern : mountLegacy
 
 /**
+ * Extract a component from an import.
+ *
+ * Allows a dynamic `import('component.svelte')` to be used
+ * for component values.
+ *
+ * @template {import('../types.js').Component} C
+ * @param {import('../types.js').ComponentImport<C>} componentImport
+ * @returns {import('../types.js').ComponentType<C>}
+ */
+const unwrapComponentImport = (componentImport) => {
+  return 'default' in componentImport
+    ? componentImport.default
+    : componentImport
+}
+
+/**
  * Render a Svelte component into the document.
  *
  * @template {import('../types.js').Component} C
+ * @template {import('../types.js').Component} [W=never]
+ *
+ * @param {import('../types.js').ComponentImport<C>} Component
+ * @param {import('../types.js').MountOptions<C>} mountOptions
+ * @param {import('../types.js').SetupOptions<W>} [setupOptions]
+ * @returns {{componentToMount: import('../types.js').ComponentType<C | W>, mountOptions: import('../types.js').MountOptions<C | W>, isWrapper: boolean}}
+ */
+const setupComponent = (Component, mountOptions, setupOptions = {}) => {
+  const componentToMount = unwrapComponentImport(Component)
+  const { wrapper, wrapperProps } = setupOptions
+
+  if (wrapper) {
+    return {
+      isWrapper: true,
+      componentToMount: WrapperScaffold,
+      mountOptions: {
+        ...mountOptions,
+        props: {
+          wrapper: unwrapComponentImport(wrapper),
+          wrapperProps: wrapperProps,
+          component: componentToMount,
+          componentProps: mountOptions.props,
+        },
+      },
+    }
+  }
+
+  return { isWrapper: false, componentToMount, mountOptions }
+}
+
+/**
+ * Render a Svelte component into the document.
+ *
+ * @template {import('../types.js').Component} C
+ * @template {import('../types.js').Component} [W=never]
+ *
  * @param {import('../types.js').ComponentImport<C>} Component
  * @param {import('../types.js').MountOptions<C>} options
+ * @param {import('../types.js').SetupOptions<W>} [setupOptions]
  * @returns {import('../types.js').MountResult<C>}
  */
-const mount = (Component, options) => {
+const mount = (Component, options, setupOptions = {}) => {
+  const { componentToMount, mountOptions, isWrapper } = setupComponent(
+    Component,
+    options,
+    setupOptions
+  )
+
   const { component, unmount, rerender } = mountComponent(
-    'default' in Component ? Component.default : Component,
-    options
+    componentToMount,
+    mountOptions
   )
 
   return {
-    component,
+    component: isWrapper ? component.getComponent() : component,
+    wrapper: isWrapper ? component.getWrapper() : undefined,
     unmount,
     rerender: async (props) => {
       if ('props' in props) {
@@ -96,6 +157,12 @@ const mount = (Component, options) => {
           'rerender({ props: { ... } }) deprecated, use rerender({ ... }) instead'
         )
         props = props.props
+      }
+
+      if (isWrapper) {
+        props = {
+          componentProps: { ...component.getComponentProps(), ...props },
+        }
       }
 
       rerender(props)

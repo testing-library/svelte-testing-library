@@ -4,6 +4,7 @@
     "render-runes.test-d.ts",
     "fixtures/CompRunes.svelte",
     "fixtures/PropCloner.svelte",
-    "fixtures/TypedRunes.svelte"
+    "fixtures/TypedRunes.svelte",
+    "fixtures/WrapperRunes.svelte"
   ]
 }

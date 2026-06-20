@@ -2,10 +2,11 @@ import * as subject from '@testing-library/svelte'
 import { expectTypeOf } from 'expect-type'
 import { describe, test, vi } from 'vitest'
 
+import UntypedComponent from './fixtures/Comp.svelte'
 import LegacyComponent from './fixtures/Typed.svelte'
 import Component from './fixtures/TypedRunes.svelte'
 
-describe('types', () => {
+describe('types (runes)', () => {
   test('render is a function that accepts a Svelte component', () => {
     subject.render(Component, { name: 'Alice', count: 42 })
     subject.render(Component, { props: { name: 'Alice', count: 42 } })
@@ -32,10 +33,30 @@ describe('types', () => {
     expectTypeOf(result).toExtend<{
       container: HTMLElement
       component: { hello: string }
+      wrapper: never
       debug: (el?: HTMLElement) => void
       rerender: (props: { name?: string; count?: number }) => Promise<void>
       unmount: () => void
     }>()
+  })
+
+  test('render function accepts and returns wrapper', () => {
+    const result = subject.render(
+      UntypedComponent,
+      {},
+      { wrapper: Component, wrapperProps: { name: 'Alice', count: 42 } }
+    )
+
+    expectTypeOf(result).toExtend<{ wrapper: { hello: string } }>()
+  })
+
+  test('invalid wrapper props are rejected', () => {
+    subject.render(
+      UntypedComponent,
+      {},
+      // @ts-expect-error: count should be a number
+      { wrapper: Component, wrapperProps: { name: 'Alice', count: '42' } }
+    )
   })
 })
 

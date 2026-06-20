@@ -91,19 +91,25 @@ export type Rerender<C extends Component> = (
 ) => Promise<void>
 
 /** The result of mounting a component into the document. */
-export interface MountResult<C extends Component> {
+export interface MountResult<C extends Component, W extends Component = never> {
   /** The mounted component's exports. */
   component: Exports<C>
+  /** The mounted wrapper's exports, if a wrapper was provided. */
+  wrapper: Exports<W>
   /** Unmount the component. */
   unmount: () => void
   /** Rerender the component. */
   rerender: Rerender<C>
 }
 
-/** Options for configuring the document. */
-export interface SetupOptions {
+/** Options for configuring the component and document. */
+export interface SetupOptions<W extends Component = never> {
   /** The base document element, `document.body` if unspecified. */
   baseElement?: HTMLElement
+  /** A wrapper component. */
+  wrapper?: ComponentImport<W>
+  /** Wrapper component props. */
+  wrapperProps?: Props<W>
 }
 
 /** The result of setting up the document for rendering. */
@@ -117,13 +123,18 @@ export interface SetupResult<C extends Component> {
 }
 
 /** The result of setting up the document and rendering the component. */
-export interface RenderResult<C extends Component> {
+export interface RenderResult<
+  C extends Component,
+  W extends Component = never,
+> {
   /** The base document element, usually `document.body`. */
   baseElement: HTMLElement
   /** The component's immediate container element, usually a `<div>` appended to `document.body`. */
   container: HTMLElement
   /** The mounted component's exports. */
   component: Exports<C>
+  /** The mounted wrapper's exports, if a wrapper was provided. */
+  wrapper: Exports<W>
   /** Unmount the component. */
   unmount: () => void
   /** Rerender the component. */

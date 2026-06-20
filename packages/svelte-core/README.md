@@ -68,19 +68,20 @@ const { baseElement, container, component, rerender, unmount } = render(
 )
 ```
 
-| Argument           | Type                                                    | Description                                   |
-| ------------------ | ------------------------------------------------------- | --------------------------------------------- |
-| `Component`        | [Svelte component][svelte-component-docs]               | An imported Svelte component                  |
-| `componentOptions` | `Props` or partial [`mount` options][svelte-mount-docs] | Options for how the component will be mounted |
-| `setupOptions`     | `{ baseElement?: HTMLElement }`                         | Optionally override `baseElement`             |
+| Argument           | Type                                                    | Description                                             |
+| ------------------ | ------------------------------------------------------- | ------------------------------------------------------- |
+| `Component`        | [Svelte component][svelte-component-docs]               | An imported Svelte component                            |
+| `componentOptions` | `Props` or partial [`mount` options][svelte-mount-docs] | Options for how the component will be mounted           |
+| `setupOptions`     | [`SetupOptions`](#setup)                                | Optionally override `baseElement` or wrap the component |
 
-| Result        | Type                                       | Description                              | Default                             |
-| ------------- | ------------------------------------------ | ---------------------------------------- | ----------------------------------- |
-| `baseElement` | `HTMLElement`                              | The base element                         | `document.body`                     |
-| `container`   | `HTMLElement`                              | The component's immediate parent element | `<div>` appended to `document.body` |
-| `component`   | [component exports][svelte-mount-docs]     | The component's exports from `mount`     | N/A                                 |
-| `rerender`    | `(props: Partial<Props>) => Promise<void>` | Update the component's props             | N/A                                 |
-| `unmount`     | `() => void`                               | Unmount the component from the document  | N/A                                 |
+| Result        | Type                                       | Description                                        | Default                             |
+| ------------- | ------------------------------------------ | -------------------------------------------------- | ----------------------------------- |
+| `baseElement` | `HTMLElement`                              | The base element                                   | `document.body`                     |
+| `container`   | `HTMLElement`                              | The component's immediate parent element           | `<div>` appended to `document.body` |
+| `component`   | [component exports][svelte-mount-docs]     | The component's exports from `mount`               | N/A                                 |
+| `wrapper`     | [component exports][svelte-mount-docs]     | The wrapper's exports, if a `wrapper` was provided | `undefined`                         |
+| `rerender`    | `(props: Partial<Props>) => Promise<void>` | Update the component's props                       | N/A                                 |
+| `unmount`     | `() => void`                               | Unmount the component from the document            | N/A                                 |
 
 > \[!TIP]
 > Calling `render` is equivalent to calling [`setup`](#setup) followed by [`mount`](#mount)
@@ -90,7 +91,11 @@ const { baseElement, container, component, rerender, unmount } = render(
 >   componentOptions,
 >   setupOptions
 > )
-> const { component, rerender, unmount } = mount(Component, mountOptions)
+> const { component, rerender, unmount } = mount(
+>   Component,
+>   mountOptions,
+>   setupOptions
+> )
 > ```
 
 [svelte-component-docs]: https://svelte.dev/docs/svelte-components
@@ -110,7 +115,15 @@ const { baseElement, container, mountOptions } = setup(
 | Argument           | Type                                                    | Description                                   |
 | ------------------ | ------------------------------------------------------- | --------------------------------------------- |
 | `componentOptions` | `Props` or partial [`mount` options][svelte-mount-docs] | Options for how the component will be mounted |
-| `setupOptions`     | `{ baseElement?: HTMLElement }`                         | Optionally override `baseElement`             |
+| `setupOptions`     | `SetupOptions`                                          | Configure the document and wrap the component |
+
+`setupOptions` accepts the following fields, all optional:
+
+| Field          | Type                                      | Description                                                           | Default         |
+| -------------- | ----------------------------------------- | --------------------------------------------------------------------- | --------------- |
+| `baseElement`  | `HTMLElement`                             | The base element to bind queries to                                   | `document.body` |
+| `wrapper`      | [Svelte component][svelte-component-docs] | A component to wrap the component under test, e.g. a context provider | `undefined`     |
+| `wrapperProps` | `Props`                                   | Props to pass to the `wrapper` component                              | `undefined`     |
 
 | Result         | Type                                 | Description                              | Default                             |
 | -------------- | ------------------------------------ | ---------------------------------------- | ----------------------------------- |
@@ -123,19 +136,25 @@ const { baseElement, container, mountOptions } = setup(
 Mount a Svelte component into the document.
 
 ```ts
-const { component, unmount, rerender } = mount(Component, mountOptions)
+const { component, wrapper, unmount, rerender } = mount(
+  Component,
+  mountOptions,
+  setupOptions
+)
 ```
 
-| Argument       | Type                                      | Description                                  |
-| -------------- | ----------------------------------------- | -------------------------------------------- |
-| `Component`    | [Svelte component][svelte-component-docs] | An imported Svelte component                 |
-| `mountOptions` | [component options][svelte-mount-docs]    | Options to pass to Svelte's `mount` function |
+| Argument       | Type                                      | Description                                               |
+| -------------- | ----------------------------------------- | --------------------------------------------------------- |
+| `Component`    | [Svelte component][svelte-component-docs] | An imported Svelte component                              |
+| `mountOptions` | [component options][svelte-mount-docs]    | Options to pass to Svelte's `mount` function              |
+| `setupOptions` | [`SetupOptions`](#setup)                  | Optionally wrap the component (`wrapper`, `wrapperProps`) |
 
-| Result      | Type                                       | Description                             |
-| ----------- | ------------------------------------------ | --------------------------------------- |
-| `component` | [component exports][svelte-mount-docs]     | The component's exports from `mount`    |
-| `unmount`   | `() => void`                               | Unmount the component from the document |
-| `rerender`  | `(props: Partial<Props>) => Promise<void>` | Update the component's props            |
+| Result      | Type                                       | Description                                        |
+| ----------- | ------------------------------------------ | -------------------------------------------------- |
+| `component` | [component exports][svelte-mount-docs]     | The component's exports from `mount`               |
+| `wrapper`   | [component exports][svelte-mount-docs]     | The wrapper's exports, if a `wrapper` was provided |
+| `unmount`   | `() => void`                               | Unmount the component from the document            |
+| `rerender`  | `(props: Partial<Props>) => Promise<void>` | Update the component's props                       |
 
 ### `cleanup`
 
