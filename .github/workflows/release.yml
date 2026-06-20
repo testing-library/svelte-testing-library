@@ -55,7 +55,7 @@ jobs:
       - name: 🧱 Setup pnpm
         uses: pnpm/action-setup@26f6d4f2c533a43e6b5da0b4a5dd983f98f7b49a # v6.0.4
         with:
-          standalone: ${{ matrix.node == '16' }}
+          standalone: true
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v6
