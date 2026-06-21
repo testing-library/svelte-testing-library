@@ -5,6 +5,7 @@
     "fixtures/CompRunes.svelte",
     "fixtures/PropCloner.svelte",
     "fixtures/TypedRunes.svelte",
-    "fixtures/WrapperRunes.svelte"
+    "fixtures/WrapperRunes.svelte",
+    "fixtures/WrapperRunesTyped.svelte"
   ]
 }

@@ -5,6 +5,7 @@ import { describe, test, vi } from 'vitest'
 import UntypedComponent from './fixtures/Comp.svelte'
 import LegacyComponent from './fixtures/Typed.svelte'
 import Component from './fixtures/TypedRunes.svelte'
+import Wrapper from './fixtures/WrapperRunesTyped.svelte'
 
 describe('types (runes)', () => {
   test('render is a function that accepts a Svelte component', () => {
@@ -44,18 +45,20 @@ describe('types (runes)', () => {
     const result = subject.render(
       UntypedComponent,
       {},
-      { wrapper: Component, wrapperProps: { name: 'Alice', count: 42 } }
+      { wrapper: Wrapper, wrapperProps: { greeting: 'hello' } }
     )
 
-    expectTypeOf(result).toExtend<{ wrapper: { hello: string } }>()
+    expectTypeOf(result).toExtend<{
+      wrapper: { wrapperContext: { greeting: string } }
+    }>()
   })
 
   test('invalid wrapper props are rejected', () => {
     subject.render(
       UntypedComponent,
       {},
-      // @ts-expect-error: count should be a number
-      { wrapper: Component, wrapperProps: { name: 'Alice', count: '42' } }
+      // @ts-expect-error: greeting should be a string
+      { wrapper: Wrapper, wrapperProps: { greeting: 42 } }
     )
   })
 })
