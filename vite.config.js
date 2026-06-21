@@ -7,6 +7,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/_vitest-setup.js'],
+    include: ['{examples,tests}/**/*.test.{js,svelte.js}'],
     mockReset: true,
     unstubGlobals: true,
     unstubEnvs: true,

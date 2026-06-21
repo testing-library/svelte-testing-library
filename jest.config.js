@@ -6,7 +6,7 @@ const SVELTE_TRANSFORM_PATTERN =
     : String.raw`^.+\.svelte$`
 
 export default {
-  testMatch: ['<rootDir>/tests/**/*.test.js'],
+  testMatch: ['<rootDir>/tests/**/*.test.{js,svelte.js}'],
   transform: {
     [SVELTE_TRANSFORM_PATTERN]: 'svelte-jester',
   },
