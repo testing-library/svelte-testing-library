@@ -109,7 +109,7 @@ export interface SetupOptions<W extends Component = never> {
   /** A wrapper component. */
   wrapper?: ComponentImport<W>
   /** Wrapper component props. */
-  wrapperProps?: Props<W>
+  wrapperProps?: Omit<Props<W>, 'children'>
 }
 
 /** The result of setting up the document for rendering. */
