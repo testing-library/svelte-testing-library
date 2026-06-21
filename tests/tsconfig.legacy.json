@@ -6,6 +6,6 @@
     "fixtures/PropCloner.svelte",
     "fixtures/TypedRunes.svelte",
     "fixtures/WrapperRunes.svelte",
-    "fixtures/WrapperRunesTyped.svelte",
-  ],
+    "fixtures/WrapperRunesTyped.svelte"
+  ]
 }
