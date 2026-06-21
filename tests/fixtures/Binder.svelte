@@ -10,3 +10,4 @@
 </script>
 
 <input type="checkbox" bind:checked />
+<output>checked={value}</output>
