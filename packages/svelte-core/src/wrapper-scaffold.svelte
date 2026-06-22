@@ -1,3 +1,5 @@
+<svelte:options runes={false} />
+
 <script>
   export let wrapper
   export let wrapperProps
