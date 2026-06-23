@@ -6,7 +6,7 @@ import * as Svelte from 'svelte'
 import { addCleanupTask, removeCleanupTask } from './cleanup.js'
 import { createProps } from './props.svelte.js'
 import { IS_MODERN_SVELTE } from './svelte-version.js'
-import WrapperScaffold from './wrapper-scaffold.svelte'
+import { getWrapperScaffold } from './wrapper.js'
 
 /**
  * Mount a modern Svelte 5 component into the DOM.
@@ -108,7 +108,7 @@ const setupComponent = (Component, mountOptions, setupOptions = {}) => {
   if (wrapper) {
     return {
       isWrapper: true,
-      componentToMount: WrapperScaffold,
+      componentToMount: getWrapperScaffold(),
       mountOptions: {
         ...mountOptions,
         props: {

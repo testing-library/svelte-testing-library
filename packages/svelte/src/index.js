@@ -6,8 +6,8 @@ import { act, cleanup, setup } from './pure.js'
 // if you don't like this then set the STL_SKIP_AUTO_CLEANUP env variable.
 if (typeof process !== 'undefined' && !process.env.STL_SKIP_AUTO_CLEANUP) {
   if (typeof beforeEach === 'function') {
-    beforeEach(() => {
-      setup()
+    beforeEach(async () => {
+      await setup()
     })
   }
 

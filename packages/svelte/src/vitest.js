@@ -6,7 +6,7 @@ const afterEach = async () => {
   cleanup()
 }
 
-beforeEach(() => {
-  setup()
+beforeEach(async () => {
+  await setup()
   return afterEach
 })

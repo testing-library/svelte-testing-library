@@ -150,7 +150,7 @@ To do your own cleanup, or if you're using another framework, call the `setup` a
 import { cleanup, render, setup } from '@testing-library/svelte'
 
 // before
-setup()
+await setup()
 
 // test
 render(/* ... */)
@@ -159,7 +159,7 @@ render(/* ... */)
 cleanup()
 ```
 
-To disable auto-cleanup in Vitest, set the `autoCleanup` option of the plugin to false:
+To disable auto-setup and cleanup in Vitest, set the `autoCleanup` option of the plugin to false:
 
 ```js
 svelteTesting({ autoCleanup: false })

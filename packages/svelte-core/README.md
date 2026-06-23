@@ -11,6 +11,7 @@ afterwards.
 - [API](#api)
   - [`render`](#render)
   - [`setup`](#setup)
+  - [`wrapperSetup`](#wrappersetup)
   - [`mount`](#mount)
   - [`cleanup`](#cleanup)
   - [`addCleanupTask`](#addcleanuptask)
@@ -30,7 +31,9 @@ import type {
 
 import { bindQueries, type Queries } from './bring-your-own-queries.js'
 
-beforeEach(() => {
+beforeEach(async () => {
+  // Required to use the `wrapper` render option
+  await SvelteCore.wrapperSetup()
   SvelteCore.cleanup()
 })
 
@@ -125,11 +128,29 @@ const { baseElement, container, mountOptions } = setup(
 | `wrapper`      | [Svelte component][svelte-component-docs] | A component to wrap the component under test, e.g. a context provider | `undefined`     |
 | `wrapperProps` | `Props`                                   | Props to pass to the `wrapper` component                              | `undefined`     |
 
+> \[!IMPORTANT]
+> Using the `wrapper` option requires awaiting [`wrapperSetup`](#wrappersetup)
+> beforehand, e.g. in a `beforeEach` hook.
+
 | Result         | Type                                 | Description                              | Default                             |
 | -------------- | ------------------------------------ | ---------------------------------------- | ----------------------------------- |
 | `baseElement`  | `HTMLElement`                        | The base element                         | `document.body`                     |
 | `container`    | `HTMLElement`                        | The component's immediate parent element | `<div>` appended to `document.body` |
 | `mountOptions` | [`mount` options][svelte-mount-docs] | Validated options to pass to `mount`     | `{ target, props: {} }`             |
+
+### `wrapperSetup`
+
+Load the wrapper scaffold for the installed version of Svelte. Await this before
+rendering with the [`wrapper`](#setup) option, e.g. in a `beforeEach` hook.
+Rendering with a `wrapper` before `wrapperSetup` resolves throws a
+`WrapperNotSetupError`.
+
+```ts
+await wrapperSetup()
+```
+
+The scaffold is loaded once and cached, so calling `wrapperSetup` repeatedly is
+cheap.
 
 ### `mount`
 

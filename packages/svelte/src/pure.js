@@ -71,13 +71,15 @@ const render = (Component, options = {}, renderOptions = {}) => {
 }
 
 /**
- * Configure `@testing-library/dom` for usage with Svelte.
+ * Set up the test environment
  *
  * Ensures events fired from `@testing-library/dom`
  * and `@testing-library/user-event` wait for Svelte
  * to flush changes to the DOM before proceeding.
+ *
+ * Sets up the rendering core for the `wrapper` option.
  */
-const setup = () => {
+const setup = async () => {
   const originalConfig = DomTestingLibrary.getConfig()
 
   DomTestingLibrary.configure({
@@ -88,6 +90,8 @@ const setup = () => {
   Core.addCleanupTask(() => {
     DomTestingLibrary.configure(originalConfig)
   })
+
+  return Core.wrapperSetup()
 }
 
 /** Unmount components, remove elements added to `<body>`, and reset `@testing-library/dom`. */
