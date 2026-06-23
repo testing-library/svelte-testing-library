@@ -1,23 +1,19 @@
-<svelte:options runes={false} />
-
 <script>
-  export let wrapper
-  export let wrapperProps
-  export let component
-  export let componentProps
+  let {
+    wrapper: Wrapper,
+    wrapperProps,
+    component: Component,
+    componentProps,
+  } = $props()
 
-  let wrapperInstance
-  let componentInstance
+  let wrapperInstance = $state()
+  let componentInstance = $state()
 
   export const getWrapper = () => wrapperInstance
   export const getComponent = () => componentInstance
   export const getComponentProps = () => componentProps
 </script>
 
-<svelte:component this={wrapper} bind:this={wrapperInstance} {...wrapperProps}>
-  <svelte:component
-    this={component}
-    bind:this={componentInstance}
-    {...componentProps}
-  />
-</svelte:component>
+<Wrapper bind:this={wrapperInstance} {...wrapperProps}>
+  <Component bind:this={componentInstance} {...componentProps} />
+</Wrapper>
