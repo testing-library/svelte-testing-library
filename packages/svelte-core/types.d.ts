@@ -53,8 +53,7 @@ export type ComponentType<C> = C extends LegacyComponent
  * components to be passed directly to `mount.`
  */
 export type ComponentImport<C> =
-  | ComponentType<C>
-  | { default: ComponentType<C> }
+  ComponentType<C> | { default: ComponentType<C> }
 
 /** The props of a component. */
 export type Props<C extends Component> = ComponentProps<C>
@@ -82,8 +81,7 @@ export type MountOptions<C extends Component> = IS_MODERN_SVELTE extends true
 
 /** A component's props or some of its mount options. */
 export type ComponentOptions<C extends Component> =
-  | Props<C>
-  | Partial<MountOptions<C>>
+  Props<C> | Partial<MountOptions<C>>
 
 /** Update a component's props and trigger updates to the DOM. */
 export type Rerender<C extends Component> = (
